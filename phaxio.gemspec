@@ -2,10 +2,10 @@
 require File.expand_path('../lib/phaxio/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Sean Behan"]
-  gem.email         = ["inbox@seanbehan.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.authors       = ["Sean Behan", "Brett Chalupa"]
+  gem.email         = ["inbox@seanbehan.com", "brettchalupa@gmail.com"]
+  gem.description   = %q{A Ruby Gem for interacting with Phaxio's JSON API}
+  gem.summary       = %q{A Ruby Gem for interacting with Phaxio's JSON API}
   gem.homepage      = ""
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
@@ -14,4 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "phaxio"
   gem.require_paths = ["lib"]
   gem.version       = Phaxio::VERSION
+
+  gem.add_runtime_dependency      "httparty",   "~> 0.9.0"
+  gem.add_development_dependency  "fakeweb",    "~> 1.3.0"
 end
