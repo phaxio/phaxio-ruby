@@ -4,7 +4,7 @@ module Phaxio
 
     def create_fax(options)
       Fax.build do |fax|
-        fax.recipient = options.recipient
+        fax.recipient = options.to_number
         fax.filename = options.filename
         fax.string_data = options.string_data
         fax.string_data_type = options.string_data_type
@@ -16,13 +16,23 @@ module Phaxio
       end
     end
 
+    def check_fax_status(fax_id)
+      if !fax_id 
+        raise StandardError, "You must include a fax id"
+      end
+
+      get(path, {id:fax_id})
+    end
+
     def send_fax(path, fax)
-      post(path, options[:query].merge(to: fax.recipient, filename: fax.filename,
+      post(path, options[:query].merge(to: fax.to_number, filename: fax.filename,
                                        string_data: fax.string_data, string_data_type: fax.string_data_type,
                                        batch: fax.batch, batch_delay: fax.batch_delay,
                                        batch_collision_avoidance: fax.batch_collision_avoidance,
                                        callback_url: fax.callback_url, cancel_timeout: fax.cancel_timeout,
                                        api_key: self.api_key, api_secret: self.api_secret))
     end
+
+
   end
 end
