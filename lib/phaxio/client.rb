@@ -3,7 +3,17 @@ module Phaxio
     include  HTTParty
     base_uri 'http://api.phaxio.com/v1'
 
-    attr_accessor :api_key, :api_secret
+    attr_accessor :api_key, :api_secret, :faxes_sent_this_month,
+                  :faxes_sent_today, :balance
+
+    def get_account_status
+      status = get(path + "/accountStatus", options[:query].merge(api_key: api_key,
+                                                         api_secret:api_secret))
+
+      faxes_sent_this_month = status.faxes_sent_this_month
+      faxes_sent_today = status.faxes_sent_today
+      balance = status.balance
+    end
 
     def create_fax(options)
       Fax.build do |fax|
@@ -33,7 +43,7 @@ module Phaxio
                                        batch: fax.batch, batch_delay: fax.batch_delay,
                                        batch_collision_avoidance: fax.batch_collision_avoidance,
                                        callback_url: fax.callback_url, cancel_timeout: fax.cancel_timeout,
-                                       api_key: self.api_key, api_secret: self.api_secret))
+                                       api_key: api_key, api_secret: api_secret))
     end
   end
 end
