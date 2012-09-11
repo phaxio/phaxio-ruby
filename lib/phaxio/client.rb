@@ -46,6 +46,8 @@ module Phaxio
       else
         @path = path
       end
+
+      # add cancel logic here
     end
 
     def check_fax_status(path, fax_id)
