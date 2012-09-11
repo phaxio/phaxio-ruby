@@ -7,12 +7,10 @@ module Phaxio
 
   base_uri 'http://api.phaxio.com/v1'
 
-  private
-
-    def config
-      Config.configure do |client|
-        client.api_key = ""
-        client.api_secret = ""
-      end
+  def config
+    Config.configure do |client|
+      client.api_key = "abc123"
+      client.api_secret = "abc123"
     end
+  end
 end
