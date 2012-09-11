@@ -1,5 +1,8 @@
 module Phaxio
   class Client
+    include  HTTParty
+    base_uri 'http://api.phaxio.com/v1'
+
     attr_accessor :api_key, :api_secret
 
     def create_fax(options)
@@ -32,7 +35,5 @@ module Phaxio
                                        callback_url: fax.callback_url, cancel_timeout: fax.cancel_timeout,
                                        api_key: self.api_key, api_secret: self.api_secret))
     end
-
-
   end
 end
