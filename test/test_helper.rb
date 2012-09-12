@@ -1,6 +1,7 @@
+$:<<(".")
 require "test/unit"
 require "fakeweb"
-require "phaxio"
+require "lib/phaxio"
 
 FakeWeb.register_uri(:post, "https://api.phaxio.com/v1",
   :body         => File.open("test/support/send.json").read,
