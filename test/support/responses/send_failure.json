@@ -1,0 +1,8 @@
+{
+    "success":false,
+    "message":"Fax not queued for sending",
+    "faxId":1234,
+    "data":{
+        "faxId":1234
+    }
+}

@@ -11,13 +11,9 @@ module Phaxio
       self.api_secret = api_secret
     end
 
-    def send_fax(fax={})
-      post("send", options[:query].merge(to: fax.to_number, filename: fax.filename,
-                                       string_data: fax.string_data, string_data_type: fax.string_data_type,
-                                       batch: fax.batch, batch_delay: fax.batch_delay,
-                                       batch_collision_avoidance: fax.batch_collision_avoidance,
-                                       callback_url: fax.callback_url, cancel_timeout: fax.cancel_timeout,
-                                       api_key: api_key, api_secret: api_secret))
+    def send_fax(options={})
+      options.merge!({api_key: api_key, api_secret: api_secret})
+      self.class.post("/send", options)
     end
 
     def cancel_fax(options)
