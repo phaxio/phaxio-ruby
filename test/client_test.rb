@@ -1,7 +1,15 @@
 require_relative "test_helper"
 
-class TestClient < Test::Unit::TestCase
+class ClientTest < Test::Unit::TestCase
   def setup
     @client = Phaxio::Client.new("abc123", "def456")
+  end
+
+  def test_initialize
+    assert_instance_of Phaxio::Client, @client
+  end
+
+  def test_send_fax
+    assert_equal true, @client.send_fax(to: "0123456789", filename: "test.pdf", api_key: api_key, api_secret: api_secret).success?
   end
 end
