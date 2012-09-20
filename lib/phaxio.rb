@@ -1,5 +1,5 @@
-require "phaxio/version"
+require "httparty"
 
-module Phaxio
-  # Your code goes here...
-end
+require "phaxio/version"
+require "phaxio/config"
+require "phaxio/client"
