@@ -1,7 +1,7 @@
 module Phaxio
   class Client
     include  HTTParty
-    base_uri 'http://api.phaxio.com/v1'
+    base_uri 'https://api.phaxio.com/v1'
 
     attr_accessor :api_key, :api_secret, :faxes_sent_this_month,
                   :faxes_sent_today, :balance
@@ -11,7 +11,7 @@ module Phaxio
       self.api_secret = api_secret
     end
 
-    def send_fax(options={})
+    def send_fax(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
       self.class.post("/send", options)
     end
@@ -29,7 +29,6 @@ module Phaxio
 
       get("/faxStatus", {id:fax_id})
     end
-
 
     def get_account_status
       status = get("/accountStatus", options[:query].merge(api_key: api_key, api_secret:api_secret))
