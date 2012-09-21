@@ -1,14 +1,23 @@
 module Phaxio
+  module Config
+    attr_accessor :api_key, :api_secret
+  end
   class Client
     include  HTTParty
     base_uri 'https://api.phaxio.com/v1'
 
-    attr_accessor :api_key, :api_secret, :faxes_sent_this_month,
-                  :faxes_sent_today, :balance
+    attr_accessor :faxes_sent_this_month, :faxes_sent_today, :balance
 
-    def initialize(api_key, api_secret)
-      self.api_key = api_key
-      self.api_secret = api_secret
+    def initialize
+      extend(Config)
+    end
+
+    def config
+      if block_given?
+        yield(self)
+      end
+
+      self
     end
 
     def send_fax(options)
@@ -37,4 +46,9 @@ module Phaxio
       balance = status.balance
     end
   end
+
+  def self.client
+    @client ||= Client.new
+  end
+
 end
