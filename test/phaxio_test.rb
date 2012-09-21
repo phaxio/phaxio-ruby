@@ -2,7 +2,15 @@ require_relative "test_helper"
 
 class ClientTest < Test::Unit::TestCase
   def setup
-    @client = Phaxio::Client.new("abc123", "def456")
+    @client = Phaxio.client.config do |config|
+      config.api_key = 10987654321
+      config.api_secret = 12345678910
+    end
+  end
+
+  def test_config
+    assert_equal 10987654321, @client.config.api_key
+    assert_equal 12345678910, @client.config.api_secret
   end
 
   def test_initialize
