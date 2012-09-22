@@ -6,8 +6,6 @@ module Phaxio
     include  HTTParty
     base_uri 'https://api.phaxio.com/v1'
 
-    attr_accessor :faxes_sent_this_month, :faxes_sent_today, :balance
-
     def initialize
       extend(Config)
     end
@@ -40,10 +38,7 @@ module Phaxio
     end
 
     def get_account_status
-      status = get("/accountStatus", options[:query].merge(api_key: api_key, api_secret:api_secret))
-      faxes_sent_this_month = status.faxes_sent_this_month
-      faxes_sent_today = status.faxes_sent_today
-      balance = status.balance
+      status = self.class.post("/accountStatus", { api_key: api_key, api_secret:api_secret })
     end
   end
 

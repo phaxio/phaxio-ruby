@@ -9,8 +9,8 @@ class ClientTest < Test::Unit::TestCase
   end
 
   def test_config
-    assert_equal 10987654321, @client.config.api_key
-    assert_equal 12345678910, @client.config.api_secret
+    assert_equal 10987654321, @client.api_key
+    assert_equal 12345678910, @client.api_secret
   end
 
   def test_initialize
@@ -19,5 +19,9 @@ class ClientTest < Test::Unit::TestCase
 
   def test_send_fax
     assert_equal true, @client.send_fax(to: "0123456789", filename: "test.pdf", api_key: @client.api_key, api_secret: @client.api_secret).success?
+  end
+
+  def test_get_account_status
+    assert_equal true, @client.get_account_status.success?
   end
 end
