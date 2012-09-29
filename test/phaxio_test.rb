@@ -25,6 +25,10 @@ class ClientTest < Test::Unit::TestCase
     assert_equal true, @client.test_receive(filename: "test_file.pdf").success?
   end
 
+  def test_get_fax_status
+    assert_equal true, @client.get_fax_status(id: "123456").success?
+  end
+
   def test_cancel_fax
     assert_equal true, @client.cancel_fax(id: "123456").success?
   end

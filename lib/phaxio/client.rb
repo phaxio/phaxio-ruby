@@ -2,6 +2,7 @@ module Phaxio
   module Config
     attr_accessor :api_key, :api_secret
   end
+
   class Client
     include  HTTParty
     base_uri 'https://api.phaxio.com/v1'
@@ -28,12 +29,12 @@ module Phaxio
       self.class.post("/testReceive", options)
     end
 
-    def check_fax_status(fax_id)
-      if !fax_id 
-        raise StandardError, "You must include a fax id"
+    def get_fax_status(options)
+      if options[:id].nil?
+        raise StandardError, "You must include a fax id."
       end
 
-      get("/faxStatus", {id:fax_id})
+      self.class.post("/faxStatus", options)
     end
 
     def cancel_fax(options)
