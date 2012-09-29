@@ -28,18 +28,17 @@ module Phaxio
       self.class.post("/testReceive", options)
     end
 
-    def cancel_fax(options)
-      # @path = "/faxCancel"
-
-      # add cancel logic here
-    end
-
     def check_fax_status(fax_id)
       if !fax_id 
         raise StandardError, "You must include a fax id"
       end
 
       get("/faxStatus", {id:fax_id})
+    end
+
+    def cancel_fax(options)
+      options.merge!({api_key: api_key, api_secret: api_secret})
+      self.class.post("/faxCancel", options)
     end
 
     def get_account_status
