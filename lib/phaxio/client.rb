@@ -23,6 +23,11 @@ module Phaxio
       self.class.post("/send", options)
     end
 
+    def test_receive(options)
+      options.merge!({api_key: api_key, api_secret: api_secret})
+      self.class.post("/testReceive", options)
+    end
+
     def cancel_fax(options)
       # @path = "/faxCancel"
 

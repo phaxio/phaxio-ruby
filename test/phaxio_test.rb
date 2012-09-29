@@ -18,7 +18,11 @@ class ClientTest < Test::Unit::TestCase
   end
 
   def test_send_fax
-    assert_equal true, @client.send_fax(to: "0123456789", filename: "test.pdf", api_key: @client.api_key, api_secret: @client.api_secret).success?
+    assert_equal true, @client.send_fax(to: "0123456789", filename: "test.pdf").success?
+  end
+
+  def test_test_receive
+    assert_equal true, @client.test_receive(filename: "test_file.pdf").success?
   end
 
   def test_get_account_status
