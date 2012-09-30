@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class ClientTest < Test::Unit::TestCase
+class TestPhaxio < Test::Unit::TestCase
   def setup
     @client = Phaxio.client.config do |config|
       config.api_key = 10987654321
