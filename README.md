@@ -20,24 +20,24 @@ Or install it yourself as:
 
 ## Usage
 
-Configure a client with an api_key and api_secret:
+Configure Phaxio with your api_key and api_secret:
 
     Phaxio.config do |config|
-      config.api_key = 10987654321
-      config.api_secret = 12345678910
+      config.api_key = "10987654321"
+      config.api_secret = "12345678910"
     end
 
-Send a fax:
+To send a fax:
 
     Phaxio.send_fax(to: "0123456789", filename: "test.pdf")
 
 ### Currently Supported API Calls
 
-* send_fax
-* test_receive
-* get_fax_status
-* cancel_fax
-* get_account_status
+* send_fax - `Phaxio.send_fax(to: "0123456789", filename: "test.pdf")`
+* test_receive - `Phaxio.test_receive(filename: "test_file.pdf")`
+* get_fax_status - `Phaxio.get_fax_status(id: "123456")`
+* cancel_fax - `Phaxio.cancel_fax(id: "123456")`
+* get_account_status - `Phaxio.get_account_status`
 
 ## Contributing
 
