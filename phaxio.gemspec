@@ -17,5 +17,5 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency      "httparty",   "~> 0.9.0"
   gem.add_development_dependency  "fakeweb",    "~> 1.3.0"
-  gem.add_development_dependency  "rake", "~> 0.9.2.2"
+  gem.add_development_dependency  "rake",       "~> 0.9.2.2"
 end
