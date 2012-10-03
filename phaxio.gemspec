@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["inbox@seanbehan.com", "brettchalupa@gmail.com"]
   gem.description   = %q{A Ruby Gem for interacting with Phaxio's JSON API}
   gem.summary       = %q{A Ruby Gem for interacting with Phaxio's JSON API}
-  gem.homepage      = ""
+  gem.homepage      = "http://gristmill.io"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
