@@ -76,8 +76,6 @@ module Phaxio
     #                                        completed. Must be between 1 and 60
     #                                        (optional).
     #
-    # Examples
-    #
     # Returns the json data from the send post.
     def send_fax(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
@@ -85,29 +83,54 @@ module Phaxio
     end
 
     # Public: Test receiving a fax.
+    #
+    # options - The Hash options used to refine the selection (default: {}):
+    #           from_number - The Phone Number of the simulated sender
+    #                         (optional).
+    #           to_number   - The Phone Number receiving the fax (optional).
+    #           filename    - A String containing the name of the PDF that has
+    #                         a PhaxCode and is the file you want to simulate
+    #                         sending (required).
+    #
+    # Returns the json data from the test_receive post.
     def test_receive(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
       self.class.post("/testReceive", options)
     end
 
     # Public: Get the status of a specific fax.
+    #
+    # options - The Hash options used to refine the selection (default: {}):
+    #           id - The int id of the fax you want to get the status of
+    #                (required).
+    #
+    # Returns the json data of the fax status.
     def get_fax_status(options)
       if options[:id].nil?
         raise StandardError, "You must include a fax id."
       end
-
+      
+      options.merge!({api_key: api_key, api_secret: api_secret})
       self.class.post("/faxStatus", options)
     end
 
     # Public: Cancel a specific fax.
+    #
+    # options - The Hash options used to refine the selection (defaults: {}):
+    #           id - The int id of the fax you want to cancel (required).
+    #
+    # Returns the json object with success and message.
     def cancel_fax(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
       self.class.post("/faxCancel", options)
     end
 
     # Public: Get the status of Client's account.
+    #
+    # Returns a json object with success, message, and data (containing
+    # faxes_sent_this_month, faxes_sent_today, and balance).
     def get_account_status
-      status = self.class.post("/accountStatus", { api_key: api_key, api_secret:api_secret })
+      self.class.post("/accountStatus", { api_key: api_key, api_secret:api_secret })
     end
   end
 
