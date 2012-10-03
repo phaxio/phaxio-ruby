@@ -22,10 +22,10 @@ Or install it yourself as:
 
 Configure a client with an api_key and api_secret:
 
-  @client = Phaxio.client.config do |config|
-    config.api_key = 10987654321
-    config.api_secret = 12345678910
-  end
+    @client = Phaxio.client.config do |config|
+      config.api_key = 10987654321
+      config.api_secret = 12345678910
+    end
 
 Send a fax:
 
