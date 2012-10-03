@@ -1,4 +1,5 @@
 require_relative "test_helper"
+require 'json'
 
 class TestPhaxio < Test::Unit::TestCase
   def setup
@@ -18,22 +19,34 @@ class TestPhaxio < Test::Unit::TestCase
   end
 
   def test_send_fax
-    assert_equal true, @client.send_fax(to: "0123456789", filename: "test.pdf").success?
+    @response = @client.send_fax(to: "0123456789", filename: "test.pdf")
+    assert_equal true, @response["success"]
+    assert_equal "Fax queued for sending", @response["message"]
+    assert_equal 1234, @response["faxId"]
   end
 
   def test_test_receive
-    assert_equal true, @client.test_receive(filename: "test_file.pdf").success?
+    @response = @client.test_receive(filename: "test_file.pdf")
+    assert_equal true, @response["success"]
+    assert_equal "Test fax received from 234567890. Calling back now...", @response["message"]
   end
 
   def test_get_fax_status
-    assert_equal true, @client.get_fax_status(id: "123456").success?
+    @response = @client.get_fax_status(id: "123456")
+    assert_equal true, @response["success"]
+    assert_equal "Retrieved fax successfully", @response["message"]
   end
 
   def test_cancel_fax
-    assert_equal true, @client.cancel_fax(id: "123456").success?
+    @response = @client.cancel_fax(id: "123456")
+    assert_equal true, @response["success"]
+    assert_equal "Fax canceled successfully.", @response["message"]
   end
 
   def test_get_account_status
-    assert_equal true, @client.get_account_status.success?
+    @response = @client.get_account_status
+    assert_equal true, @response["success"]
+    assert_equal "Account status retrieved successfully", @response["message"]
+    assert_equal 120, @response["data"]["faxes_sent_this_month"]
   end
 end

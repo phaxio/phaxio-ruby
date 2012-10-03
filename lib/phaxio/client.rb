@@ -76,7 +76,8 @@ module Phaxio
     #                                        completed. Must be between 1 and 60
     #                                        (optional).
     #
-    # Returns the json data from the send post.
+    # Returns a HTTParty::Response object containing a success bool,
+    # a String message, and an in faxID.
     def send_fax(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
       self.class.post("/send", options)
@@ -92,7 +93,8 @@ module Phaxio
     #                         a PhaxCode and is the file you want to simulate
     #                         sending (required).
     #
-    # Returns the json data from the test_receive post.
+    # Returns a HTTParty::Response object containing a success bool
+    # and a String message.
     def test_receive(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
       self.class.post("/testReceive", options)
@@ -104,7 +106,8 @@ module Phaxio
     #           id - The int id of the fax you want to get the status of
     #                (required).
     #
-    # Returns the json data of the fax status.
+    # Returns a HTTParty::Response object containing a success bool,
+    # a String message, and the data of the fax.
     def get_fax_status(options)
       if options[:id].nil?
         raise StandardError, "You must include a fax id."
@@ -119,7 +122,8 @@ module Phaxio
     # options - The Hash options used to refine the selection (defaults: {}):
     #           id - The int id of the fax you want to cancel (required).
     #
-    # Returns the json object with success and message.
+    # Returns a HTTParty::Response object containing a success bool
+    # and a String message.
     def cancel_fax(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
       self.class.post("/faxCancel", options)
@@ -127,8 +131,8 @@ module Phaxio
 
     # Public: Get the status of Client's account.
     #
-    # Returns a json object with success, message, and data (containing
-    # faxes_sent_this_month, faxes_sent_today, and balance).
+    # Returns a HTTParty::Response object with success, message, and data
+    # (containing faxes_sent_this_month, faxes_sent_today, and balance).
     def get_account_status
       self.class.post("/accountStatus", { api_key: api_key, api_secret:api_secret })
     end
