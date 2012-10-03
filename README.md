@@ -29,7 +29,7 @@ Configure a client with an api_key and api_secret:
 
 Send a fax:
 
-  @client.send_fax(to: "0123456789", filename: "test.pdf")
+    @client.send_fax(to: "0123456789", filename: "test.pdf")
 
 ### Currently Supported API Calls
 
