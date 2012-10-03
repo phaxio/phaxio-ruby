@@ -1,30 +1,12 @@
 module Phaxio
+  include  HTTParty
+  base_uri 'https://api.phaxio.com/v1'
+
   module Config
     attr_accessor :api_key, :api_secret
   end
 
-  class Client
-    include  HTTParty
-    base_uri 'https://api.phaxio.com/v1'
-
-    # Public: Initialize a new Client.
-    #
-    # Returns nothing.
-    def initialize
-      extend(Config)
-    end
-
-    # Public: Configure a Client.
-    #
-    # Returns the Client.
-    def config
-      if block_given?
-        yield(self)
-      end
-
-      self
-    end
-
+  module Client
     # Public: Send a fax.
     #
     # options - The Hash options used to refine the selection (default: {}):
@@ -76,11 +58,15 @@ module Phaxio
     #                                        completed. Must be between 1 and 60
     #                                        (optional).
     #
+    # Examples
+    #
+    #   Phaxio.send_fax(to: "0123456789", filename: "test.pdf")
+    #
     # Returns a HTTParty::Response object containing a success bool,
     # a String message, and an in faxID.
     def send_fax(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
-      self.class.post("/send", options)
+      send_post("/send", options)
     end
 
     # Public: Test receiving a fax.
@@ -93,11 +79,15 @@ module Phaxio
     #                         a PhaxCode and is the file you want to simulate
     #                         sending (required).
     #
+    # Examples
+    #
+    #   Phaxio.test_receive(filename: "test_file.pdf")
+    #
     # Returns a HTTParty::Response object containing a success bool
     # and a String message.
     def test_receive(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
-      self.class.post("/testReceive", options)
+      send_post("/testReceive", options)
     end
 
     # Public: Get the status of a specific fax.
@@ -106,15 +96,19 @@ module Phaxio
     #           id - The int id of the fax you want to get the status of
     #                (required).
     #
+    # Examples
+    #
+    #   Phaxio.get_fax_status(id: "123456")
+    #
     # Returns a HTTParty::Response object containing a success bool,
     # a String message, and the data of the fax.
     def get_fax_status(options)
       if options[:id].nil?
         raise StandardError, "You must include a fax id."
       end
-      
+
       options.merge!({api_key: api_key, api_secret: api_secret})
-      self.class.post("/faxStatus", options)
+      send_post("/faxStatus", options)
     end
 
     # Public: Cancel a specific fax.
@@ -122,24 +116,48 @@ module Phaxio
     # options - The Hash options used to refine the selection (defaults: {}):
     #           id - The int id of the fax you want to cancel (required).
     #
+    # Examples
+    #
+    #   Phaxio.cancel_fax(id: "123456")
+    #
     # Returns a HTTParty::Response object containing a success bool
     # and a String message.
     def cancel_fax(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
-      self.class.post("/faxCancel", options)
+      send_post("/faxCancel", options)
     end
 
     # Public: Get the status of Client's account.
     #
+    # Examples
+    #
+    #   Phaxio.get_account_status
+    #
     # Returns a HTTParty::Response object with success, message, and data
     # (containing faxes_sent_this_month, faxes_sent_today, and balance).
     def get_account_status
-      self.class.post("/accountStatus", { api_key: api_key, api_secret:api_secret })
+      send_post("/accountStatus", {})
+    end
+
+    def send_post(path, options)
+      post(path, options.merge!({api_key: api_key, api_secret: api_secret}))
     end
   end
 
-  def self.client
-    @client ||= Client.new
+  # Public: Configure Phaxio with your api_key and api_secret
+  #
+  # Examples
+  #
+  #   Phaxio.config do |config|
+  #      config.api_key = "12345678910"
+  #      config.api_secret = "10987654321"
+  #    end
+  #
+  # Returns nothing.
+  def self.config
+    yield(self)
   end
 
+  extend Client
+  extend Config
 end
