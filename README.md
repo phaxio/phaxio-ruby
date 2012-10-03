@@ -39,6 +39,18 @@ To send a fax:
 * cancel_fax - `Phaxio.cancel_fax(id: "123456")`
 * get_account_status - `Phaxio.get_account_status`
 
+### Example
+
+    require 'phaxio'
+
+    Phaxio.config do |config|
+      config.api_key = "your_key"
+      config.api_secret = "your_secret"
+    end
+
+    @fax = Phaxio.send_fax(to: '15555555555', string_data: "hello world")
+    Phaxio.get_fax_status(id: @fax["faxId"])
+
 ## Contributing
 
 1. Fork it
