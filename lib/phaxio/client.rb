@@ -140,7 +140,7 @@ module Phaxio
     end
 
     def send_post(path, options)
-      post(path, query: options[:query].merge({api_key: api_key, api_secret: api_secret}))
+      post(path, query: options.merge!({api_key: api_key, api_secret: api_secret}))
     end
   end
 
