@@ -3,9 +3,9 @@ module Phaxio
     attr_accessor :api_key, :api_secret
   end
 
-  class Client
+  module Client
     include  HTTParty
-    base_uri 'https://api.phaxio.com/v1'
+    BASE_URI = 'https://api.phaxio.com/v1'
 
     # Public: Initialize a new Client.
     #
@@ -80,7 +80,7 @@ module Phaxio
     # a String message, and an in faxID.
     def send_fax(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
-      self.class.post("/send", options)
+      post("/send", options)
     end
 
     # Public: Test receiving a fax.
@@ -97,7 +97,7 @@ module Phaxio
     # and a String message.
     def test_receive(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
-      self.class.post("/testReceive", options)
+      post("/testReceive", options)
     end
 
     # Public: Get the status of a specific fax.
@@ -112,9 +112,9 @@ module Phaxio
       if options[:id].nil?
         raise StandardError, "You must include a fax id."
       end
-      
+
       options.merge!({api_key: api_key, api_secret: api_secret})
-      self.class.post("/faxStatus", options)
+      post("/faxStatus", options)
     end
 
     # Public: Cancel a specific fax.
@@ -126,7 +126,7 @@ module Phaxio
     # and a String message.
     def cancel_fax(options)
       options.merge!({api_key: api_key, api_secret: api_secret})
-      self.class.post("/faxCancel", options)
+      post("/faxCancel", options)
     end
 
     # Public: Get the status of Client's account.
@@ -134,12 +134,23 @@ module Phaxio
     # Returns a HTTParty::Response object with success, message, and data
     # (containing faxes_sent_this_month, faxes_sent_today, and balance).
     def get_account_status
-      self.class.post("/accountStatus", { api_key: api_key, api_secret:api_secret })
+      post("/accountStatus", {})
+    end
+
+    def post(path, options)
+      HTTParty.post(BASE_URI + path, options.merge!({api_key: api_key, api_secret: api_secret}))
     end
   end
 
   def self.client
     @client ||= Client.new
   end
+
+  def self.config
+    yield(self)
+  end
+
+  extend Client
+  extend Config
 
 end
