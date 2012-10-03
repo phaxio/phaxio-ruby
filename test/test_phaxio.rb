@@ -1,5 +1,4 @@
 require_relative "test_helper"
-require 'json'
 
 class TestPhaxio < Test::Unit::TestCase
   def setup
