@@ -2,14 +2,15 @@ require_relative "test_helper"
 
 class TestPhaxio < Test::Unit::TestCase
   def setup
-    Phaxio.config do |conf|
-      conf.api_key = "12345678910"
-      conf.api_secret = "10987654321"
+    Phaxio.config do |config|
+      config.api_key = "12345678910"
+      config.api_secret = "10987654321"
     end
   end
 
   def test_config
     assert_equal "12345678910", Phaxio.api_key
+    assert_equal "10987654321", Phaxio.api_secret
   end
 
   def test_initialize
