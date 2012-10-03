@@ -1,5 +1,5 @@
 module Phaxio
-  include  HTTParty
+  include  HTTMultiParty
   base_uri 'https://api.phaxio.com/v1'
 
   module Config
@@ -140,7 +140,7 @@ module Phaxio
     end
 
     def send_post(path, options)
-      post(path, options.merge!({api_key: api_key, api_secret: api_secret}))
+      post(path, query: options[:query].merge({api_key: api_key, api_secret: api_secret}))
     end
   end
 
