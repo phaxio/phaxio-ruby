@@ -39,6 +39,8 @@ To send a fax:
 * cancel_fax - `Phaxio.cancel_fax(id: "123456")`
 * get_account_status - `Phaxio.get_account_status`
 
+**Note: This gem only runs on Ruby version 1.9.**
+
 ### Example
 
     require 'phaxio'
