@@ -42,6 +42,12 @@ class TestPhaxio < Test::Unit::TestCase
     assert_equal "Number released successfully!", @response["message"]
   end
 
+  def test_list_numbers
+    @response = Phaxio.list_numbers(area_code: 802)
+    assert_equal true, @response["success"]
+    assert_equal "Retrieved user phone numbers successfully", @response["message"]
+  end
+
   def test_get_fax_status
     @response = Phaxio.get_fax_status(id: "123456")
     assert_equal true, @response["success"]

@@ -127,6 +127,29 @@ module Phaxio
       send_post("/releaseNumber", options)
     end
 
+    # Public: Get a detailed list of the phone numbers you current own on
+    #         Phaxio.
+    #
+    # options - The Hash options used to refne th selection (default: {}):
+    #           area_code - An integer area code you'd like to filter by 
+    #                       (optional).
+    #           number    - A String phone number you'd like to retrieve
+    #                       (optional).
+    #
+    # Examples
+    #
+    #   Phaxio.list_numbers # list all the numbers you own
+    #
+    #   Phaxio.list_numbers(area_code: 802) # list all numbers in the 802 area
+    #
+    #   Phaxio.list_numbers(number: "8021112222") # show specific number detail
+    #
+    # Returns a HTTParty::Reponse object containing a success bool, a message,
+    # and the data attributes containing the queried phone number(s) details.
+    def list_numbers(options)
+      send_post("/numberList", options)
+    end
+
     # Public: Get the status of a specific fax.
     #
     # options - The Hash options used to refine the selection (default: {}):

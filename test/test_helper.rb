@@ -23,6 +23,10 @@ FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/releaseNumber",
   :body         => File.open("test/support/responses/release_number.json").read,
   :content_type => "application/json")
 
+FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/numberList",
+  :body         => File.open("test/support/responses/list_numbers.json").read,
+  :content_type => "application/json")
+
 FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/faxStatus",
   :body         => File.open("test/support/responses/fax_status_success.json").read,
   :content_type => "application/json")

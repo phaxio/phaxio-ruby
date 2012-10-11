@@ -2,8 +2,6 @@
 
 A Ruby gem for interacting with the [Phaxio API]( https://www.phaxio.com/docs ).
 
-
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -36,7 +34,8 @@ To send a fax:
 * send_fax - `Phaxio.send_fax(to: "0123456789", filename: "test.pdf")`
 * test_receive - `Phaxio.test_receive(filename: "test_file.pdf")`
 * provision_number - `Phaxio.provision_number(area_code: 802)`
-* release_number - `Phaxio.release_number(number: "8021112222")
+* release_number - `Phaxio.release_number(number: "8021112222")`
+* list_numbers - `Phaxio.list_numbers(area_code: 802)`
 * get_fax_status - `Phaxio.get_fax_status(id: "123456")`
 * cancel_fax - `Phaxio.cancel_fax(id: "123456")`
 * get_account_status - `Phaxio.get_account_status`

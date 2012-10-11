@@ -1,0 +1,22 @@
+{
+    "success":true,
+    "message":"Retrieved user phone numbers successfully",
+    "data":[
+{
+            "number":"8021112222",
+            "city":"Burlington",
+            "state":"Vermont",
+            "cost":200,
+            "last_billed_at":"2012-10-11 10:51:33",
+            "provisioned_at":"2012-10-11 10:51:33"
+        },
+{
+            "number":"8023334444",
+            "city":"Montpelier",
+            "state":"Vermont",
+            "cost":200,
+            "last_billed_at":"2012-10-11 10:51:33",
+            "provisioned_at":"2012-10-11 10:51:33"
+        }
+    ]
+}
