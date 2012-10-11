@@ -1,13 +1,6 @@
 require_relative "test_helper"
 
 class TestPhaxio < Test::Unit::TestCase
-  def setup
-    Phaxio.config do |config|
-      config.api_key = "12345678910"
-      config.api_secret = "10987654321"
-    end
-  end
-
   def test_config
     assert_equal "12345678910", Phaxio.api_key
     assert_equal "10987654321", Phaxio.api_secret
@@ -49,13 +42,8 @@ class TestPhaxio < Test::Unit::TestCase
   end
 
   def test_get_fax_file
-    # still working on testing this properly
-    # throws a bit of a wacky error
     @response_pdf = Phaxio.get_fax_file(id: 1234, type: p)
-    File.open("/tmp/test.pdf", "w") do |pdf|
-      pdf << @response_pdf
-    end
-    assert_equal 6912, @response_pdf.size
+    assert_equal 6725, @response_pdf.size
   end
 
   def test_list_faxes
