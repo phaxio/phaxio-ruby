@@ -171,6 +171,23 @@ module Phaxio
       send_post("/faxFile", options)
     end
 
+    # Public: List faxes within the specified time range.
+    #
+    # options - The Hash options used to refine the selection (default: {}):
+    #           start - The Unix Timestamp for the beginning of the range
+    #                   (required).
+    #           end   - The Unix Timestamp for the end of the range (required).
+    #
+    # Examples
+    #
+    #   Phaxio.list_faxes(start: 1293861600, end: 1294034400)
+    #
+    # Returns a HTTParty::Response object containing a success bool, a string
+    # message, paging information, and the fax data.
+    def list_faxes(options)
+      send_post("/faxList", options)
+    end
+
     # Public: Get the status of a specific fax.
     #
     # options - The Hash options used to refine the selection (default: {}):

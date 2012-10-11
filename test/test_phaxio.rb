@@ -49,7 +49,13 @@ class TestPhaxio < Test::Unit::TestCase
   end
 
   def test_get_fax_file
+    # still working on testing this properly
     @response_pdf = Phaxio.get_fax_file(id: 1234, type: p)
+  end
+
+  def test_list_faxes
+    @response = Phaxio.list_faxes(start: 1293861600, end: 1294034400)
+    assert_equal true, @response["success"]
   end
 
   def test_get_fax_status
