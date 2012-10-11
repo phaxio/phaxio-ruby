@@ -50,7 +50,12 @@ class TestPhaxio < Test::Unit::TestCase
 
   def test_get_fax_file
     # still working on testing this properly
+    # throws a bit of a wacky error
     @response_pdf = Phaxio.get_fax_file(id: 1234, type: p)
+    File.open("/tmp/test.pdf", "w") do |pdf|
+      pdf << @response_pdf
+    end
+    assert_equal 6912, @response_pdf.size
   end
 
   def test_list_faxes
