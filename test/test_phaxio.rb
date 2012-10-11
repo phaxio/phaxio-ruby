@@ -48,14 +48,18 @@ class TestPhaxio < Test::Unit::TestCase
     assert_equal "Retrieved user phone numbers successfully", @response["message"]
   end
 
+  def test_get_fax_file
+    @response_pdf = Phaxio.get_fax_file(id: 1234, type: p)
+  end
+
   def test_get_fax_status
-    @response = Phaxio.get_fax_status(id: "123456")
+    @response = Phaxio.get_fax_status(id: 123456)
     assert_equal true, @response["success"]
     assert_equal "Retrieved fax successfully", @response["message"]
   end
 
   def test_cancel_fax
-    @response = Phaxio.cancel_fax(id: "123456")
+    @response = Phaxio.cancel_fax(id: 123456)
     assert_equal true, @response["success"]
     assert_equal "Fax canceled successfully.", @response["message"]
   end

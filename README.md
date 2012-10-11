@@ -38,8 +38,9 @@ To send a fax:
 * provision_number - `Phaxio.provision_number(area_code: 802)`
 * release_number - `Phaxio.release_number(number: "8021112222")`
 * list_numbers - `Phaxio.list_numbers(area_code: 802)`
-* get_fax_status - `Phaxio.get_fax_status(id: "123456")`
-* cancel_fax - `Phaxio.cancel_fax(id: "123456")`
+* get_fax_file - `Phaxio.get_fax_file(id: 123456, type: p)` 
+* get_fax_status - `Phaxio.get_fax_status(id: 123456)`
+* cancel_fax - `Phaxio.cancel_fax(id: 123456)`
 * get_account_status - `Phaxio.get_account_status`
 
 ### Example

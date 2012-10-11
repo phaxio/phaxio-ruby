@@ -150,6 +150,27 @@ module Phaxio
       send_post("/numberList", options)
     end
 
+    # Public: Get an image thumbnail or PDF file for a fax. For images to work
+    #         file storage must not be disabled with Phaxio.
+    #
+    # options - The Hash options used to refine the selection (default: {}):
+    #           id   - The integer fax id of the fax you wish to retreive
+    #                  (required).
+    #           type - An enum for the type return, defaults to 'p' (optional):
+    #                  s - Small JPG format thumbnail of the fax, 129 x 167 px.
+    #                  l - Large JPG format thumbnail of the fax, 300 x 388 px.
+    #                  p - PDF version of the fax (default).
+    #
+    # Examples
+    #
+    #   Phaxio.get_fax_file(id: 1234, type: p)
+    #   Phaxio.get_fax_file(id: 3254, type: l)
+    #
+    # Returns the fax as the type specified in the call, defaults to PDF.
+    def get_fax_file(options)
+      send_post("/faxFile", options)
+    end
+
     # Public: Get the status of a specific fax.
     #
     # options - The Hash options used to refine the selection (default: {}):
