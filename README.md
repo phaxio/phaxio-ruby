@@ -2,6 +2,8 @@
 
 A Ruby gem for interacting with the [Phaxio API]( https://www.phaxio.com/docs ).
 
+**Note: This gem only runs on Ruby version 1.9.+**
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -39,8 +41,6 @@ To send a fax:
 * get_fax_status - `Phaxio.get_fax_status(id: "123456")`
 * cancel_fax - `Phaxio.cancel_fax(id: "123456")`
 * get_account_status - `Phaxio.get_account_status`
-
-**Note: This gem only runs on Ruby version 1.9.**
 
 ### Example
 
