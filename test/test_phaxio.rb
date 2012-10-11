@@ -29,6 +29,13 @@ class TestPhaxio < Test::Unit::TestCase
     assert_equal "Test fax received from 234567890. Calling back now...", @response["message"]
   end
 
+  def test_provision_number
+    @response = Phaxio.provision_number(area_code: 802)
+    assert_equal true, @response["success"]
+    assert_equal "Number provisioned successfully!", @response["message"]
+    assert_equal "Vermont", @response["data"]["state"]
+  end
+
   def test_get_fax_status
     @response = Phaxio.get_fax_status(id: "123456")
     assert_equal true, @response["success"]

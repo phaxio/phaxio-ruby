@@ -65,7 +65,6 @@ module Phaxio
     # Returns a HTTParty::Response object containing a success bool,
     # a String message, and an in faxID.
     def send_fax(options)
-      options.merge!({api_key: api_key, api_secret: api_secret})
       send_post("/send", options)
     end
 
@@ -86,8 +85,29 @@ module Phaxio
     # Returns a HTTParty::Response object containing a success bool
     # and a String message.
     def test_receive(options)
-      options.merge!({api_key: api_key, api_secret: api_secret})
       send_post("/testReceive", options)
+    end
+
+    # Public: Provision a phone number that you can use to receive faxes in
+    #         your Phaxio account.
+    #
+    # options - The Hash options used to refine the selection (default: {}):
+    #           area_code    - The integer area code of the number you'd like
+    #                          to provision (required).
+    #           callback_url - A callback URL that Phaxio will post to when a
+    #                          fax is received by this number. This will
+    #                          override the global receive callback URL, if you
+    #                          have one set (optional).
+    #
+    # Examples
+    #
+    #   Phaxio.provision_number(area_code: 802)
+    #
+    # Returns a HTTParty::Response object containing a success bool, a string
+    # message, and data containing the phone number, city, state, cost,
+    # last_billed_at, and the date the number was provisioned at.
+    def provision_number(options)
+      send_post("/provisionNumber", options)
     end
 
     # Public: Get the status of a specific fax.
@@ -107,7 +127,6 @@ module Phaxio
         raise StandardError, "You must include a fax id."
       end
 
-      options.merge!({api_key: api_key, api_secret: api_secret})
       send_post("/faxStatus", options)
     end
 
@@ -123,7 +142,6 @@ module Phaxio
     # Returns a HTTParty::Response object containing a success bool
     # and a String message.
     def cancel_fax(options)
-      options.merge!({api_key: api_key, api_secret: api_secret})
       send_post("/faxCancel", options)
     end
 
