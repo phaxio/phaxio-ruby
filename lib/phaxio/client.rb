@@ -110,6 +110,23 @@ module Phaxio
       send_post("/provisionNumber", options)
     end
 
+    # Public: Release a phone number that you no longer need. Once a phone
+    #         number is released you will no longer be charged for it.
+    #
+    # options - The Hash options used to refine the selection (default: {}):
+    #           number - The String of the phone number you want to release
+    #                    (required).
+    #
+    # Examples
+    #
+    #   Phaxio.release_number(number: "8021112222")
+    #
+    # Returns a HTTParty::Response object containing a success bool and a
+    # string message.
+    def release_number(options)
+      send_post("/releaseNumber", options)
+    end
+
     # Public: Get the status of a specific fax.
     #
     # options - The Hash options used to refine the selection (default: {}):

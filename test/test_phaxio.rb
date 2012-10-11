@@ -36,6 +36,12 @@ class TestPhaxio < Test::Unit::TestCase
     assert_equal "Vermont", @response["data"]["state"]
   end
 
+  def test_release_number
+    @response = Phaxio.release_number(number: "8021112222")
+    assert_equal true, @response["success"]
+    assert_equal "Number released successfully!", @response["message"]
+  end
+
   def test_get_fax_status
     @response = Phaxio.get_fax_status(id: "123456")
     assert_equal true, @response["success"]
