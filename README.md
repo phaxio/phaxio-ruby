@@ -40,6 +40,8 @@ To send a fax:
 * list_numbers - `Phaxio.list_numbers(area_code: 802)`
 * get_fax_file - `Phaxio.get_fax_file(id: 123456, type: p)` 
 * list_faxes - `Phaxio.list_numbers(area_code: 802)`
+* list_faxes - `Phaxio.list_faxes(start: Time.now - 48000,
+end: Time.now)`
 * get_fax_status - `Phaxio.get_fax_status(id: 123456)`
 * cancel_fax - `Phaxio.cancel_fax(id: 123456)`
 * get_account_status - `Phaxio.get_account_status`
@@ -55,6 +57,12 @@ To send a fax:
 
     @fax = Phaxio.send_fax(to: '15555555555', string_data: "hello world")
     Phaxio.get_fax_status(id: @fax["faxId"])
+
+    # Get a Fax and save it as a PDF
+    @pdf = Phaxio.get_fax_file(id: @fax["faxId"], type: "p")
+    File.open("received_test.pdf", "w") do |file|
+      file << @pdf
+    end
 
 ## Contributing
 

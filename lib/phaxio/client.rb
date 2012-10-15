@@ -146,7 +146,7 @@ module Phaxio
     #
     # Returns a HTTParty::Reponse object containing a success bool, a message,
     # and the data attributes containing the queried phone number(s) details.
-    def list_numbers(options)
+    def list_numbers(options = {})
       send_post("/numberList", options)
     end
 
