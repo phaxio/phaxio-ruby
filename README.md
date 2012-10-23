@@ -29,11 +29,11 @@ Configure Phaxio with your api_key and api_secret:
 
 To send a fax:
 
-    Phaxio.send_fax(to: "0123456789", filename: "test.pdf")
+    Phaxio.send_fax(to: "0123456789", filename: File.new("test.pdf"))
 
 ### Currently Supported API Calls
 
-* send_fax - `Phaxio.send_fax(to: "0123456789", filename: "test.pdf")`
+* send_fax - `Phaxio.send_fax(to: "0123456789", filename: File.new("test.pdf"))`
 * test_receive - `Phaxio.test_receive(filename: "test_file.pdf")`
 * provision_number - `Phaxio.provision_number(area_code: 802)`
 * release_number - `Phaxio.release_number(number: "8021112222")`
