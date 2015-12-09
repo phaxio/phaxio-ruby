@@ -17,8 +17,8 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency "httmultiparty"
 
-  gem.add_development_dependency 'fakeweb'
   gem.add_development_dependency 'bundler'
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'minitest'
+  gem.add_development_dependency 'fakeweb', '~> 1.3'
+  gem.add_development_dependency 'rake', '~> 10'
+  gem.add_development_dependency 'minitest', '~> 5'
 end
