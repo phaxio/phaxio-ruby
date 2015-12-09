@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class TestPhaxio < Test::Unit::TestCase
+class TestPhaxio < MiniTest::Test
   def test_config
     assert_equal "12345678910", Phaxio.api_key
     assert_equal "10987654321", Phaxio.api_secret
