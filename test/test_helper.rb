@@ -1,5 +1,6 @@
 $:<<(".")
-require "test/unit"
+require 'minitest/autorun'
+
 require "fakeweb"
 require "lib/phaxio"
 
