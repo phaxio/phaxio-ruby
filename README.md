@@ -1,5 +1,7 @@
 # Phaxio
 
+[![Build Status](https://travis-ci.org/gristmill/phaxio.svg)](https://travis-ci.org/gristmill/phaxio)
+
 A Ruby gem for interacting with the [Phaxio API]( https://www.phaxio.com/docs ).
 
 **Note: This gem only runs on Ruby version 1.9.+**
