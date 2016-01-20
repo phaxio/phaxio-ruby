@@ -131,7 +131,7 @@ module Phaxio
     #         Phaxio.
     #
     # options - The Hash options used to refne th selection (default: {}):
-    #           area_code - An integer area code you'd like to filter by 
+    #           area_code - An integer area code you'd like to filter by
     #                       (optional).
     #           number    - A String phone number you'd like to retrieve
     #                       (optional).
@@ -233,6 +233,124 @@ module Phaxio
     # (containing faxes_sent_this_month, faxes_sent_today, and balance).
     def get_account_status
       send_post("/accountStatus", {})
+    end
+
+    # Public: This method attaches a PhaxCode to a PDF file you provide.
+    # Example:
+
+    #    Phaxio.attach_phaxcode_to_pdf(x: "0", y: "100", filename: "test.pdf")
+
+    # Required parameters are (x, y, filename):
+    # x -- Type: float. The X-coordinate (in PDF points*) of where the PhaxCode should be drawn. x=0 is the left most point of the page.
+
+    #*PDF points definition: A "point" is 1/72 of an inch. An 8.5"x11" document is therefore 612 pt x 792 pt.
+
+    # y -- Type: float. The Y-coordinate (in PDF points*) of where the PhaxCode should be drawn. y=0 is the bottom most point of the page.
+
+    # filename -- Type: binary stream. The PDF file to which you want to add the barcode.
+
+    #Optional parameters: (metadata, page number)
+
+    # metadata -- Type: string. Custom metadata to be associated with the created barcode. If not present, the basic PhaxCode for your account will be used.
+
+    # page number -- Type: integer. The page where the PhaxCode should be drawn. 1-based!!
+
+    #Response: A PDF file containing a PhaxCode at the location specified.
+
+    def attach_phaxcode_to_pdf(options)
+      if options[:filename].nil?
+        raise StandardError, "You must include a PDF file."
+      end
+
+      if(options[:x] < 0 || options[:y] < 0)
+        raise StandardError, "Coordinates must be greater than or equal to 0."
+      end
+        send_post("/attachPhaxCodeToPdf", options)
+    end
+
+    #Public This method creates a PhaxCode. Although neither parameter is required, omitting "redirect" will return a JSON object instead of the PhaxCode image.
+
+    #Example:
+    #  Phaxio.create_phaxcode
+
+    # metadata -- Type: string. Custom metadata to be associated with this barcode. If not present, the basic PhaxCode for your account will be used.
+
+    # redirect -- Type: boolean. If present and true, the PhaxCode barcode image will be dumped in the response.
+
+    #Response: If the redirect parameter is not provided, a JSON object with success, message, and data attributes is returned. The data attribute contains a url where the PhaxCode barcode image can be accessed.Otherwise, the image data is dumped in the response.
+
+    def create_phaxcode(options)
+        send_post("/createPhaxCode", options)
+    end
+
+    #This method will return a PDF of a document hosted by Phaxio with a PhaxCode attached. Note: You will have to set up the hosted document with Phaxio (along with the relevant PhaxCode) before calling this method.
+
+    #Required parameter:
+    # name -- Type: string. The name of a hosted document.
+
+    #Optional parameter:
+    # metadata -- Type: string. Custom metadata to be associated with the PhaxCode that will be attached to the hosted document. If not present, the basic PhaxCode for your account will be used.
+
+    #Response: A PDF copy of the hosted document with a PhaxCode included at the pre-specified location.
+
+    def get_hosted_document(options)
+        if options[:name].nil?
+          raise StandardError, "You must include the name of the hosted document."
+        end
+        send_post("/getHostedDocument", options)
+    end
+
+    #This method doesn't require API keys and is included for the sake of completion. It returns a list of countries that can send faxes along with the country's cost per page.
+
+    #Example:
+    #  Phaxio.supported_countries
+
+    #Response: A JSON object with success, message, and data attributes. The data attribute contains a hash, where the key contains the name of the country, and the value is a hash of attributes for the country (currently only pricing information).
+
+    #Example Response:
+    #{
+    #"success": true,
+    #"message": "Data contains supported countries.",
+    #"data": {
+    #    "United States": {
+    #        "price_per_page": 7
+    #    },
+    #    "Canada": {
+    #        "price_per_page": 7
+    #    }, ... etc.
+
+    def supported_countries
+      get("/supportedCountries")
+    end
+
+    #Another method that doesn't require API credentials but is included for the sake of completion. This method will return a list of area codes that have Phaxio numbers available for purchase.
+
+    #Parameters (both optional):
+
+    # is_toll_free -- Type: boolean. Will only return toll free area codes
+
+    # state -- Type: string. A two character state or province abbreviation (e.g. IL or YT). Will only return area codes available for this state.
+
+    #Response: A JSON object with success, message, and data attributes. The data attribute contains a map of area codes to city and state.
+
+    #Example response:
+    #{
+    #"success": true,
+    #"message": "295 area codes available.",
+    #"data": {
+    #    "201": {
+    #        "city": "Bayonne, Jersey City, Union City",
+    #        "state": "New Jersey"
+    #    },
+    #    "202": {
+    #        "city": "Washington",
+    #        "state": "District Of Columbia"
+    #    },
+    #    ... a lot more area codes here...
+    #}
+
+    def area_codes
+      get("/areaCodes")
     end
 
     def send_post(path, options)
