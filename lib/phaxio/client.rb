@@ -350,7 +350,7 @@ module Phaxio
     #}
 
     def area_codes
-      get("/areaCodes")
+      post("/areaCodes")
     end
 
     def send_post(path, options)
