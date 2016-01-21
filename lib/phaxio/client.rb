@@ -3,7 +3,7 @@ module Phaxio
   base_uri 'https://api.phaxio.com/v1'
 
   module Config
-    attr_accessor :api_key, :api_secret
+    attr_accessor :api_key, :api_secret, :callback_token
   end
 
   module Client
@@ -365,6 +365,7 @@ module Phaxio
   #   Phaxio.config do |config|
   #      config.api_key = "12345678910"
   #      config.api_secret = "10987654321"
+  #      config.callback_token = "32935829"
   #    end
   #
   # Returns nothing.
