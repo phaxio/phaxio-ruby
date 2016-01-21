@@ -320,7 +320,7 @@ module Phaxio
     #    }, ... etc.
 
     def supported_countries
-      get("/supportedCountries")
+      post("/supportedCountries")
     end
 
     #Another method that doesn't require API credentials but is included for the sake of completion. This method will return a list of area codes that have Phaxio numbers available for purchase.
