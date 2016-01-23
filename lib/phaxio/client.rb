@@ -238,7 +238,7 @@ module Phaxio
     # Public: This method attaches a PhaxCode to a PDF file you provide.
     # Example:
 
-    #    Phaxio.attach_phaxcode_to_pdf(x: "0", y: "100", filename: "test.pdf")
+    #    Phaxio.attach_phaxcode_to_pdf(x: "0", y: "100", filename: "#{Rails.root}/path/to/test.pdf")
 
     # Required parameters are (x, y, filename):
     # x -- Type: float. The X-coordinate (in PDF points*) of where the PhaxCode should be drawn. x=0 is the left most point of the page.
