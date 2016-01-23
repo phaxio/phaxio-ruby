@@ -271,7 +271,7 @@ module Phaxio
     #Public This method creates a PhaxCode. Although neither parameter is required, omitting "redirect" will return a JSON object instead of the PhaxCode image.
 
     #Example:
-    #  Phaxio.create_phaxcode
+    #  Phaxio.create_phaxcode(metadata: "sale_id=44")
 
     # metadata -- Type: string. Custom metadata to be associated with this barcode. If not present, the basic PhaxCode for your account will be used.
 
@@ -292,6 +292,9 @@ module Phaxio
     # metadata -- Type: string. Custom metadata to be associated with the PhaxCode that will be attached to the hosted document. If not present, the basic PhaxCode for your account will be used.
 
     #Response: A PDF copy of the hosted document with a PhaxCode included at the pre-specified location.
+
+    #Example:
+    # Phaxio.get_hosted_document(name:"business_fax")
 
     def get_hosted_document(options)
         if options[:name].nil?
