@@ -361,7 +361,7 @@ module Phaxio
     end
   end
 
-  # Public: Configure Phaxio with your api_key and api_secret
+  # Public: Configure Phaxio with your api_key, api_secret, and the callback token provided in your Phaxio account (to verify that requests are coming from Phaxio).
   #
   # Examples
   #
