@@ -13,6 +13,10 @@ FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/send",
   :body         => File.open("test/support/responses/send_success.json").read,
   :content_type => "application/json")
 
+FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/resendFax",
+  :body         => File.open("test/support/responses/resend_success.json").read,
+  :content_type => "application/json")
+
 FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/testReceive",
   :body         => File.open("test/support/responses/test_receive.json").read,
   :content_type => "application/json")

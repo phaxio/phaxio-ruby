@@ -68,6 +68,21 @@ module Phaxio
       send_post("/send", options)
     end
 
+    # Public: Resend a fax.
+    #
+    # options - The Hash options used to refine the selection (default: {}):
+    #           :id - The int id of the fax you want to resend (required).
+    #
+    # Examples
+    #
+    #   Phaxio.resend_fax(id: "123456")
+    #
+    # Returns a HTTParty::Response object containing a success bool,
+    # a message string, and data containing the fax ID int.
+    def resend_fax(options)
+      send_post("/resendFax", options)
+    end
+
     # Public: Test receiving a fax.
     #
     # options - The Hash options used to refine the selection (default: {}):
@@ -131,7 +146,7 @@ module Phaxio
     #         Phaxio.
     #
     # options - The Hash options used to refne th selection (default: {}):
-    #           area_code - An integer area code you'd like to filter by 
+    #           area_code - An integer area code you'd like to filter by
     #                       (optional).
     #           number    - A String phone number you'd like to retrieve
     #                       (optional).

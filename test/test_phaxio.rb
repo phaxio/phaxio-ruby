@@ -16,6 +16,13 @@ class TestPhaxio < MiniTest::Test
     assert_equal 1234, @response["faxId"]
   end
 
+  def test_resend_fax
+    @response = Phaxio.resend_fax(id: 1234)
+    assert_equal true, @response["success"]
+    assert_equal "Fax queued for resend", @response["message"]
+    assert_equal 1234, @response["data"]["faxId"]
+  end
+
   def test_test_receive
     @response = Phaxio.test_receive(filename: "test_file.pdf")
     assert_equal true, @response["success"]
