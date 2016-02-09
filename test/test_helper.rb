@@ -1,8 +1,9 @@
 $:<<(".")
 require 'minitest/autorun'
 
-require "fakeweb"
-require "lib/phaxio"
+require 'mocha/mini_test'
+require 'fakeweb'
+require 'lib/phaxio'
 
 Phaxio.config do |config|
   config.api_key = "12345678910"
@@ -11,10 +12,6 @@ end
 
 FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/send",
   :body         => File.open("test/support/responses/send_success.json").read,
-  :content_type => "application/json")
-
-FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/resendFax",
-  :body         => File.open("test/support/responses/resend_success.json").read,
   :content_type => "application/json")
 
 FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/testReceive",
@@ -51,10 +48,6 @@ FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/faxStatus",
 
 FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/faxCancel",
   :body         => File.open("test/support/responses/cancel_success.json").read,
-  :content_type => "application/json")
-
-FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/deleteFax",
-  :body         => File.open("test/support/responses/delete_success.json").read,
   :content_type => "application/json")
 
 FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/accountStatus",
