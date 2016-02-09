@@ -47,6 +47,7 @@ To send a fax:
 end: Time.now)`
 * get_fax_status - `Phaxio.get_fax_status(id: 123456)`
 * cancel_fax - `Phaxio.cancel_fax(id: 123456)`
+* delete_fax - `Phaxio.delete_fax(id: 1234, files_only: true)`
 * get_account_status - `Phaxio.get_account_status`
 
 ### Example
