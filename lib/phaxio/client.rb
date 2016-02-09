@@ -238,6 +238,24 @@ module Phaxio
       send_post("/faxCancel", options)
     end
 
+    # Public: Delete a specific fax.
+    #
+    # options - The hash options used to refine the selection (defaults: {}):
+    #           :id         - The int ID of the fax you want to cancel
+    #                         (required).
+    #           :files_only - The bool used to determine whether only the files
+    #                         are deleted. If not specified, default is false
+    #                         (optional).
+    #
+    # Examples
+    #
+    #   Phaxio.delete_fax(id: 1234, files_only: true)
+    #
+    # Returns a HTTParty::Response object with success bool and message string.
+    def delete_fax(options)
+      send_post("/deleteFax", options)
+    end
+
     # Public: Get the status of Client's account.
     #
     # Examples

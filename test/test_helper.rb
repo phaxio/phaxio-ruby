@@ -53,6 +53,10 @@ FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/faxCancel",
   :body         => File.open("test/support/responses/cancel_success.json").read,
   :content_type => "application/json")
 
+FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/deleteFax",
+  :body         => File.open("test/support/responses/delete_success.json").read,
+  :content_type => "application/json")
+
 FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/accountStatus",
   :body         => File.open("test/support/responses/account_status.json").read,
   :content_type => "application/json")

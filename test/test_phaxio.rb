@@ -70,6 +70,12 @@ class TestPhaxio < MiniTest::Test
     assert_equal "Fax canceled successfully.", @response["message"]
   end
 
+  def test_delete_fax
+    @response = Phaxio.delete_fax(id: 1234)
+    assert_equal true, @response["success"]
+    assert_equal "Deleted fax successfully!", @response["message"]
+  end
+
   def test_get_account_status
     @response = Phaxio.get_account_status
     assert_equal true, @response["success"]
