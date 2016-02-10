@@ -16,6 +16,11 @@ class TestPhaxio < MiniTest::Test
     assert_equal 1234, @response["faxId"]
   end
 
+  def test_resend_fax
+    Phaxio.expects(:send_post).with('/resendFax', id: 1234)
+    Phaxio.resend_fax(id: 1234)
+  end
+
   def test_test_receive
     @response = Phaxio.test_receive(filename: "test_file.pdf")
     assert_equal true, @response["success"]
@@ -61,6 +66,11 @@ class TestPhaxio < MiniTest::Test
     @response = Phaxio.cancel_fax(id: 123456)
     assert_equal true, @response["success"]
     assert_equal "Fax canceled successfully.", @response["message"]
+  end
+
+  def test_delete_fax
+    Phaxio.expects(:send_post).with('/deleteFax', id: 1234)
+    Phaxio.delete_fax(id: 1234)
   end
 
   def test_get_account_status

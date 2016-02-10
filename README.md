@@ -36,16 +36,18 @@ To send a fax:
 ### Currently Supported API Calls
 
 * send_fax - `Phaxio.send_fax(to: "0123456789", filename: File.new("test.pdf"))`
+* resend_fax - `Phaxio.resend_fax(id: 1234)`
 * test_receive - `Phaxio.test_receive(filename: "test_file.pdf")`
 * provision_number - `Phaxio.provision_number(area_code: 802)`
 * release_number - `Phaxio.release_number(number: "8021112222")`
 * list_numbers - `Phaxio.list_numbers(area_code: 802)`
-* get_fax_file - `Phaxio.get_fax_file(id: 123456, type: p)` 
+* get_fax_file - `Phaxio.get_fax_file(id: 123456, type: p)`
 * list_faxes - `Phaxio.list_numbers(area_code: 802)`
 * list_faxes - `Phaxio.list_faxes(start: Time.now - 48000,
 end: Time.now)`
 * get_fax_status - `Phaxio.get_fax_status(id: 123456)`
 * cancel_fax - `Phaxio.cancel_fax(id: 123456)`
+* delete_fax - `Phaxio.delete_fax(id: 1234, files_only: true)`
 * get_account_status - `Phaxio.get_account_status`
 
 ### Example
