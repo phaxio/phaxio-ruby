@@ -1,8 +1,9 @@
 $:<<(".")
 require 'minitest/autorun'
 
-require "fakeweb"
-require "lib/phaxio"
+require 'mocha/mini_test'
+require 'fakeweb'
+require 'lib/phaxio'
 
 Phaxio.config do |config|
   config.api_key = "12345678910"

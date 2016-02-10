@@ -69,4 +69,32 @@ class TestPhaxio < MiniTest::Test
     assert_equal "Account status retrieved successfully", @response["message"]
     assert_equal 120, @response["data"]["faxes_sent_this_month"]
   end
+
+  def test_attach_phax_code_to_pdf
+    Phaxio.expects(:send_post).with(
+      '/attachPhaxCodeToPdf',
+      x: 0, y: 100, filename: 'test.pdf'
+    )
+    Phaxio.attach_phaxcode_to_pdf(x: 0, y: 100, filename: 'test.pdf')
+  end
+
+  def test_create_phaxcode
+    Phaxio.expects(:send_post).with('/createPhaxCode', {})
+    Phaxio.create_phaxcode
+  end
+
+  def test_get_hosted_document
+    Phaxio.expects(:send_post).with('/getHostedDocument', name: 'test_fax')
+    Phaxio.get_hosted_document(name: 'test_fax')
+  end
+
+  def test_supported_countries
+    Phaxio.expects(:post).with('/supportedCountries')
+    Phaxio.supported_countries
+  end
+
+  def test_area_codes
+    Phaxio.expects(:post).with('/areaCodes', is_toll_free: true, state: 'IL')
+    Phaxio.area_codes(is_toll_free: true, state: 'IL')
+  end
 end
