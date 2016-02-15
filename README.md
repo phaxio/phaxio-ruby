@@ -68,6 +68,35 @@ end: Time.now)`
       file << @pdf
     end
 
+## Callback Validation Example with Sinatra
+
+    require 'sinatra/base'
+    require 'phaxio'
+
+    class PhaxioCallbackExample < Sinatra::Base
+      Phaxio.config do |config|
+        config.api_key = '0123456789'
+        config.api_secret = '0123456789'
+        config.callback_token = '0123456789'
+      end
+
+      post '/phaxio_callback' do
+        if Phaxio.valid_callback_signature?(
+          request.env['HTTP_X_PHAXIO_SIGNATURE'],
+          request.url, callback_params, params[:filename])
+          'Success'
+        else
+          'Invalid callback signature'
+        end
+      end
+
+      def callback_params
+        params.select do |key, _value|
+          %w(success is_test direction fax metadata).include?(key)
+        end
+      end
+    end
+
 ## Contributing
 
 1. Fork it

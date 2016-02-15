@@ -3,10 +3,12 @@ module Phaxio
   base_uri 'https://api.phaxio.com/v1'
 
   module Config
-    attr_accessor :api_key, :api_secret
+    attr_accessor :api_key, :api_secret, :callback_token
   end
 
   module Client
+    DIGEST = OpenSSL::Digest.new('sha1')
+
     # Public: Send a fax.
     #
     # options - The Hash options used to refine the selection (default: {}):
@@ -271,15 +273,73 @@ module Phaxio
     def send_post(path, options)
       post(path, query: options.merge!({api_key: api_key, api_secret: api_secret}))
     end
+
+    # Public: Check the signature of the signed request.
+    #
+    # signature - Type: string. The X-Phaxio-Signature HTTP header value.
+    # url       - Type: string. The full URL that was called by Phaxio,
+    #                including the query. (required)
+    # params    - Type: hash. The POSTed form data (required)
+    # files     - Type: array. Submitted files (required - "received" fax
+    #                callback only)
+    #
+    # Returns true if the signature matches the signed request, otherwise false
+    def valid_callback_signature?(signature, url, params, files = [])
+      check_signature = generate_check_signature(url, params, files)
+      check_signature == signature
+    end
+
+    # Public: Generate a signature using the request data and callback token
+    #
+    # url       - Type: string. The full URL that was called by Phaxio,
+    #                including the query. (required)
+    # params    - Type: hash. The POSTed form data (required)
+    # files     - Type: array. Submitted files (required - "received" fax
+    #                callback only)
+    #
+    # Retuns a signature based on the request data and configured callback
+    # token, which can then be compared with the request signature.
+    def generate_check_signature(url, params, files = [])
+      params_string = generate_params_string(params)
+      file_string = generate_files_string(files)
+      callback_data = "#{url}#{params_string}#{file_string}"
+      OpenSSL::HMAC.hexdigest(DIGEST, callback_token, callback_data)
+    end
+
+    private
+
+    def generate_params_string(params)
+      sorted_params = params.sort_by { |key, _value| key }
+      params_strings = sorted_params.map { |key, value| "#{key}#{value}" }
+      params_strings.join
+    end
+
+    def generate_files_string(files)
+      files_array = files_to_array(files).reject(&:nil?)
+      sorted_files = files_array.sort_by { |file| file[:name] }
+      files_strings = sorted_files.map { |file| generate_file_string(file) }
+      files_strings.join
+    end
+
+    def files_to_array(files)
+      files.is_a?(Array) ? files : [files]
+    end
+
+    def generate_file_string(file)
+      file[:name] + DIGEST.hexdigest(file[:tempfile].read)
+    end
   end
 
-  # Public: Configure Phaxio with your api_key and api_secret
+  # Public: Configure Phaxio with your api_key, api_secret, and the callback
+  #         token provided in your Phaxio account (to verify that requests are
+  #         coming from Phaxio).
   #
   # Examples
   #
   #   Phaxio.config do |config|
-  #      config.api_key = "12345678910"
-  #      config.api_secret = "10987654321"
+  #      config.api_key = '12345678910'
+  #      config.api_secret = '10987654321'
+  #      config.callback_token = '32935829'
   #    end
   #
   # Returns nothing.

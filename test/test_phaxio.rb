@@ -1,6 +1,10 @@
 require_relative "test_helper"
 
 class TestPhaxio < MiniTest::Test
+  def setup
+    @callback_data = ['example.com', { test: true }]
+  end
+
   def test_config
     assert_equal "12345678910", Phaxio.api_key
     assert_equal "10987654321", Phaxio.api_secret
@@ -78,5 +82,17 @@ class TestPhaxio < MiniTest::Test
     assert_equal true, @response["success"]
     assert_equal "Account status retrieved successfully", @response["message"]
     assert_equal 120, @response["data"]["faxes_sent_this_month"]
+  end
+
+  def test_generate_check_signature
+    signature = Phaxio.generate_check_signature(*@callback_data)
+    assert_equal '15adeecb7eca79676ece07ee4bc1bbba2c69eddd', signature
+  end
+
+  def test_valid_callback_signature?
+    assert_equal true, Phaxio.valid_callback_signature?(
+      '15adeecb7eca79676ece07ee4bc1bbba2c69eddd', *@callback_data)
+    assert_equal false, Phaxio.valid_callback_signature?(
+      'wrong', *@callback_data)
   end
 end
