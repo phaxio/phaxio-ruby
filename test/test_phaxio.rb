@@ -2,7 +2,7 @@ require_relative "test_helper"
 
 class TestPhaxio < MiniTest::Test
   def setup
-    @callback_data = { url: 'example.com', params: { test: true } }
+    @callback_data = ['example.com', { test: true }]
   end
 
   def test_config
@@ -85,15 +85,14 @@ class TestPhaxio < MiniTest::Test
   end
 
   def test_generate_check_signature
-    signature = Phaxio.generate_check_signature(**@callback_data)
+    signature = Phaxio.generate_check_signature(*@callback_data)
     assert_equal '15adeecb7eca79676ece07ee4bc1bbba2c69eddd', signature
   end
 
   def test_valid_callback_signature?
     assert_equal true, Phaxio.valid_callback_signature?(
-      @callback_data.merge(
-        signature: '15adeecb7eca79676ece07ee4bc1bbba2c69eddd'))
+      '15adeecb7eca79676ece07ee4bc1bbba2c69eddd', *@callback_data)
     assert_equal false, Phaxio.valid_callback_signature?(
-      @callback_data.merge(signature: 'wrong'))
+      'wrong', *@callback_data)
   end
 end
