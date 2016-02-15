@@ -96,14 +96,4 @@ class TestPhaxio < MiniTest::Test
     assert_equal false, Phaxio.valid_callback_signature?(
       @callback_data.merge(signature: 'wrong'))
   end
-
-  def test_validate_callback_signature
-    assert Phaxio.validate_callback_signature(
-      @callback_data.merge(
-        signature: '15adeecb7eca79676ece07ee4bc1bbba2c69eddd'))
-    assert_raises(Phaxio::Client::InvalidCallbackSignature) do
-      Phaxio.validate_callback_signature(
-        @callback_data.merge(signature: 'wrong'))
-    end
-  end
 end

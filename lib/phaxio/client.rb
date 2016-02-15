@@ -276,17 +276,6 @@ module Phaxio
       post(path, query: options.merge!({api_key: api_key, api_secret: api_secret}))
     end
 
-    # Public: Fail if the callback signature is not valid.
-    #
-    # Takes the same parameters as Phaxio.validate_callback_signature
-    #
-    # Raises Phaxio::InvalidCallbackSignature if valid_callback_signature
-    # returns false for the given options.
-    def validate_callback_signature(**options)
-      raise InvalidCallbackSignature unless valid_callback_signature?(**options)
-      true
-    end
-
     # Public: Check the signature of the signed request.
     #
     # options - Type: hash. Information needed to authenticate the callback.
