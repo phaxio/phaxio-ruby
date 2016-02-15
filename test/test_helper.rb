@@ -1,4 +1,5 @@
-$:<<(".")
+$LOAD_PATH << '.'
+
 require 'minitest/autorun'
 
 require 'mocha/mini_test'
@@ -6,8 +7,9 @@ require 'fakeweb'
 require 'lib/phaxio'
 
 Phaxio.config do |config|
-  config.api_key = "12345678910"
-  config.api_secret = "10987654321"
+  config.api_key = '12345678910'
+  config.api_secret = '10987654321'
+  config.callback_token = '1234567890'
 end
 
 FakeWeb.register_uri(:post, "https://api.phaxio.com/v1/send",

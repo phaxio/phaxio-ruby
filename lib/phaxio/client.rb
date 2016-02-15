@@ -3,10 +3,14 @@ module Phaxio
   base_uri 'https://api.phaxio.com/v1'
 
   module Config
-    attr_accessor :api_key, :api_secret
+    attr_accessor :api_key, :api_secret, :callback_token
   end
 
   module Client
+    DIGEST = OpenSSL::Digest.new('sha1')
+
+    class InvalidCallbackSignature < StandardError; end
+
     # Public: Send a fax.
     #
     # options - The Hash options used to refine the selection (default: {}):
@@ -271,15 +275,101 @@ module Phaxio
     def send_post(path, options)
       post(path, query: options.merge!({api_key: api_key, api_secret: api_secret}))
     end
+
+    # Public: Fail if the callback signature is not valid.
+    #
+    # Takes the same parameters as Phaxio.validate_callback_signature
+    #
+    # Raises Phaxio::InvalidCallbackSignature if valid_callback_signature
+    # returns false for the given options.
+    def validate_callback_signature(**options)
+      raise InvalidCallbackSignature unless valid_callback_signature?(**options)
+      true
+    end
+
+    # Public: Check the signature of the signed request.
+    #
+    # options - Type: hash. Information needed to authenticate the callback.
+    #   :url       - Type: string. The full URL that was called by Phaxio,
+    #                including the query. (required)
+    #   :params    - Type: hash. The POSTed form data (required)
+    #   :files     - Type: array. Submitted files (required - "received" fax
+    #                callback only)
+    #   :signature - Type: string. The X-Phaxio-Signature HTTP header value
+    #
+    # Returns true if the signature matches the signed request, otherwise false
+    def valid_callback_signature?(**options)
+      callback_signature = options.fetch(:signature)
+      check_signature = generate_check_signature(**options)
+      callback_signature == check_signature
+    end
+
+    # Public: Generate a signature using the request data and callback token
+    #
+    # options - Type: hash. Information needed to authenticate the callback.
+    #   :url       - Type: string. The full URL that was called by Phaxio,
+    #                including the query. (required)
+    #   :params    - Type: hash. The POSTed form data (required)
+    #   :files     - Type: array. Submitted files (required - "received" fax
+    #                callback only)
+    #
+    # Retuns a signature based on the request data and configured callback
+    # token, which can then be compared with the request signature.
+    def generate_check_signature(**options)
+      url = options.fetch(:url)
+      params_string = generate_params_string(options.fetch(:params))
+      file_string = generate_files_string(options.fetch(:files, []))
+      callback_data = "#{url}#{params_string}#{file_string}"
+      OpenSSL::HMAC.hexdigest(DIGEST, callback_token, callback_data)
+    end
+
+    private
+
+    def generate_params_string(params)
+      cleaned_params = sort_params(strip_params(params))
+      params_strings = cleaned_params.map { |key, value| "#{key}#{value}" }
+      params_strings.join
+    end
+
+    def generate_files_string(files)
+      return if files.nil?
+      files_array = files_to_array(files)
+      sorted_files = sort_files(files_array)
+      files_strings = sorted_files.map { |file| generate_file_string(file) }
+      files_strings.join
+    end
+
+    def strip_params(params)
+      params.reject { |key, _value| key.to_s == 'filename' }
+    end
+
+    def sort_params(params)
+      params.sort_by { |key, _value| key }
+    end
+
+    def files_to_array(files)
+      files.is_a?(Array) ? files : [files]
+    end
+
+    def sort_files(files)
+      files.sort_by { |file| file[:name] }
+    end
+
+    def generate_file_string(file)
+      file[:name] + DIGEST.hexdigest(file[:tempfile].read)
+    end
   end
 
-  # Public: Configure Phaxio with your api_key and api_secret
+  # Public: Configure Phaxio with your api_key, api_secret, and the callback
+  #         token provided in your Phaxio account (to verify that requests are
+  #         coming from Phaxio).
   #
   # Examples
   #
   #   Phaxio.config do |config|
-  #      config.api_key = "12345678910"
-  #      config.api_secret = "10987654321"
+  #      config.api_key = '12345678910'
+  #      config.api_secret = '10987654321'
+  #      config.callback_token = '32935829'
   #    end
   #
   # Returns nothing.
