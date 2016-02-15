@@ -1,0 +1,6 @@
+=== 0.4.2 2016-02-15
+
+ * Transferred repo from Gristmill to Phaxio.  Thanks guys!
+ * Support for all API operations
+ * Support for callback validation using X-Phaxio-Signature
+ * Sinatra example for handling callback requests

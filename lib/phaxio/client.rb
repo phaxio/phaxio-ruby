@@ -18,14 +18,8 @@ module Phaxio
     #                                        square brackets after parameter
     #                                        name to send to multiple
     #                                        recipients (e.g. to[]) (required).
-    #           :filename                  - The Binary Stream name of the file
-    #                                        you want to fax. This is optional
-    #                                        if you specify string_data. Must
-    #                                        have file name in the filename
-    #                                        field of the body-part header. Put
-    #                                        square brackets after parameter
-    #                                        name to send multiple files (e.g.
-    #                                        filename[]) (required).
+    #           :filename                  - A Ruby File of a document to fax
+    #                                        (supported file types: https://www.phaxio.com/faq#faq10)
     #           :string_data               - A String of html, plain text, or a
     #                                        URL. If additional files are
     #                                        specified as well, this data will
@@ -62,7 +56,7 @@ module Phaxio
     #
     # Examples
     #
-    #   Phaxio.send_fax(to: "0123456789", filename: "test.pdf")
+    #   Phaxio.send_fax(to: "0123456789", filename: File.new("docToSend.pdf"))
     #
     # Returns a HTTParty::Response object containing a success bool,
     # a String message, and an in faxID.
@@ -279,8 +273,7 @@ module Phaxio
     #           y           - Type: float. The y-coordinate (in PDF points*)
     #                         where the PhaxCode should be drawn. Y=0 is the
     #                         bottom-most point on the page. (required)
-    #           filename    - Type: binary stream. The PDF file to which you
-    #                         want to add the barcode. (required)
+    #           filename    - A Ruby File in PDF format (required)
     #           metadata    - Type: string. Custom metadata to be associated
     #                         with the created barcode. If not present, the
     #                         basic PhaxCode for your account will be used.
@@ -292,7 +285,7 @@ module Phaxio
     # Examples
     #
     #    Phaxio.attach_phaxcode_to_pdf(
-    #      x: "0", y: "100", filename: "path/to/test.pdf"
+    #      x: "0", y: "100", filename: File.new("input.pdf")
     #    )
     #
     # Response: A PDF file containing a PhaxCode at the location specified.
