@@ -1,6 +1,6 @@
 # Phaxio
 
-[![Build Status](https://travis-ci.org/gristmill/phaxio.svg)](https://travis-ci.org/gristmill/phaxio)
+[![Build Status](https://travis-ci.org/phaxio/phaxio-ruby.svg?branch=master)](https://travis-ci.org/phaxio/phaxio-ruby)
 
 A Ruby gem for interacting with the [Phaxio API]( https://www.phaxio.com/docs ).
 
