@@ -92,7 +92,7 @@ end: Time.now)`
 
       def callback_params
         params.select do |key, _value|
-          %w(success is_test direction fax metadata).include?(key)
+          %w(success is_test direction fax metadata message).include?(key)
         end
       end
     end
