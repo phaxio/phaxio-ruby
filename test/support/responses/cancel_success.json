@@ -1,4 +1,7 @@
 {
-    "success":true,
-    "message":"Fax canceled successfully."
+  "success":true,
+  "message":"Fax cancellation scheduled successfully.",
+  "data":{
+    "id":123456
+  }
 }
