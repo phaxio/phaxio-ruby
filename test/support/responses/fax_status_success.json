@@ -1,21 +1,35 @@
 {
-    "success":true,
-    "message":"Retrieved fax successfully",
-    "data":{
-        "id":123456,
-        "num_pages":3,
-        "cost":21,
-        "direction":"sent",
+  "success":true,
+  "message":"Metadata for fax",
+  "data":{
+    "id":123456,
+    "direction":"sent",
+    "num_pages":3,
+    "status":"success",
+    "is_test":true,
+    "created_at":"2015-09-02T11:28:02.000-05:00",
+    "from_number":null,
+    "completed_at":"2015-09-02T11:28:54.000-05:00",
+    "cost":21,
+    "tags":{
+      "order_id":"1234"
+    },
+    "recipients":[
+      {
+        "phone_number":"+14141234567",
         "status":"success",
-        "is_test":true,
-        "requested_at":1293910680,
-        "completed_at":1293911100,
-        "recipients":[
-{
-                "number":"4141234567",
-                "status":"success",
-                "completed_at":1293911100
-            }
-        ]
-    }
+        "retry_count":0,
+        "completed_at":"2015-09-02T11:28:54.000-05:00",
+        "bitrate":14400,
+        "resolution":8040,
+        "error_type":null,
+        "error_id":null,
+        "error_message":null
+      }
+    ],
+    "to_number":null,
+    "error_id":null,
+    "error_type":null,
+    "error_message":null
+  }
 }

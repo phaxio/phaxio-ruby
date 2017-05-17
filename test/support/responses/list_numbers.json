@@ -1,22 +1,31 @@
 {
-    "success":true,
-    "message":"Retrieved user phone numbers successfully",
-    "data":[
-{
-            "number":"8021112222",
-            "city":"Burlington",
-            "state":"Vermont",
-            "cost":200,
-            "last_billed_at":"2012-10-11 10:51:33",
-            "provisioned_at":"2012-10-11 10:51:33"
-        },
-{
-            "number":"8023334444",
-            "city":"Montpelier",
-            "state":"Vermont",
-            "cost":200,
-            "last_billed_at":"2012-10-11 10:51:33",
-            "provisioned_at":"2012-10-11 10:51:33"
-        }
-    ]
+  "success":true,
+  "message":"Retrieved user phone numbers successfully",
+  "data":[
+    {
+      "phone_number":"+18475551234",
+      "city":"Northbrook",
+      "state":"Illinois",
+      "country":"United States",
+      "cost":200,
+      "last_billed_at":"2016-05-10T11:38:15.000-05:00",
+      "provisioned_at":"2016-03-10T11:38:15.000-06:00",
+      "callback_url":null
+    },
+    {
+      "phone_number":"+18476661235",
+      "city":"Northbrook",
+      "state":"Illinois",
+      "country":"United States",
+      "cost":200,
+      "last_billed_at":"2016-05-10T11:38:16.000-05:00",
+      "provisioned_at":"2016-04-10T11:38:15.000-05:00",
+      "callback_url":null
+    }
+  ],
+  "paging":{
+    "total":2,
+    "per_page":25,
+    "page":1
+  }
 }

@@ -14,28 +14,27 @@ class TestPhaxio < MiniTest::Test
   end
 
   def test_send_fax
-    @response = Phaxio.send_fax(to: "0123456789", filename: "test.pdf")
+    @response = Phaxio.send_fax(to: "0123456789", file: "test.pdf")
     assert_equal true, @response["success"]
     assert_equal "Fax queued for sending", @response["message"]
-    assert_equal 1234, @response["faxId"]
+    assert_equal 1234, @response["data"]["id"]
   end
 
   def test_resend_fax
-    Phaxio.expects(:send_post).with('/resendFax', id: 1234)
+    Phaxio.expects(:send_post).with('/faxes/1234/resend', {})
     Phaxio.resend_fax(id: 1234)
   end
 
   def test_test_receive
-    @response = Phaxio.test_receive(filename: "test_file.pdf")
-    assert_equal true, @response["success"]
-    assert_equal "Test fax received from 234567890. Calling back now...", @response["message"]
+    Phaxio.expects(:send_post).with('/faxes', { to: "+18773346654", from: "+18773346654", file: "test_file.pdf", direction: "receive" })
+    Phaxio.test_receive(to: "+18773346654", from: "+18773346654", file: "test_file.pdf", direction: "receive")
   end
 
   def test_provision_number
-    @response = Phaxio.provision_number(area_code: 802)
+    @response = Phaxio.provision_number(country_code: 1, area_code: 847)
     assert_equal true, @response["success"]
     assert_equal "Number provisioned successfully!", @response["message"]
-    assert_equal "Vermont", @response["data"]["state"]
+    assert_equal "Illinois", @response["data"]["state"]
   end
 
   def test_release_number
@@ -45,35 +44,35 @@ class TestPhaxio < MiniTest::Test
   end
 
   def test_list_numbers
-    @response = Phaxio.list_numbers(area_code: 802)
+    @response = Phaxio.list_numbers(country_code: 1, area_code: 802)
     assert_equal true, @response["success"]
     assert_equal "Retrieved user phone numbers successfully", @response["message"]
   end
 
   def test_get_fax_file
-    @response_pdf = Phaxio.get_fax_file(id: 1234, type: p)
+    @response_pdf = Phaxio.get_fax_file(id: 1234)
     assert_equal 6725, @response_pdf.size
   end
 
   def test_list_faxes
-    @response = Phaxio.list_faxes(start: 1293861600, end: 1294034400)
+    @response = Phaxio.list_faxes(created_after: 1293861600, created_before: 1294034400)
     assert_equal true, @response["success"]
   end
 
   def test_get_fax_status
     @response = Phaxio.get_fax_status(id: 123456)
     assert_equal true, @response["success"]
-    assert_equal "Retrieved fax successfully", @response["message"]
+    assert_equal "Metadata for fax", @response["message"]
   end
 
   def test_cancel_fax
     @response = Phaxio.cancel_fax(id: 123456)
     assert_equal true, @response["success"]
-    assert_equal "Fax canceled successfully.", @response["message"]
+    assert_equal "Fax cancellation scheduled successfully.", @response["message"]
   end
 
   def test_delete_fax
-    Phaxio.expects(:send_post).with('/deleteFax', id: 1234)
+    Phaxio.expects(:send_delete).with('/faxes/1234', {})
     Phaxio.delete_fax(id: 1234)
   end
 
@@ -81,7 +80,7 @@ class TestPhaxio < MiniTest::Test
     @response = Phaxio.get_account_status
     assert_equal true, @response["success"]
     assert_equal "Account status retrieved successfully", @response["message"]
-    assert_equal 120, @response["data"]["faxes_sent_this_month"]
+    assert_equal 15, @response["data"]["faxes_this_month"]["sent"]
   end
 
   def test_generate_check_signature
@@ -96,31 +95,18 @@ class TestPhaxio < MiniTest::Test
       'wrong', *@callback_data)
   end
 
-  def test_attach_phax_code_to_pdf
-    Phaxio.expects(:send_post).with(
-      '/attachPhaxCodeToPdf',
-      x: 0, y: 100, filename: 'test.pdf'
-    )
-    Phaxio.attach_phaxcode_to_pdf(x: 0, y: 100, filename: 'test.pdf')
-  end
-
   def test_create_phaxcode
-    Phaxio.expects(:send_post).with('/createPhaxCode', {})
+    Phaxio.expects(:send_post).with('/phax_codes', {})
     Phaxio.create_phaxcode
   end
 
-  def test_get_hosted_document
-    Phaxio.expects(:send_post).with('/getHostedDocument', name: 'test_fax')
-    Phaxio.get_hosted_document(name: 'test_fax')
-  end
-
   def test_supported_countries
-    Phaxio.expects(:post).with('/supportedCountries')
+    Phaxio.expects(:get).with('/public/countries', query: {})
     Phaxio.supported_countries
   end
 
   def test_area_codes
-    Phaxio.expects(:post).with('/areaCodes', is_toll_free: true, state: 'IL')
-    Phaxio.area_codes(is_toll_free: true, state: 'IL')
+    Phaxio.expects(:get).with('/public/area_codes', query: { country_code: 1, state: 'IL' })
+    Phaxio.area_codes(country_code: 1, state: 'IL')
   end
 end

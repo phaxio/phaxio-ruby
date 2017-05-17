@@ -1,6 +1,6 @@
 module Phaxio
   include  HTTMultiParty
-  base_uri 'https://api.phaxio.com/v1'
+  base_uri 'https://api.phaxio.com/v2'
 
   module Config
     attr_accessor :api_key, :api_secret, :callback_token
@@ -18,28 +18,30 @@ module Phaxio
     #                                        square brackets after parameter
     #                                        name to send to multiple
     #                                        recipients (e.g. to[]) (required).
-    #           :filename                  - The Binary Stream name of the file
-    #                                        you want to fax. This is optional
-    #                                        if you specify string_data. Must
-    #                                        have file name in the filename
-    #                                        field of the body-part header. Put
-    #                                        square brackets after parameter
-    #                                        name to send multiple files (e.g.
-    #                                        filename[]) (required).
-    #           :string_data               - A String of html, plain text, or a
-    #                                        URL. If additional files are
-    #                                        specified as well, this data will
-    #                                        be included first in the fax
-    #                                        (optional).
-    #           :string_data_type          - An enum of the type of the string
-    #                                        data that can be 'html', 'url', or
-    #                                        'text'. If not specified, default
-    #                                        is 'text'. See string data
-    #                                        rendering for more info (optional).
-    #           :batch                     - The bool for running in batching
-    #                                        mode. If present and true, fax will
-    #                                        be sent in batching mode. Requires
-    #                                        batch_delay to be specified
+    #           :file                      - The file you wish to fax. A least
+    #                                        one file or content_url parameter
+    #                                        is required. Must have file name
+    #                                        in the file field of the body-part
+    #                                        header. Put square brackets after
+    #                                        parameter name to send multiple
+    #                                        files (e.g. file[])
+    #           :content_url               - A URL to be rendered and sent as
+    #                                        the fax content. At least one file
+    #                                        or content_url parameter is
+    #                                        required. Put square brackets
+    #                                        after parameter name to include
+    #                                        content from multiple URLs (e.g.
+    #                                        content_url[]). If the file param
+    #                                        is specified as well, content from
+    #                                        URLs will be rendered before
+    #                                        content from files (optional).
+    #           :header_text               - Text that will be displayed at the
+    #                                        top of each page of the fax. 50
+    #                                        characters maximum. Default header
+    #                                        text is "-". Note that the header
+    #                                        is not applied until the fax is
+    #                                        transmitted, so it will not appear
+    #                                        on fax PDFs or thumbnails
     #                                        (optional).
     #           :batch_delay               - The int the of amount of time, in
     #                                        seconds, before the batch is fired.
@@ -59,21 +61,42 @@ module Phaxio
     #                                        canceled if it hasn't yet
     #                                        completed. Must be between 1 and 60
     #                                        (optional).
+    #           :tag[TAG_NAME]             - A tag that contains metadata
+    #                                        relevant to your application.
+    #                                        (e.g. You may wish to tag a fax
+    #                                        with an order id in your
+    #                                        application. You could pass Phaxio
+    #                                        the following parameter:
+    #                                        tag[order_id]=1234). You may
+    #                                        specify up to 10 tags (optional).
+    #           :caller_id                 - A Phaxio phone number you would
+    #                                        like to use for the caller id
+    #                                        (optional).
+    #           :test_fail                 - When using a test API key, this
+    #                                        will simulate a sending failure at
+    #                                        Phaxio. The contents of this
+    #                                        parameter should be one of the
+    #                                        Phaxio error types which will
+    #                                        dictate how the fax will "fail"
+    #                                        (optional).
     #
     # Examples
     #
-    #   Phaxio.send_fax(to: "0123456789", filename: "test.pdf")
+    #   Phaxio.send_fax(to: "0123456789", file: "test.pdf")
     #
     # Returns a HTTParty::Response object containing a success bool,
     # a String message, and an in faxID.
     def send_fax(options)
-      send_post("/send", options)
+      send_post("/faxes", options)
     end
 
     # Public: Resend a fax.
     #
     # options - The Hash options used to refine the selection (default: {}):
-    #           :id - The int id of the fax you want to resend (required).
+    #           :id           - The int id of the fax you want to resend
+    #                           (required).
+    #           :callback_url - This parameter may be used to set a different
+    #                           callback URL for the new fax (optional).
     #
     # Examples
     #
@@ -82,33 +105,40 @@ module Phaxio
     # Returns a HTTParty::Response object containing a success bool,
     # a message string, and data containing the fax ID int.
     def resend_fax(options)
-      send_post("/resendFax", options)
+      raise ArgumentError, "You must include a fax id." if options[:id].nil?
+      id = options.delete(:id)
+      send_post("/faxes/#{id}/resend", options)
     end
 
     # Public: Test receiving a fax.
     #
     # options - The Hash options used to refine the selection (default: {}):
+    #           direction   - Set to "received" to receive test fax
+    #                         (required).
+    #           file        - A PDF file to simulate receiving (required).
     #           from_number - The Phone Number of the simulated sender
     #                         (optional).
     #           to_number   - The Phone Number receiving the fax (optional).
-    #           filename    - A String containing the name of the PDF that has
-    #                         a PhaxCode and is the file you want to simulate
-    #                         sending (required).
     #
     # Examples
     #
-    #   Phaxio.test_receive(filename: "test_file.pdf")
+    #   Phaxio.test_receive(direction: "received", file: "test_file.pdf")
     #
     # Returns a HTTParty::Response object containing a success bool
     # and a String message.
     def test_receive(options)
-      send_post("/testReceive", options)
+      if options[:direction].nil?
+        raise ArgumentError, "You must include a direction."
+      end
+      send_post("/faxes", options)
     end
 
     # Public: Provision a phone number that you can use to receive faxes in
     #         your Phaxio account.
     #
     # options - The Hash options used to refine the selection (default: {}):
+    #           country_code - The country code (E.164) of the number you'd
+    #                          like to provision (required).
     #           area_code    - The integer area code of the number you'd like
     #                          to provision (required).
     #           callback_url - A callback URL that Phaxio will post to when a
@@ -118,13 +148,13 @@ module Phaxio
     #
     # Examples
     #
-    #   Phaxio.provision_number(area_code: 802)
+    #   Phaxio.provision_number(country_code: 1, area_code: 802)
     #
     # Returns a HTTParty::Response object containing a success bool, a string
     # message, and data containing the phone number, city, state, cost,
     # last_billed_at, and the date the number was provisioned at.
     def provision_number(options)
-      send_post("/provisionNumber", options)
+      send_post("/phone_numbers", options)
     end
 
     # Public: Release a phone number that you no longer need. Once a phone
@@ -141,68 +171,89 @@ module Phaxio
     # Returns a HTTParty::Response object containing a success bool and a
     # string message.
     def release_number(options)
-      send_post("/releaseNumber", options)
+      if options[:number].nil?
+        raise ArgumentError, "You must include a fax number."
+      end
+      send_delete("/phone_numbers/#{options[:number]}")
     end
 
     # Public: Get a detailed list of the phone numbers you current own on
     #         Phaxio.
     #
     # options - The Hash options used to refne th selection (default: {}):
-    #           area_code - An integer area code you'd like to filter by
-    #                       (optional).
-    #           number    - A String phone number you'd like to retrieve
-    #                       (optional).
+    #           area_code    - An integer area code you'd like to filter by
+    #                          (optional).
+    #           country_code - A country code (E.164) you'd like to filter by.
+    #                          (optional).
     #
     # Examples
     #
     #   Phaxio.list_numbers # list all the numbers you own
     #
-    #   Phaxio.list_numbers(area_code: 802) # list all numbers in the 802 area
-    #
-    #   Phaxio.list_numbers(number: "8021112222") # show specific number detail
+    #   Phaxio.list_numbers(country_code: 1, area_code: 802) # list all numbers in the 802 area
     #
     # Returns a HTTParty::Reponse object containing a success bool, a message,
     # and the data attributes containing the queried phone number(s) details.
     def list_numbers(options = {})
-      send_post("/numberList", options)
+      send_get("/phone_numbers", options)
     end
 
     # Public: Get an image thumbnail or PDF file for a fax. For images to work
     #         file storage must not be disabled with Phaxio.
     #
     # options - The Hash options used to refine the selection (default: {}):
-    #           id   - The integer fax id of the fax you wish to retreive
-    #                  (required).
-    #           type - An enum for the type return, defaults to 'p' (optional):
-    #                  s - Small JPG format thumbnail of the fax, 129 x 167 px.
-    #                  l - Large JPG format thumbnail of the fax, 300 x 388 px.
-    #                  p - PDF version of the fax (default).
+    #           id        - The integer fax id of the fax you wish to retreive
+    #                       (required).
+    #           thumbnail - An enum for the type return, defaults to 'p' (optional):
+    #                       s - Small JPG format thumbnail of the fax, 129 x 167 px.
+    #                       l - Large JPG format thumbnail of the fax, 300 x 388 px.
     #
     # Examples
     #
-    #   Phaxio.get_fax_file(id: 1234, type: p)
-    #   Phaxio.get_fax_file(id: 3254, type: l)
+    #   Phaxio.get_fax_file(id: 1234)
+    #   Phaxio.get_fax_file(id: 3254, thumbnail: 'l')
     #
     # Returns the fax as the type specified in the call, defaults to PDF.
     def get_fax_file(options)
-      send_post("/faxFile", options)
+      raise ArgumentError, "You must include a fax id." if options[:id].nil?
+      id = options.delete(:id)
+      send_get("/faxes/#{id}/file", options)
     end
 
     # Public: List faxes within the specified time range.
     #
     # options - The Hash options used to refine the selection (default: {}):
-    #           start - The Unix Timestamp for the beginning of the range
-    #                   (required).
-    #           end   - The Unix Timestamp for the end of the range (required).
+    #           created_before - The end of the range. Must be in RFC 3339
+    #                            format, except that the timezone may be
+    #                            obmitted (e.g. '`2016-05-31T23:59:59`').
+    #                            Defaults to now (optional).
+    #           created_after  - The beginning of the range. Must be in RFC
+    #                            3339 format, except that the timezone may be
+    #                            obmitted (e.g. '`2016-05-01T00:00:00`').
+    #                            Defaults to one week ago (optional).
+    #           direction      - Either '`sent`' or '`received`'. Limits
+    #                            results to faxes with the specified
+    #                            direction (optional).
+    #           status         - Limits results to faxes with the specified
+    #                             status (optional).
+    #           phone_number   - A phone number in E.164 format that you want
+    #                            to use to filter results. The phone number
+    #                            must be an exact match, not a number fragment
+    #                            (optional).
+    #           tag[TAG_NAME]  - A tag name and value that you want to use to
+    #                            filter results. (e.g. You could pass a
+    #                            parameter called `tag[userId]` with value
+    #                            `123` to retrieve faxes for a user in your
+    #                            application that has ID 123.) (optional).
     #
     # Examples
     #
-    #   Phaxio.list_faxes(start: 1293861600, end: 1294034400)
+    #   Phaxio.list_faxes(created_before: 1293861600, created_after: 1294034400)
     #
     # Returns a HTTParty::Response object containing a success bool, a string
     # message, paging information, and the fax data.
     def list_faxes(options)
-      send_post("/faxList", options)
+      send_get("/faxes", options)
     end
 
     # Public: Get the status of a specific fax.
@@ -218,11 +269,10 @@ module Phaxio
     # Returns a HTTParty::Response object containing a success bool,
     # a String message, and the data of the fax.
     def get_fax_status(options)
-      if options[:id].nil?
-        raise StandardError, "You must include a fax id."
-      end
+      raise ArgumentError, "You must include a fax id." if options[:id].nil?
+      id = options.delete(:id)
 
-      send_post("/faxStatus", options)
+      send_get("/faxes/#{id}", options)
     end
 
     # Public: Cancel a specific fax.
@@ -237,7 +287,9 @@ module Phaxio
     # Returns a HTTParty::Response object containing a success bool
     # and a String message.
     def cancel_fax(options)
-      send_post("/faxCancel", options)
+      raise ArgumentError, "You must include a fax id." if options[:id].nil?
+      id = options.delete(:id)
+      send_post("/faxes/#{id}/cancel", options)
     end
 
     # Public: Delete a specific fax.
@@ -245,9 +297,6 @@ module Phaxio
     # options - The hash options used to refine the selection (defaults: {}):
     #           :id         - The int ID of the fax you want to cancel
     #                         (required).
-    #           :files_only - The bool used to determine whether only the files
-    #                         are deleted. If not specified, default is false
-    #                         (optional).
     #
     # Examples
     #
@@ -255,7 +304,9 @@ module Phaxio
     #
     # Returns a HTTParty::Response object with success bool and message string.
     def delete_fax(options)
-      send_post("/deleteFax", options)
+      raise ArgumentError, "You must include a fax id." if options[:id].nil?
+      id = options.delete(:id)
+      send_delete("/faxes/#{id}", options)
     end
 
     # Public: Get the status of Client's account.
@@ -267,45 +318,7 @@ module Phaxio
     # Returns a HTTParty::Response object with success, message, and data
     # (containing faxes_sent_this_month, faxes_sent_today, and balance).
     def get_account_status
-      send_post("/accountStatus", {})
-    end
-
-    # Public: Attach a PhaxCode to a PDF you provide.
-    #
-    # options - Type: hash. Options used to refine the action (default: {}):
-    #           x           - Type: float. The x-coordinate (in PDF points*)
-    #                         where the PhaxCode should be drawn. x=0 is at the
-    #                         left-most point on the page. (required)
-    #           y           - Type: float. The y-coordinate (in PDF points*)
-    #                         where the PhaxCode should be drawn. Y=0 is the
-    #                         bottom-most point on the page. (required)
-    #           filename    - Type: binary stream. The PDF file to which you
-    #                         want to add the barcode. (required)
-    #           metadata    - Type: string. Custom metadata to be associated
-    #                         with the created barcode. If not present, the
-    #                         basic PhaxCode for your account will be used.
-    #           page_number - Type: integer. The page where the PhaxCode should
-    #                         be drawn. 1-based.
-    #           *PDF points definition: A "point" is 1/72 of an inch. An
-    #              8.5"x11" document is therefore 612 pt x 792 pt.
-    #
-    # Examples
-    #
-    #    Phaxio.attach_phaxcode_to_pdf(
-    #      x: "0", y: "100", filename: "path/to/test.pdf"
-    #    )
-    #
-    # Response: A PDF file containing a PhaxCode at the location specified.
-    def attach_phaxcode_to_pdf(options)
-      if options[:filename].nil?
-        raise StandardError, 'You must include a PDF file.'
-      end
-
-      if options[:x] < 0 || options[:y] < 0
-        raise StandardError, 'Coordinates must be greater than or equal to 0.'
-      end
-
-      send_post('/attachPhaxCodeToPdf', options)
+      send_get("/account/status")
     end
 
     # Public: Create a custom PhaxCode.
@@ -314,9 +327,6 @@ module Phaxio
     #           metadata - Type: string. Custom metadata to be associated with
     #                      this barcode. If not present, the basic PhaxCode for
     #                      your account will be used. (optional)
-    #           redirect - Type: boolean. If present and true, the PhaxCode
-    #                      barcode image will be dumped in the response.
-    #                      (optional)
     #
     # Example:
     #   Phaxio.create_phaxcode(metadata: "sale_id=44")
@@ -326,34 +336,7 @@ module Phaxio
     #           attribute contains a url where the PhaxCode barcode image can be
     #           accessed. Otherwise, the image data is dumped in the response.
     def create_phaxcode(options = {})
-      send_post('/createPhaxCode', options)
-    end
-
-    # Public: Get a Hosted Document with PhaxCode included
-    #
-    # Note: You will have to set up the hosted document with Phaxio (along with
-    #       the relevant PhaxCode) before calling this method.
-    #
-    # options - Type: hash. Options used to refine the action (default: {}):
-    #           name     - Type: string. The name of a hosted document.
-    #                      (required)
-    #           metadata - Type: string. Custom metadata to be associated with
-    #                      the PhaxCode that will be attached to the hosted
-    #                      document. If not present, the basic PhaxCode for your
-    #                      account will be used.
-    #                      (optional)
-    #
-    # Example:
-    #   Phaxio.get_hosted_document(name:"business_fax")
-    #
-    # Response: A PDF copy of the hosted document with a PhaxCode included at
-    #           the pre-specified location.
-    def get_hosted_document(options)
-      if options[:name].nil?
-        raise StandardError, 'You must include the name of the hosted document.'
-      end
-
-      send_post('/getHostedDocument', options)
+      send_post('/phax_codes', options)
     end
 
     # Public: Get a list of supported countries for sending faxes
@@ -373,21 +356,33 @@ module Phaxio
     #   {
     #     "success": true,
     #     "message": "Data contains supported countries.",
-    #     "data": {
-    #       "United States": {
-    #         "price_per_page": 7
+    #     "data": [
+    #       {
+    #         "name": "United States",
+    #         "alpha2": "US",
+    #         "country_code": 1,
+    #         "price_per_page": 7,
+    #         "send_support": "full",
+    #         "receive_support": "full"
     #       },
-    #       "Canada": {
-    #         "price_per_page": 7
-    #       },
-    #       "United Kingdom": {
-    #         "price_per_page": 10
+    #       {
+    #         "name": "Canada",
+    #         "alpha2": "CA",
+    #         "country_code": 1,
+    #         "price_per_page": 7,
+    #         "send_support": "full",
+    #         "receive_support": "full"
     #       },
     #       ...
+    #     ],
+    #     "paging": {
+    #       "total": 47,
+    #       "per_page": 3,
+    #       "page": 1
     #     }
     #   }
-    def supported_countries
-      post('/supportedCountries')
+    def supported_countries(options = {})
+      get('/public/countries', query: options)
     end
 
     # Public: List area codes available for purchasing numbers
@@ -396,8 +391,13 @@ module Phaxio
     #       completion.
     #
     # options - Type: hash. Options used to refine the query (default: {}):
-    #           is_toll_free - Type: boolean. Will only return toll free area
+    #           toll_free    - Type: boolean. Will only return toll free area
     #                          codes. (optional)
+    #           country_code - Type: integer. A country code (E.164) you'd like
+    #                          to filter by. (optional)
+    #           country      - Type: string. A two character country
+    #                          abbreviation (ISO 3166; e.g. `US` or `CA`) you'd
+    #                          like to filter by. (optional)
     #           state        - Type: string. A two character state or province
     #                          abbreviation (e.g. IL or YT). Will only return
     #                          area codes for this state. (optional)
@@ -409,26 +409,50 @@ module Phaxio
     #   {
     #     "success": true,
     #     "message": "295 area codes available.",
-    #     "data": {
-    #       "201": {
+    #     "data": [
+    #       {
+    #         "country_code": 1,
+    #         "area_code": 201,
     #         "city": "Bayonne, Jersey City, Union City",
-    #         "state": "New Jersey"
+    #         "state": "New Jersey",
+    #         "country": "United States",
+    #         "toll_free": false
     #       },
-    #       "202": {
+    #       {
+    #         "country_code": 1,
+    #         "area_code": 202,
     #         "city": "Washington",
-    #         "state": "District Of Columbia"
+    #         "state": "District of Columbia",
+    #         "country": "United States",
+    #         "toll_free": false
     #       },
     #       ... a lot more area codes here...
+    #     ],
+    #     "paging": {
+    #       "total": 270,
+    #       "per_page": 3,
+    #       "page": 1
     #     }
     #   }
     def area_codes(options = {})
-      post('/areaCodes', options)
+      get('/public/area_codes', query: options)
     end
 
-    def send_post(path, options)
-      post(
-        path, query: options.merge!(api_key: api_key, api_secret: api_secret)
-      )
+    def send_get(path, options = {})
+      send_authenticated_request(:get, path, options)
+    end
+
+    def send_post(path, options = {})
+      send_authenticated_request(:post, path, options)
+    end
+
+    def send_delete(path, options = {})
+      send_authenticated_request(:delete, path, options)
+    end
+
+    def send_authenticated_request(method, path, options = {})
+      auth = { username: api_key, password: api_secret }
+      send(method, path, query: options, basic_auth: auth)
     end
 
     # Public: Check the signature of the signed request.
