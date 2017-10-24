@@ -4,9 +4,9 @@ require File.expand_path('../lib/phaxio/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Sean Behan", "Brett Chalupa"]
   gem.email         = ["inbox@seanbehan.com", "brettchalupa@gmail.com"]
-  gem.description   = %q{A Ruby Gem for interacting with Phaxio's JSON API. Currently, not all of the Phaxio API calls are supported. The essentials are in place and more will be coming with future versions of this gem.}
-  gem.summary       = %q{A Ruby Gem for interacting with Phaxio's JSON API}
-  gem.homepage      = "http://www.gristmill.io/posts/17-introducing-the-phaxio-gem-an-easy-way-to-use-phaxio-with-ruby"
+  gem.description   = %q{Official ruby gem for interacting with Phaxio's API.}
+  gem.summary       = %q{Official ruby gem for interacting with Phaxio's API.}
+  gem.homepage      = "https://github.com/phaxio/phaxio-ruby"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
@@ -15,11 +15,11 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Phaxio::VERSION
 
-  gem.add_runtime_dependency "httmultiparty"
+  gem.add_runtime_dependency 'httmultiparty'
 
   gem.add_development_dependency 'bundler'
   gem.add_development_dependency 'fakeweb', '~> 1.3'
   gem.add_development_dependency 'rake', '~> 10'
-  gem.add_development_dependency 'minitest', '~> 5'
-  gem.add_development_dependency 'mocha', '~> 1.1'
+  gem.add_development_dependency 'rspec', '~> 3.7'
+  gem.add_development_dependency 'pry'
 end
