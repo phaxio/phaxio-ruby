@@ -17,6 +17,4 @@ RSpec.describe Phaxio do
     subject.callback_token = 'test-callback-token'
     expect(subject.callback_token).to eq('test-callback-token')
   end
-
-  xit 'uses the configured api credentials when making a request'
 end

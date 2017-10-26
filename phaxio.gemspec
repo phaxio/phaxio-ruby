@@ -15,11 +15,13 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Phaxio::VERSION
 
-  gem.add_runtime_dependency 'httmultiparty'
+  gem.add_runtime_dependency 'rest-client', '>= 2.0'
 
   gem.add_development_dependency 'bundler'
-  gem.add_development_dependency 'fakeweb', '~> 1.3'
   gem.add_development_dependency 'rake', '~> 10'
   gem.add_development_dependency 'rspec', '~> 3.7'
+  gem.add_development_dependency 'vcr'
+  gem.add_development_dependency 'webmock'
   gem.add_development_dependency 'pry'
+  gem.add_development_dependency 'dotenv'
 end
