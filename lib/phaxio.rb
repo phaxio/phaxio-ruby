@@ -1,4 +1,5 @@
 require 'rest-client'
+require 'json'
 require 'phaxio/version'
 require 'phaxio/config'
 require 'phaxio/client'

@@ -104,3 +104,11 @@ end: Time.now)`
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## TODO
+
+1. Support overriding API key and API secret at the request level.
+2. Rewrite README for V2 updates
+3. Support old-school configuration (`Phaxio.configure do |config| ...`)
+4. Write Fax.create action
+5. Alias Fax.send to Fax.create
