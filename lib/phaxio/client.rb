@@ -6,10 +6,18 @@ module Phaxio
       def request method, endpoint, params = {}, options = {}
         url = api_url endpoint
         params = api_params params, options
-        RestClient.public_send method, url, params
+        send method, url, params
       end
 
       private
+
+      def post url, params = {}
+        RestClient.post url, params
+      end
+
+      def get url, params = {}
+        RestClient.get url, {params: params}
+      end
 
       def api_url endpoint
         raise "API endpoint can't begin with a slash" if endpoint.start_with?('/')

@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2/faxes/55315341/?api_key=<API_KEY>&api_secret=<API_SECRET>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin16.7.0 x86_64) ruby/2.2.8p477
+      Host:
+      - api.phaxio.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 26 Oct 2017 18:30:59 GMT
+      Etag:
+      - W/"2ad2541a97e6acc8827f31bca6c5b4cc"
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=15768000; preload
+      X-Request-Id:
+      - 1d72f9b0-5e10-4d51-aa88-9d5972e01379
+      X-Robots-Tag:
+      - noindex, nofollow, nosnippet, noarchive
+      X-Runtime:
+      - '0.042559'
+      Content-Length:
+      - '572'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Metadata for fax","data":{"id":55315341,"direction":"sent","num_pages":1,"status":"success","is_test":true,"created_at":"2017-10-26T13:09:42.000-05:00","caller_id":null,"from_number":null,"completed_at":"2017-10-26T13:09:45.000-05:00","cost":7,"tags":{},"recipients":[{"phone_number":"+12258675309","status":"success","retry_count":0,"completed_at":"2017-10-26T13:09:44.000-05:00","bitrate":14400,"resolution":7700,"error_type":null,"error_id":null,"error_message":null}],"to_number":null,"error_id":null,"error_type":null,"error_message":null}}'
+    http_version: 
+  recorded_at: Thu, 26 Oct 2017 18:30:59 GMT
+recorded_with: VCR 3.0.3
