@@ -107,7 +107,8 @@ end: Time.now)`
 
 ## TODO
 
-1. Support overriding API key and API secret at the request level.
-2. Rewrite README for V2 updates
-3. Support old-school configuration (`Phaxio.configure do |config| ...`)
-4. Implement response error handling as outlined in the Phaxio SDK Design Guidelines
+1. Rewrite README for V2 updates
+2. Support old-school configuration (`Phaxio.configure do |config| ...`)
+3. Implement response error handling as outlined in the Phaxio SDK Design Guidelines
+4. Move JSON parsing and success checking into client, add error handling around that, and only return data to the calling method
+5. Flesh out Fax Records and Fax References

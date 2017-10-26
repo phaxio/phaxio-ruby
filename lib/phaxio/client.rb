@@ -6,7 +6,10 @@ module Phaxio
       def request method, endpoint, params = {}, options = {}
         url = api_url endpoint
         params = api_params params, options
-        send method, url, params
+        response = send method, url, params
+        if response.code.to_s.start_with? '2'
+          JSON.parse(response.body)['data']
+        end
       end
 
       private

@@ -48,6 +48,10 @@ RSpec.describe Fax do
       action
     end
 
-    xit 'returns a fax'
+    it 'returns a fax' do
+      result = action
+      expect(result).to be_a(Fax)
+      expect(result.id).to eq(@fax_id)
+    end
   end
 end
