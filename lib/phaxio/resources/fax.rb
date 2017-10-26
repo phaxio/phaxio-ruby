@@ -14,12 +14,13 @@ module Phaxio
       class << self
         def create params = {}, options = {}
           response = Client.request :post, CREATE_FAX_ENDPOINT, params, options
-          return_reference response
+          get_response_reference response
         end
+        alias :send :create
 
         private
         
-        def return_reference response
+        def get_response_reference response
           Reference.new JSON.parse(response.body)['data']['id']
         end
       end

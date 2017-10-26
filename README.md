@@ -110,5 +110,4 @@ end: Time.now)`
 1. Support overriding API key and API secret at the request level.
 2. Rewrite README for V2 updates
 3. Support old-school configuration (`Phaxio.configure do |config| ...`)
-4. Write Fax.create action
-5. Alias Fax.send to Fax.create
+4. Implement response error handling as outlined in the Phaxio SDK Design Guidelines
