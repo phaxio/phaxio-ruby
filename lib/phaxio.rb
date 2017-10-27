@@ -1,8 +1,9 @@
-require 'rest-client'
+require 'faraday'
 require 'json'
 require 'phaxio/version'
 require 'phaxio/config'
 require 'phaxio/client'
+require 'phaxio/error'
 
 Dir[File.expand_path(File.join(['..', 'phaxio', 'resources', '*.rb']), __FILE__)].each do |file|
   require file

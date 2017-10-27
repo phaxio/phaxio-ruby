@@ -112,3 +112,4 @@ end: Time.now)`
 3. Implement response error handling as outlined in the Phaxio SDK Design Guidelines
 4. Move JSON parsing and success checking into client, add error handling around that, and only return data to the calling method
 5. Flesh out Fax Records and Fax References
+6. Document error handling (and Timeout::Error) in the README

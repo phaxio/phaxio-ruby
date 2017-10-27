@@ -4,27 +4,59 @@ module Phaxio
 
     class << self
       def request method, endpoint, params = {}, options = {}
-        url = api_url endpoint
         params = api_params params, options
-        response = send method, url, params
-        if response.code.to_s.start_with? '2'
-          JSON.parse(response.body)['data']
+        begin
+          response = case method.to_s
+                     when 'post' then post(endpoint, params)
+                     when 'get' then get(endpoint, params)
+                     else raise Error::ArgumentError, "HTTP method `#{method}` is not supported."
+                     end
+          handle_response response
+        rescue Faraday::ConnectionFailed, Faraday::TimeoutError, Faraday::SSLError => error
+          raise Error::ApiConnectionError, "Error communicating with Phaxio: #{error}"
         end
+      end
+
+      def conn
+        Faraday.new BASE_URL
       end
 
       private
 
-      def post url, params = {}
-        RestClient.post url, params
+      def handle_response response
+        # TODO: Handle JSON parse error
+        body = JSON.parse response.body
+
+        if response.success?
+          raise(Error::GeneralError, body['message']) unless body['success']
+
+          body['data']
+        else
+          status = response.status
+          # TODO: Handle blank message
+          message = body['message']
+
+          case status
+          when 401
+            raise Error::AuthenticationError, "#{status}: #{message}"
+          when 404
+            raise Error::NotFoundError, "#{status}: #{message}"
+          when 422
+            raise Error::InvalidRequestError, "#{status}: #{message}"
+          when 429
+            raise Error::RateLimitExceededError, "#{status}: #{message}"
+          else
+            raise Error::GeneralError, "#{status}: #{message}"
+          end
+        end
       end
 
-      def get url, params = {}
-        RestClient.get url, {params: params}
+      def post endpoint, params = {}
+        conn.post endpoint, params
       end
 
-      def api_url endpoint
-        raise "API endpoint can't begin with a slash" if endpoint.start_with?('/')
-        URI.join(BASE_URL, endpoint).to_s
+      def get endpoint, params = {}
+        conn.get endpoint, params
       end
 
       def api_params params, options
