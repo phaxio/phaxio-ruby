@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2/faxes/55405187/cancel
+    body:
+      encoding: UTF-8
+      string: api_key=<API_KEY>&api_secret=<API_SECRET>
+    headers:
+      User-Agent:
+      - Faraday v0.13.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Fri, 27 Oct 2017 19:41:31 GMT
+      etag:
+      - W/"5f351f3a724adbfc0b22effe1c96a1ad"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 806f7432-f21b-459d-90fd-2a4c823e654a
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      x-runtime:
+      - '0.026048'
+      content-length:
+      - '92'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Fax cancellation scheduled successfully.","data":{"id":55405187}}'
+    http_version: 
+  recorded_at: Fri, 27 Oct 2017 19:41:31 GMT
+recorded_with: VCR 3.0.3

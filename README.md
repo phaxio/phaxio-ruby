@@ -109,7 +109,7 @@ end: Time.now)`
 
 1. Rewrite README for V2 updates
 2. Support old-school configuration (`Phaxio.configure do |config| ...`)
-3. Implement response error handling as outlined in the Phaxio SDK Design Guidelines
-4. Move JSON parsing and success checking into client, add error handling around that, and only return data to the calling method
-5. Flesh out Fax Records and Fax References
-6. Document error handling (and Timeout::Error) in the README
+3. Flesh out Fax Records and Fax References
+4. Handle JSON parsing errors
+5. Document that specs for actions which are dependent upon others need to be tested in isolation if
+   testing against the API, and that sleeps may be needed to prevent timeouts.

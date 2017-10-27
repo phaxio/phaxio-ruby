@@ -1,7 +1,7 @@
 module Phaxio
   module Resources
     class Fax
-      FAXES_PATH = 'faxes/'.freeze
+      FAXES_PATH = 'faxes'.freeze
 
       class Reference
         attr_accessor :id
@@ -25,6 +25,11 @@ module Phaxio
         alias :retrieve :get
         alias :find :get
 
+        def cancel id, options = {}
+          response = Client.request :post, cancel_fax_endpoint(id), {}, options
+          response_reference response
+        end
+
         private
 
         def response_reference response
@@ -40,7 +45,11 @@ module Phaxio
         end
 
         def fax_endpoint id
-          "#{FAXES_PATH}#{id}/"
+          "#{FAXES_PATH}/#{id}"
+        end
+
+        def cancel_fax_endpoint id
+          "#{fax_endpoint(id)}/cancel"
         end
       end
 

@@ -18,7 +18,11 @@ module Phaxio
       end
 
       def conn
-        Faraday.new BASE_URL
+        Faraday.new(BASE_URL) do |conn|
+          conn.request :multipart
+          conn.request :url_encoded
+          conn.adapter :net_http
+        end
       end
 
       private
@@ -52,6 +56,13 @@ module Phaxio
       end
 
       def post endpoint, params = {}
+        params.each do |k, v|
+          # Convert file params to a Faraday::UploadIO object
+          # TODO: Support passing in the file path as a string
+          next unless k.to_s == 'file'
+          mime_type = File.mime_type? v # This does not return a boolean value
+          params[k] = Faraday::UploadIO.new(v, mime_type)
+        end
         conn.post endpoint, params
       end
 

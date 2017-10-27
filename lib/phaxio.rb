@@ -1,5 +1,7 @@
-require 'faraday'
+require 'yaml' # Needed by Mimetype Fu
 require 'json'
+require 'faraday'
+require 'mimetype_fu'
 require 'phaxio/version'
 require 'phaxio/config'
 require 'phaxio/client'
