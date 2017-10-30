@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2/faxes?api_key=<API_KEY>&api_secret=<API_SECRET>&created_before=2017-10-28T00%3A17%3A00%2B00%3A00
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.13.1
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Sat, 28 Oct 2017 05:28:53 GMT
+      etag:
+      - W/"d0c80dddb80306236010e57922a5cc8c"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-page:
+      - '1'
+      x-per-page:
+      - '25'
+      x-request-id:
+      - 23a8877d-4552-483e-9ab8-9bb2c4299b59
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      x-runtime:
+      - '0.094938'
+      x-total:
+      - '5'
+      content-length:
+      - '2355'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Retrieved faxes successfully","data":[{"id":55405223,"direction":"received","num_pages":1,"status":"success","is_test":false,"created_at":"2017-10-27T14:41:43.000-05:00","caller_id":null,"from_number":"+18084684020","completed_at":"2017-10-27T14:41:39.000-05:00","cost":7,"tags":{},"recipients":null,"to_number":"+15558675309","error_id":null,"error_type":null,"error_message":null},{"id":55405187,"direction":"sent","num_pages":1,"status":"failure","is_test":false,"created_at":"2017-10-27T14:41:11.000-05:00","caller_id":null,"from_number":null,"completed_at":"2017-10-27T14:41:31.000-05:00","cost":0,"tags":{},"recipients":[{"phone_number":"+15558675309","status":"failure","retry_count":0,"completed_at":"2017-10-27T14:41:31.000-05:00","bitrate":null,"resolution":null,"error_type":"faxError","error_id":75,"error_message":"Manually
+        canceled by user"}],"to_number":null,"error_id":75,"error_type":"faxError","error_message":"Manually
+        canceled by user"},{"id":55404381,"direction":"sent","num_pages":0,"status":"failure","is_test":false,"created_at":"2017-10-27T14:32:35.000-05:00","caller_id":null,"from_number":null,"completed_at":"2017-10-27T14:32:37.000-05:00","cost":0,"tags":{},"recipients":[{"phone_number":"+15558675309","status":"failure","retry_count":0,"completed_at":"2017-10-27T14:32:37.000-05:00","bitrate":null,"resolution":null,"error_type":"faxError","error_id":75,"error_message":"Manually
+        canceled by user"}],"to_number":null,"error_id":75,"error_type":"faxError","error_message":"Manually
+        canceled by user"},{"id":55215476,"direction":"received","num_pages":0,"status":"failure","is_test":false,"created_at":"2017-10-25T11:56:45.000-05:00","caller_id":null,"from_number":"+15042737598","completed_at":"2017-10-25T11:56:44.000-05:00","cost":0,"tags":{},"recipients":null,"to_number":"+15558675309","error_id":11,"error_type":"lineError","error_message":"The
+        call dropped prematurely"},{"id":55165738,"direction":"received","num_pages":0,"status":"failure","is_test":false,"created_at":"2017-10-24T18:39:03.000-05:00","caller_id":null,"from_number":"+12056448766","completed_at":"2017-10-24T18:39:03.000-05:00","cost":0,"tags":{},"recipients":null,"to_number":"+15558675309","error_id":11,"error_type":"lineError","error_message":"The
+        call dropped prematurely"}],"paging":{"total":5,"per_page":25,"page":1}}'
+    http_version: 
+  recorded_at: Sat, 28 Oct 2017 05:28:53 GMT
+recorded_with: VCR 3.0.3

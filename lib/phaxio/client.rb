@@ -56,6 +56,7 @@ module Phaxio
       end
 
       def post endpoint, params = {}
+        # Handle file params
         params.each do |k, v|
           # Convert file params to a Faraday::UploadIO object
           # TODO: Support passing in the file path as a string
@@ -63,6 +64,7 @@ module Phaxio
           mime_type = File.mime_type? v # This does not return a boolean value
           params[k] = Faraday::UploadIO.new(v, mime_type)
         end
+
         conn.post endpoint, params
       end
 
@@ -71,7 +73,15 @@ module Phaxio
       end
 
       def api_params params, options
-        params.merge(default_params).merge(options)
+        params = params.merge(default_params).merge(options)
+
+        # Convert times to ISO 8601
+        params.each do |k, v|
+          next unless v.kind_of?(Time) || v.kind_of?(Date)
+          params[k] = v.to_datetime.iso8601
+        end
+
+        params
       end
 
       def default_params

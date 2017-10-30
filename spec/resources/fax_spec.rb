@@ -84,4 +84,49 @@ RSpec.describe Fax do
       expect(result.id).to eq(@fax_id)
     end
   end
+
+  # TODO: Filter out phone numbers
+  describe 'listing faxes' do
+    let(:action) { Fax.list({created_before: time}) }
+    let(:time) { Time.new 2017, 10, 28, 0, 17, 0, 0 }
+
+    around do |example|
+      VCR.use_cassette('resources/fax/list') do
+        example.run
+      end
+    end
+
+    it 'sends the request to phaxio' do
+      expect_api_request :get, 'faxes', {created_before: time}, {}
+      action
+    end
+
+    it 'returns a collection of faxes' do
+      result = action
+      expect(result).to be_a(Fax::Collection)
+    end
+  end
+
+  describe 'resending a fax' do
+    let(:action) { Fax.resend fax_id, options }
+    let(:fax_id) { 1234 }
+    let(:options) { {} }
+
+    around do |example|
+      VCR.use_cassette('resources/fax/resend') do
+        example.run
+      end
+    end
+
+    it 'sends the request to phaxio' do
+      expect_api_request :post, "faxes/#{fax_id}/resend", {}, {}
+      action
+    end
+
+    it 'returns a reference to a new fax' do
+      result = action
+      expect(result).to be_a(Fax::Reference)
+      expect(result.id).to_not eq(fax_id)
+    end
+  end
 end

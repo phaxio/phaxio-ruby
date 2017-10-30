@@ -11,7 +11,20 @@ module Phaxio
         end
       end
 
+      class Collection
+        attr_accessor :raw_data
+
+        def initialize raw_data
+          self.raw_data = raw_data
+        end
+      end
+
       class << self
+        def list params = {}, options = {}
+          response = Client.request :get, faxes_endpoint, params, options
+          response_collection response
+        end
+
         def create params = {}, options = {}
           response = Client.request :post, faxes_endpoint, params, options
           response_reference response
@@ -30,6 +43,11 @@ module Phaxio
           response_reference response
         end
 
+        def resend id, options = {}
+          response = Client.request :post, resend_fax_endpoint(id), {}, options
+          response_reference response
+        end
+
         private
 
         def response_reference response
@@ -38,6 +56,10 @@ module Phaxio
 
         def response_record response
           Fax.new response
+        end
+
+        def response_collection response
+          Fax::Collection.new response
         end
 
         def faxes_endpoint
@@ -50,6 +72,10 @@ module Phaxio
 
         def cancel_fax_endpoint id
           "#{fax_endpoint(id)}/cancel"
+        end
+
+        def resend_fax_endpoint id
+          "#{fax_endpoint(id)}/resend"
         end
       end
 
