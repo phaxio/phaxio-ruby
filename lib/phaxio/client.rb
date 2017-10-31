@@ -9,7 +9,8 @@ module Phaxio
           response = case method.to_s
                      when 'post' then post(endpoint, params)
                      when 'get' then get(endpoint, params)
-                     else raise Error::ArgumentError, "HTTP method `#{method}` is not supported."
+                     when 'delete' then delete(endpoint, params)
+                     else raise ArgumentError, "HTTP method `#{method}` is not supported."
                      end
           handle_response response
         rescue Faraday::ConnectionFailed, Faraday::TimeoutError, Faraday::SSLError => error
@@ -70,6 +71,10 @@ module Phaxio
 
       def get endpoint, params = {}
         conn.get endpoint, params
+      end
+
+      def delete endpoint, params = {}
+        conn.delete endpoint, params
       end
 
       def api_params params, options
