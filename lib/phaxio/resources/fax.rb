@@ -1,6 +1,6 @@
 module Phaxio
   module Resources
-    class Fax
+    class Fax < Resource
       FAXES_PATH = 'faxes'.freeze
 
       class Reference
@@ -8,14 +8,6 @@ module Phaxio
 
         def initialize id
           self.id = id
-        end
-      end
-
-      class Collection
-        attr_accessor :raw_data
-
-        def initialize raw_data
-          self.raw_data = raw_data
         end
       end
 
@@ -52,14 +44,6 @@ module Phaxio
 
         def response_reference response
           Reference.new response['id']
-        end
-
-        def response_record response
-          Fax.new response
-        end
-
-        def response_collection response
-          Fax::Collection.new response
         end
 
         def faxes_endpoint
