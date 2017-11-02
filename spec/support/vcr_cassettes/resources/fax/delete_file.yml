@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://api.phaxio.com/v2/faxes/1234/file?api_key=<API_KEY>&api_secret=<API_SECRET>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.13.1
+  response:
+    status:
+      code: 200
+      message:
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 02 Nov 2017 18:34:09 GMT
+      etag:
+      - W/"0174669af39608b5375cab2e554fd1d2"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 8241777d-8d0b-40ce-9bcc-2e3a8face72c
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      x-runtime:
+      - '0.912952'
+      content-length:
+      - '56'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Deleted files successfully!"}'
+    http_version:
+  recorded_at: Thu, 02 Nov 2017 18:34:10 GMT
+recorded_with: VCR 3.0.3

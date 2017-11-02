@@ -151,4 +151,26 @@ RSpec.describe Fax do
       expect(result).to eq(true)
     end
   end
+
+  describe 'deleting a fax file' do
+    let(:action) { Fax.delete_file fax_id, options }
+    let(:fax_id) { 1234 }
+    let(:options) { {} }
+
+    around do |example|
+      VCR.use_cassette('resources/fax/delete_file') do
+        example.run
+      end
+    end
+
+    it 'makes the request to Phaxio' do
+      expect_api_request :delete, "faxes/#{fax_id}/file", {}, options
+      action
+    end
+
+    it 'returns true' do
+      result = action
+      expect(result).to eq(true)
+    end
+  end
 end

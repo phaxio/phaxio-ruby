@@ -46,6 +46,11 @@ module Phaxio
           true
         end
 
+        def delete_file id, options = {}
+          Client.request :delete, fax_file_endpoint(id), {}, options
+          true
+        end
+
         private
 
         def response_reference response
@@ -58,6 +63,10 @@ module Phaxio
 
         def fax_endpoint id
           "#{FAXES_PATH}/#{id}"
+        end
+
+        def fax_file_endpoint id
+          "#{fax_endpoint(id)}/file"
         end
 
         def cancel_fax_endpoint id
