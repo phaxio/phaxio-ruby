@@ -35,22 +35,41 @@ To send a fax:
 
 ### Currently Supported API Calls
 
-* send_fax - `Phaxio.send_fax(to: "0123456789", filename: File.new("test.pdf"))`
-* resend_fax - `Phaxio.resend_fax(id: 1234)`
-* test_receive - `Phaxio.test_receive(filename: "test_file.pdf")`
-* provision_number - `Phaxio.provision_number(area_code: 802)`
-* release_number - `Phaxio.release_number(number: "8021112222")`
-* list_numbers - `Phaxio.list_numbers(area_code: 802)`
-* get_fax_file - `Phaxio.get_fax_file(id: 123456, type: p)`
-* list_faxes - `Phaxio.list_numbers(area_code: 802)`
-* list_faxes - `Phaxio.list_faxes(start: Time.now - 48000,
-end: Time.now)`
-* get_fax_status - `Phaxio.get_fax_status(id: 123456)`
-* cancel_fax - `Phaxio.cancel_fax(id: 123456)`
-* delete_fax - `Phaxio.delete_fax(id: 1234, files_only: true)`
-* get_account_status - `Phaxio.get_account_status`
+**TODO: Add examples**
+
+#### Faxes
+
+* `create` - Create and send a fax
+* `list` - List faxes in date range
+* `get` - Get fax info
+* `cancel` - Cancel a fax
+* `resend` - Resend a fax
+* `delete` - **PENDING** Delete fax
+* `delete_file` - **PENDING** Delete fax file
+* `file` - **PENDING** Get fax content file or thumbnail
+* `test_receive` - **PENDING** Test receiving a fax
+* `supported_countries` - **PENDING** Get a list of supported countries
+
+#### Phone Numbers
+
+* `create` - Provision a phone number
+* `list` - List numbers
+* `get` - Get number info
+* `delete` - Release a number
+* `list_available_area_codes` - List area codes available for purchasing numbers
+
+#### PhaxCodes
+
+* `create` - **PENDING** Create PhaxCode
+* `get` - **PENDING** Retrieve PhaxCode
+
+#### Account
+
+* `get` - Get account status
 
 ### Example
+
+**TODO: Revise for v2**
 
     require 'phaxio'
 
@@ -69,6 +88,8 @@ end: Time.now)`
     end
 
 ## Callback Validation Example with Sinatra
+
+**TODO: Revise for v2**
 
     require 'sinatra/base'
     require 'phaxio'
@@ -109,7 +130,11 @@ end: Time.now)`
 
 1. Rewrite README for V2 updates
 2. Support old-school configuration (`Phaxio.configure do |config| ...`)
-3. Flesh out Fax Records and Fax References
+3. Flesh out Records, References, and Collections
 4. Handle JSON parsing errors
 5. Document that specs for actions which are dependent upon others need to be tested in isolation if
    testing against the API, and that sleeps may be needed to prevent timeouts.
+6. Find a better way to generate API responses for tests
+7. Implement Fax test_receive, get_fax_file (find_fax_file, retrieve_fax_file), and delete (destroy)
+8. Implement PhaxCode create and get (find, retrieve)
+9. Implement Callback validate_signature and valid_signature?
