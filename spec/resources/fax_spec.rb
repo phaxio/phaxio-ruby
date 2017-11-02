@@ -118,7 +118,7 @@ RSpec.describe Fax do
       end
     end
 
-    it 'sends the request to phaxio' do
+    it 'makes the request to Phaxio' do
       expect_api_request :post, "faxes/#{fax_id}/resend", {}, {}
       action
     end
@@ -127,6 +127,28 @@ RSpec.describe Fax do
       result = action
       expect(result).to be_a(Fax::Reference)
       expect(result.id).to_not eq(fax_id)
+    end
+  end
+
+  describe 'deleting a fax' do
+    let(:action) { Fax.delete fax_id, options }
+    let(:fax_id) { 1234 }
+    let(:options) { {} }
+
+    around do |example|
+      VCR.use_cassette('resources/fax/delete') do
+        example.run
+      end
+    end
+
+    it 'makes the request to Phaxio' do
+      expect_api_request :delete, "faxes/#{fax_id}", {}, options
+      action
+    end
+
+    it 'returns true' do
+      result = action
+      expect(result).to eq(true)
     end
   end
 end

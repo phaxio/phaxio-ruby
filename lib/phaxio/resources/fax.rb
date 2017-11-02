@@ -41,6 +41,11 @@ module Phaxio
           response_reference response
         end
 
+        def delete id, options = {}
+          Client.request :delete, fax_endpoint(id), {}, options
+          true
+        end
+
         private
 
         def response_reference response

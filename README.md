@@ -44,7 +44,7 @@ To send a fax:
 * `get` - Get fax info
 * `cancel` - Cancel a fax
 * `resend` - Resend a fax
-* `delete` - **PENDING** Delete fax
+* `delete` - Delete fax
 * `delete_file` - **PENDING** Delete fax file
 * `file` - **PENDING** Get fax content file or thumbnail
 * `test_receive` - **PENDING** Test receiving a fax

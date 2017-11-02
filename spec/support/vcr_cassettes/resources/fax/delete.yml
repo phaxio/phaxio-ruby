@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://api.phaxio.com/v2/faxes/1234?api_key=<API_KEY>&api_secret=<API_SECRET>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.13.1
+  response:
+    status:
+      code: 200
+      message:
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 02 Nov 2017 18:25:41 GMT
+      etag:
+      - W/"a7c920925a06bffb5bf9adc15cbbc926"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - f59a3530-6286-466a-9f4c-46179147224d
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      x-runtime:
+      - '0.697814'
+      content-length:
+      - '54'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Deleted fax successfully!"}'
+    http_version:
+  recorded_at: Thu, 02 Nov 2017 18:25:42 GMT
+recorded_with: VCR 3.0.3
