@@ -2,6 +2,7 @@ module Phaxio
   module Resources
     class Fax < Resource
       FAXES_PATH = 'faxes'.freeze
+      private_constant :FAXES_PATH
 
       class Reference
         attr_accessor :id
