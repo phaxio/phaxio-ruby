@@ -45,8 +45,13 @@ module Phaxio
       private
 
       def handle_response response
-        # TODO: Handle JSON parse error
-        body = JSON.parse response.body
+        content_type = response.headers[:content_type]
+
+        if content_type.start_with? 'application/json'
+          body = JSON.parse response.body
+        else
+          body = {'success' => response.success?, 'data' => StringIO.new(response.body)}
+        end
 
         if response.success?
           raise(Error::GeneralError, body['message']) unless body['success']
@@ -78,8 +83,8 @@ module Phaxio
           # Convert file params to a Faraday::UploadIO object
           # TODO: Support passing in the file path as a string
           next unless k.to_s == 'file'
-          mime_type = File.mime_type? v # This does not return a boolean value
-          params[k] = Faraday::UploadIO.new(v, mime_type)
+          mime_type = MimeTypeHelper.mimetype_for_file v.path
+          params[k] = Faraday::UploadIO.new v, mime_type
         end
 
         conn.post endpoint, params

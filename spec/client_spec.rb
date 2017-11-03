@@ -14,6 +14,7 @@ RSpec.describe Phaxio::Client do
       Faraday::Response,
       status: status_code,
       success?: success,
+      headers: {content_type: 'application/json'},
       body: %Q({"success": #{success}, "message": "#{message}", "data": {"foo": "bar"}})
     )
   end
@@ -119,6 +120,7 @@ RSpec.describe Phaxio::Client do
           Faraday::Response,
           status: 200,
           success?: true,
+          headers: {content_type: 'application/json'},
           body: '{"success": false, "message": "Something bad happened.", "data": {"foo": "bar"}}'
         )
       end

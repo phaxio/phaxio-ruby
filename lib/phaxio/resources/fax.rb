@@ -51,6 +51,10 @@ module Phaxio
           true
         end
 
+        def file id, options = {}
+          Client.request :get, fax_file_endpoint(id), {}, options
+        end
+
         private
 
         def response_reference response

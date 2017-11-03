@@ -1,7 +1,8 @@
 require 'yaml' # Needed by Mimetype Fu
 require 'json'
+require 'tempfile'
 require 'faraday'
-require 'mimetype_fu'
+require 'mime/types/full'
 require 'phaxio/version'
 require 'phaxio/config'
 require 'phaxio/client'
@@ -9,7 +10,11 @@ require 'phaxio/error'
 require 'phaxio/resource'
 require 'phaxio/resources'
 
-Dir[File.expand_path(File.join(['..', 'phaxio', 'resources', '*.rb']), __FILE__)].each do |file|
+Dir[File.expand_path(File.join('..', 'phaxio', 'helpers', '*.rb'), __FILE__)].each do |file|
+  require file
+end
+
+Dir[File.expand_path(File.join('..', 'phaxio', 'resources', '*.rb'), __FILE__)].each do |file|
   require file
 end
 

@@ -16,5 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = Phaxio::VERSION
 
   gem.add_dependency 'faraday', '~> 0.10'
-  gem.add_dependency 'mimetype-fu', '~> 0.1.0'
+  gem.add_dependency 'mime-types', '~> 3.0'
 end
