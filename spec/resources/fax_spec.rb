@@ -195,4 +195,26 @@ RSpec.describe Fax do
       expect(result).to be_a(File)
     end
   end
+
+  describe 'receiving a test fax' do
+    let(:action) { Fax.test_receive params, options }
+    let(:params) { {file: test_file} }
+    let(:options) { {} }
+
+    around do |example|
+      VCR.use_cassette('resources/fax/test_receive') do
+        example.run
+      end
+    end
+
+    it 'makes the request to Phaxio' do
+      expect_api_request :post, 'faxes', {file: test_file, direction: 'received'}, options
+      action
+    end
+
+    it 'returns true' do
+      result = action
+      expect(result).to eq(true)
+    end
+  end
 end

@@ -55,6 +55,11 @@ module Phaxio
           Client.request :get, fax_file_endpoint(id), {}, options
         end
 
+        def test_receive params = {}, options = {}
+          Client.request :post, faxes_endpoint, test_receive_params(params), options
+          true
+        end
+
         private
 
         def response_reference response
@@ -79,6 +84,10 @@ module Phaxio
 
         def resend_fax_endpoint id
           "#{fax_endpoint(id)}/resend"
+        end
+
+        def test_receive_params params
+          {direction: 'received'}.merge(params)
         end
       end
 
