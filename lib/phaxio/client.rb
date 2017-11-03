@@ -50,7 +50,13 @@ module Phaxio
         if content_type.start_with? 'application/json'
           body = JSON.parse response.body
         else
-          body = {'success' => response.success?, 'data' => StringIO.new(response.body)}
+          extension = MimeTypeHelper.extension_for_mimetype content_type
+          filename = File.join(
+            Dir.tmpdir,
+            Dir::Tmpname.make_tmpname('phaxio-', "download.#{extension}")
+          )
+          File.open(filename, 'wb') { |file| file.write response.body }
+          body = {'success' => response.success?, 'data' => File.open(filename, 'rb')}
         end
 
         if response.success?
@@ -80,7 +86,6 @@ module Phaxio
       def post endpoint, params = {}
         # Handle file params
         params.each do |k, v|
-          # Convert file params to a Faraday::UploadIO object
           # TODO: Support passing in the file path as a string
           next unless k.to_s == 'file'
           mime_type = MimeTypeHelper.mimetype_for_file v.path

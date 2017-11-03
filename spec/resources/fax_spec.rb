@@ -173,4 +173,26 @@ RSpec.describe Fax do
       expect(result).to eq(true)
     end
   end
+
+  describe 'downloading a fax file' do
+    let(:action) { Fax.file fax_id, options }
+    let(:fax_id) { 1234 }
+    let(:options) { {} }
+
+    around do |example|
+      VCR.use_cassette('resources/fax/file') do
+        example.run
+      end
+    end
+
+    it 'makes the request to phaxio' do
+      expect_api_request :get, "faxes/#{fax_id}/file", {}, options
+      action
+    end
+
+    it 'returns a file' do
+      result = action
+      expect(result).to be_a(File)
+    end
+  end
 end
