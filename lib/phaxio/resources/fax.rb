@@ -2,7 +2,8 @@ module Phaxio
   module Resources
     class Fax < Resource
       FAXES_PATH = 'faxes'.freeze
-      private_constant :FAXES_PATH
+      SUPPORTED_COUNTRIES_PATH = 'public/countries'.freeze
+      private_constant :FAXES_PATH, :SUPPORTED_COUNTRIES_PATH
 
       class Reference
         attr_accessor :id
@@ -60,6 +61,11 @@ module Phaxio
           true
         end
 
+        def supported_countries params = {}, options = {}
+          response = Client.request :get, supported_countries_endpoint, params, options
+          response_collection response
+        end
+
         private
 
         def response_reference response
@@ -84,6 +90,10 @@ module Phaxio
 
         def resend_fax_endpoint id
           "#{fax_endpoint(id)}/resend"
+        end
+
+        def supported_countries_endpoint
+          SUPPORTED_COUNTRIES_PATH
         end
 
         def test_receive_params params

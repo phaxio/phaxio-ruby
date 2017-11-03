@@ -217,4 +217,26 @@ RSpec.describe Fax do
       expect(result).to eq(true)
     end
   end
+
+  describe 'getting a list of supported countries' do
+    let(:action) { Fax.supported_countries }
+    let(:params) { {} }
+    let(:options) { {} }
+
+    around do |example|
+      VCR.use_cassette('resources/fax/supported_countries') do
+        example.run
+      end
+    end
+
+    it 'makes the request to Phaxio' do
+      expect_api_request :get, 'public/countries', params, options
+      action
+    end
+
+    it 'returns a collection of supported country resources' do
+      result = action
+      expect(result).to be_a(Phaxio::Resource::Collection)
+    end
+  end
 end
