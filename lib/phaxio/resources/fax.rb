@@ -99,7 +99,7 @@ module Phaxio
 
         def supported_countries params = {}, options = {}
           response = Client.request :get, supported_countries_endpoint, params, options
-          response_collection response
+          Country.response_collection response
         end
 
         private

@@ -128,7 +128,6 @@ To send a fax:
 
 ## TODO
 
-1. Flesh out Collections.
-2. Add documentation for existing code.
-3. Rewrite README for v2 updates.
-4. Refactor.
+1. Add documentation for existing code.
+2. Rewrite README for v2 updates.
+3. Refactor.

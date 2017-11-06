@@ -52,7 +52,7 @@ module Phaxio
       # @param raw_data [Array] The raw response data from Phaxio.
       # @return [Phaxio::Resource::Collection] A collection of Phaxio::Resource instances.
       def response_collection raw_data
-        Collection.new raw_data
+        Collection.new raw_data, self
       end
 
       # @api private
@@ -125,15 +125,26 @@ module Phaxio
     end
 
     class Collection
+      include Enumerable
+
       # The raw response data
-      attr_accessor :raw_data
+      attr_accessor :raw_data, :collection
 
       # Returns a new collection of resource instances for this data. Generally this is not called
       # directly.
       #
       # @see Phaxio::Resource.response_collection
-      def initialize raw_data
+      def initialize raw_data, resource
         self.raw_data = raw_data
+        self.collection = raw_data.map { |record_data| resource.response_record record_data }
+      end
+
+      def [] idx
+        collection[idx]
+      end
+
+      def each(&block)
+        collection.each(&block)
       end
     end
   end
