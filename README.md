@@ -128,13 +128,7 @@ To send a fax:
 
 ## TODO
 
-1. Rewrite README for V2 updates
-2. Support old-school configuration (`Phaxio.configure do |config| ...`)
-3. Flesh out Records, References, and Collections
-4. Handle JSON parsing errors
-5. Document that specs for actions which are dependent upon others need to be tested in isolation if
-   testing against the API, and that sleeps may be needed to prevent timeouts.
-6. Find a better way to generate API responses for tests
-7. Implement Fax test_receive, get_fax_file (find_fax_file, retrieve_fax_file), and delete (destroy)
-8. Implement PhaxCode create and get (find, retrieve)
-9. Implement Callback validate_signature and valid_signature?
+1. Flesh out Records, References, and Collections.
+2. Add documentation for existing code.
+3. Rewrite README for v2 updates.
+4. Refactor.
