@@ -146,6 +146,14 @@ module Phaxio
       def each(&block)
         collection.each(&block)
       end
+
+      def length
+        collection.length
+      end
+
+      def size
+        length
+      end
     end
   end
 end

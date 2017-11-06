@@ -1,91 +1,255 @@
-# Phaxio
+# 📠 Phaxio
 
 [![Build Status](https://travis-ci.org/phaxio/phaxio-ruby.svg?branch=master)](https://travis-ci.org/phaxio/phaxio-ruby)
 
-A Ruby gem for interacting with the [Phaxio API]( https://www.phaxio.com/docs ).
-
-**Note: This gem only runs on Ruby version 1.9.+**
+A Ruby gem for interacting with the [Phaxio API](https://www.phaxio.com/docs/api/v2).
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add to your application's Gemfile:
 
-    gem 'phaxio'
+``` ruby
+gem 'phaxio', '2.1.0.0.beta1'
+```
 
 And then execute:
 
-    $ bundle
+``` sh
+$ bundle install
+```
 
 Or install it yourself as:
 
-    $ gem install phaxio
+``` sh
+$ gem install phaxio
+```
 
 ## Usage
 
-Configure Phaxio with your api_key and api_secret:
+Set up your API Key, API Secret, and, optionally, Callback Token.
 
-    Phaxio.config do |config|
-      config.api_key = "10987654321"
-      config.api_secret = "12345678910"
-    end
+``` ruby
+Phaxio.api_key = '11111'
+Phaxio.api_secret = '22222'
+Phaxio.callback_token = '33333'
+```
 
-To send a fax:
+Try sending a fax:
 
-    Phaxio.send_fax(to: "0123456789", filename: File.new("test.pdf"))
+``` ruby
+fax_file = File.open 'test.pdf', 'rb'
+Phaxio::Fax.create to: '+15558675309', file: fax_file
+```
+
+You can include `Phaxio::Resources` to pull in the resource classes for convenience:
+
+``` ruby
+include Phaxio::Resources
+
+fax_file = File.open 'test.pdf', 'rb'
+Fax.create to: '+15558675309', file: fax_file
+```
+
 
 ### Currently Supported API Calls
 
-**TODO: Add examples**
-
 #### Faxes
 
-* `create` - Create and send a fax
-* `list` - List faxes in date range
-* `get` - Get fax info
-* `cancel` - Cancel a fax
-* `resend` - Resend a fax
-* `delete` - Delete fax
-* `delete_file` - Delete fax file
-* `file` - Get fax content file or thumbnail
-* `test_receive` - Test receiving a fax
-* `supported_countries` - Get a list of supported countries
+##### `Fax.create`
+
+Create and send a fax.
+
+``` ruby
+fax_file = File.open 'test.pdf', 'rb'
+ref = Fax.create to: '+15558675309', file: fax_file
+# => Fax::Reference(id: 1234)
+fax = ref.get
+# => Fax(id: 1234, num_pages: 1, ...)
+```
+
+##### `Fax.list`
+
+List faxes in date range.
+
+``` ruby
+start = 2.weeks.ago
+stop = 1.week.ago
+faxes = Fax.list created_after: start, created_before: stop
+# => Phaxio::Resource::Collection([Fax(id: 1234, ...), ...])
+faxes.length
+# => 5
+faxes.map(&:cost).inject(&:+)
+# => 35
+```
+
+##### `Fax.get`
+
+Get information about a specific fax.
+
+``` ruby
+fax = Fax.get 1234
+# => Fax(id: 1234, ...)
+```
+
+##### `Fax.cancel`
+
+Cancel a fax.
+
+``` ruby
+Fax.cancel 1234
+# => Fax::Reference(id: 1234)
+```
+
+##### `Fax.resend`
+
+Resend a fax.
+
+``` ruby
+Fax.resend 1234
+# => Fax::Reference(id: 5678)
+```
+
+##### `Fax.delete`
+
+Delete a fax. Only test faxes are allowed to be deleted.
+
+``` ruby
+Fax.delete 1234
+# => true
+```
+
+##### `Fax.delete_file`
+
+Delete fax file.
+
+``` ruby
+Fax.delete_file 1234
+# => true
+```
+
+##### `Fax.file`
+
+``` ruby
+Fax.file 1234
+# => File
+```
+
+##### `Fax.test_receive`
+
+Test receiving a fax.
+
+``` ruby
+fax_file = File.open 'test.pdf', 'rb'
+Fax.test_receive file: fax_file
+# => true
+```
+
+##### `Fax.supported_countries`
+
+Get a list of supported countries.
+
+``` ruby
+Fax.supported_countries
+# => Phaxio::Resource::Collection([Country(alpha2: 'US', ...), ...])
+```
 
 #### Phone Numbers
 
-* `create` - Provision a phone number
-* `list` - List numbers
-* `get` - Get number info
-* `delete` - Release a number
-* `list_available_area_codes` - List area codes available for purchasing numbers
+##### `PhoneNumber.create`
+
+Provision a new phone number.
+
+``` ruby
+PhoneNumber.create country_code: 1, area_code: 555
+# => PhoneNumber(phone_number: '+15558675309', ...)
+```
+
+##### `PhoneNumber.list`
+
+List phone numbers that you own on Phaxio.
+
+``` ruby
+PhoneNumber.list
+# => Phaxio::Resource::Collection([PhoneNumber(phone_number: '+15558675309', ...), ...])
+```
+
+##### `PhoneNumber.get`
+
+Get information about a specific phone number.
+
+``` ruby
+PhoneNumber.get '+15558675309'
+# => PhoneNumber(phone_number: '+15558675309', ...)
+```
+
+##### `PhoneNumber.delete`
+
+Release a phone number.
+
+``` ruby
+PhoneNumber.delete '+15558675309'
+# => true
+```
+
+##### `PhoneNumber.list_available_area_codes`
+
+Lists available area codes for purchasing Phaxio numbers.
+
+``` ruby
+phone_numbers = PhoneNumber.list_available_area_codes toll_free: true
+# => Phaxio::Resource::Collection([AreaCode(city: 'Chicago', ...), ...], page: 1)
+phone_numbers = phone_numbers.next_page
+# => Phaxio::Resource::Collection([AreaCode(city: 'Atlanta', ...), ...], page: 2)
+```
 
 #### PhaxCodes
 
-* `create` - Create PhaxCode
-* `get` - Retrieve PhaxCode
+##### `PhaxCode.create`
+
+Creates a PhaxCode. Returns data about the PhaxCode by default, or a .png file if `type: 'png'` is
+passed.
+
+``` ruby
+PhaxCode.create metadata: 'test_phax_code'
+# => PhaxCode(identifier: 'phax-code-identifier')
+PhaxCode.create type: 'png'
+# => File
+```
+
+##### `PhaxCode.get`
+
+Gets a PhaxCode. Returns data about the PhaxCode by default, or a .png file if `type: 'png'` is
+passed.
+
+``` ruby
+PhaxCode.get 'phax-code-identifier'
+# => PhaxCode(identifier: 'phax-code-identifier', metadata: 'phax-code-metadata')
+PhaxCode.get 'phax-code-identifier', type: 'png'
+# => File
+```
 
 #### Account
 
-* `get` - Get account status
+##### `Account.get`
 
-### Example
+Get information about your Phaxio account.
 
-**TODO: Revise for v2**
+``` ruby
+Account.get
+# => Account(balance: 1000, faxes_today: 0, faxes_this_month: 100)
+```
 
-    require 'phaxio'
+#### Callback
 
-    Phaxio.config do |config|
-      config.api_key = "your_key"
-      config.api_secret = "your_secret"
-    end
+##### `Callback.valid_signature?`
 
-    @fax = Phaxio.send_fax(to: '15555555555', string_data: "hello world")
-    Phaxio.get_fax_status(id: @fax["faxId"])
+Validate the callback signature sent with a Phaxio callback. Requires that Phaxio.callback_token be
+set.
 
-    # Get a Fax and save it as a PDF
-    @pdf = Phaxio.get_fax_file(id: @fax["faxId"], type: "p")
-    File.open("received_test.pdf", "w") do |file|
-      file << @pdf
-    end
+``` ruby
+Callback.valid_signature? received_signature, callback_url, received_params, received_files
+# => true
+```
 
 ## Callback Validation Example with Sinatra
 
@@ -128,6 +292,8 @@ To send a fax:
 
 ## TODO
 
-1. Add documentation for existing code.
-2. Rewrite README for v2 updates.
-3. Refactor.
+1. Rewrite README for v2 updates.
+2. Change params so that we don't have to deal with multiple hashes.
+3. Include paging params on collections when present.
+4. Add documentation for existing code.
+5. Refactor.
