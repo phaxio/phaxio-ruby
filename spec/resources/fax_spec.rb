@@ -29,14 +29,9 @@ RSpec.describe Fax do
   end
 
   describe 'retrieving a fax' do
-    let(:action) { Fax.get @fax_id, options }
+    let(:action) { Fax.get fax_id, options }
     let(:options) { {} }
-
-    before do
-      VCR.use_cassette('resources/fax/create') do
-        @fax_id = Fax.create({to: test_recipient_number, file: test_file}).id
-      end
-    end
+    let(:fax_id) { 1234 }
 
     around(:each) do |example|
       VCR.use_cassette('resources/fax/get') do
@@ -45,14 +40,14 @@ RSpec.describe Fax do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :get, "faxes/#{@fax_id}", {}, {}
+      expect_api_request :get, "faxes/#{fax_id}", {}, {}
       action
     end
 
     it 'returns a fax' do
       result = action
       expect(result).to be_a(Fax)
-      expect(result.id).to eq(@fax_id)
+      expect(result.id).to eq(fax_id)
     end
   end
 
@@ -236,6 +231,19 @@ RSpec.describe Fax do
     it 'returns a collection of supported country resources' do
       result = action
       expect(result).to be_a(Phaxio::Resource::Collection)
+    end
+  end
+
+  describe Fax::Reference do
+    let(:fax_id) { 1234 }
+
+    it 'gets the full fax' do
+      VCR.use_cassette('resources/fax/get') do
+        reference = Fax::Reference.new fax_id
+        result = reference.get
+        expect(result).to be_a(Fax)
+        expect(result.id).to eq(1234)
+      end
     end
   end
 end

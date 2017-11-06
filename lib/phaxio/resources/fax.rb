@@ -37,6 +37,16 @@ module Phaxio
         def initialize id
           self.id = id
         end
+
+        def get
+          Fax.get self
+        end
+        alias :retrieve :get
+        alias :find :get
+
+        def to_i
+          id
+        end
       end
 
       class << self
@@ -52,7 +62,7 @@ module Phaxio
         alias :send :create
 
         def get id, options = {}
-          response = Client.request :get, fax_endpoint(id), {}, options
+          response = Client.request :get, fax_endpoint(id.to_i), {}, options
           response_record response
         end
         alias :retrieve :get
