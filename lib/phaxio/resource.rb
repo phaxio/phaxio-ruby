@@ -24,6 +24,12 @@ module Phaxio
         time = Time.parse(time) if !time.nil?
         self.public_send "#{time_attribute}=", time
       end
+
+      self.class.collection_attribute_mappings.each do |collection_attribute, klass|
+        collection = raw_data[collection_attribute] || []
+        collection = klass.response_collection(collection)
+        self.public_send "#{collection_attribute}=", collection
+      end
     end
 
     # @see Phaxio::Resource.response_record
@@ -63,6 +69,10 @@ module Phaxio
       # data population.
       attr_accessor :time_attribute_list
 
+      # @api private
+      # Mapping of resource-specific attributes that must be parsed into a resource collection.
+      attr_accessor :collection_attribute_mappings
+
       private :new
 
       private
@@ -91,12 +101,26 @@ module Phaxio
         self.time_attribute_list += attribute_list
       end
 
+      # Creates accessors for the given collection attributes and adds them to the class's internal
+      # attribute lists.
+      # @param attribute_mappings [Hash(String|Symbol => Phaxio::Resource)]
+      #   A hash which has keys corresponding to the attribute name on this resource, and values
+      #   corresponding to the resource class for the collection's items.
+      # @see Phaxio::Resource.collection_attribute_mappings
+      def has_collection_attributes attribute_hash
+        attribute_hash = attribute_hash.map { |k, v| [k.to_s.freeze, v] }.to_h
+        attr_accessor *attribute_hash.keys
+        self.attribute_list += attribute_hash.keys
+        self.collection_attribute_mappings = self.collection_attribute_mappings.merge(attribute_hash)
+      end
+
       # Use the inherited hook to dynamically set each subclass's attribute lists to empty arrays
       # upon creation.
       def inherited subclass
         subclass.attribute_list = []
         subclass.normal_attribute_list = []
         subclass.time_attribute_list = []
+        subclass.collection_attribute_mappings = {}
       end
     end
 

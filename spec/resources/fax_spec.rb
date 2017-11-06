@@ -85,7 +85,6 @@ RSpec.describe Fax do
     end
   end
 
-  # TODO: Filter out phone numbers
   describe 'listing faxes' do
     let(:action) { Fax.list({created_before: time}) }
     let(:time) { Time.new 2017, 10, 28, 0, 17, 0, 0 }

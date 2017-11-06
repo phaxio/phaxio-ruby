@@ -1,9 +1,35 @@
 module Phaxio
   module Resources
+    # Provides functionality for viewing and managing faxes.
     class Fax < Resource
       FAXES_PATH = 'faxes'.freeze
       SUPPORTED_COUNTRIES_PATH = 'public/countries'.freeze
       private_constant :FAXES_PATH, :SUPPORTED_COUNTRIES_PATH
+
+      # @!attribute id
+      # @!attribute direction
+      # @!attribute num_pages
+      # @!attribute cost
+      # @!attribute status
+      # @!attribute is_test
+      # @!attribute caller_id
+      # @!attribute from_number
+      # @!attribute to_number
+      # @!attribute error_type
+      # @!attribute error_message
+      # @!attribute error_id
+      # @!attribute tags
+      has_normal_attributes %w[
+        id direction num_pages cost status is_test caller_id from_number
+        to_number error_type error_message error_id tags
+      ]
+
+      # @!attribute created_at
+      # @!attribute completed_at
+      has_time_attributes %w[created_at completed_at]
+
+      # @!attribute recipients
+      has_collection_attributes({recipients: FaxRecipient})
 
       class Reference
         attr_accessor :id
@@ -99,13 +125,6 @@ module Phaxio
         def test_receive_params params
           {direction: 'received'}.merge(params)
         end
-      end
-
-      attr_accessor :raw_data, :id
-
-      def initialize raw_data
-        self.raw_data = raw_data
-        self.id = raw_data['id']
       end
     end
   end
