@@ -31,4 +31,55 @@ RSpec.describe PhaxCode do
       end
     end
   end
+
+  describe 'getting a phax code' do
+    let(:action) { PhaxCode.get params, options }
+    let(:params) { {} }
+    let(:options) { {} }
+
+    around do |example|
+      VCR.use_cassette('resources/phax_code/get') do
+        example.run
+      end
+    end
+
+    it 'makes the request to Phaxio' do
+      expect_api_request :get, 'phax_code', {}, options
+      action
+    end
+
+    context 'getting the default phax code with no type specified' do
+      it 'returns a PhaxCode instance' do
+        result = action
+        expect(result).to be_a(PhaxCode)
+      end
+    end
+
+    context 'getting the default phax code with png type specified' do
+      let(:params) { {type: 'png'} }
+
+      it 'returns a file' do
+        result = action
+        expect(result).to be_a(File)
+      end
+    end
+
+    context 'getting a particular phax code with no type specified' do
+      let(:params) { {identifier: '-Y3jxX'} }
+
+      it 'returns a PhaxCode instance' do
+        result = action
+        expect(result).to be_a(PhaxCode)
+      end
+    end
+
+    context 'getting a particular phax code with png type specified' do
+      let(:params) { {identifier: '-Y3jxX', type: 'png'} }
+
+      it 'returns a file' do
+        result = action
+        expect(result).to be_a(File)
+      end
+    end
+  end
 end

@@ -60,8 +60,8 @@ To send a fax:
 
 #### PhaxCodes
 
-* `create` - **PENDING** Create PhaxCode
-* `get` - **PENDING** Retrieve PhaxCode
+* `create` - Create PhaxCode
+* `get` - Retrieve PhaxCode
 
 #### Account
 
