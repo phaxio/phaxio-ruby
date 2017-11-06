@@ -2,6 +2,7 @@ require 'yaml' # Needed by Mimetype Fu
 require 'json'
 require 'tempfile'
 require 'openssl'
+require 'time'
 require 'faraday'
 require 'mime/types/full'
 require 'phaxio/version'
