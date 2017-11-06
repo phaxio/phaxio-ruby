@@ -3,6 +3,12 @@ module Phaxio
     # Information about your Phaxio account.
     class Account < Resource
       ACCOUNT_PATH = 'account'
+      private_constant :ACCOUNT_PATH
+
+      # @!attribute balance
+      # @!attribute faxes_today
+      # @!attribute faxes_this_month
+      has_normal_attributes %w[balance faxes_today faxes_this_month]
 
       class << self
         # Get information about your Phaxio account, including your balance, number of faxes sent
