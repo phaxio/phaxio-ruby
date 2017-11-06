@@ -4,6 +4,13 @@ module Phaxio
       PHAX_CODES_PATH = 'phax_codes'.freeze
       DEFAULT_PHAX_CODE_PATH = 'phax_code'.freeze
 
+      # @!attribute identifier
+      # @!attribute metadata
+      has_normal_attributes %w[identifier metadata]
+
+      # @!attribute created_at
+      has_time_attributes %w[created_at]
+
       class << self
         def create params = {}, options = {}
           endpoint = case (params[:type] || params['type']).to_s
