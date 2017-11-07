@@ -27,6 +27,7 @@ module Phaxio
 
       self.class.collection_attribute_mappings.each do |collection_attribute, klass|
         collection = raw_data[collection_attribute] || []
+        collection = {'data' => collection}
         collection = klass.response_collection(collection)
         self.public_send "#{collection_attribute}=", collection
       end
@@ -128,14 +129,19 @@ module Phaxio
       include Enumerable
 
       # The raw response data
-      attr_accessor :raw_data, :collection
+      attr_accessor :raw_data, :collection, :total, :per_page, :page
 
       # Returns a new collection of resource instances for this data. Generally this is not called
       # directly.
       #
       # @see Phaxio::Resource.response_collection
-      def initialize raw_data, resource
-        self.raw_data = raw_data
+      def initialize response_data, resource
+        if response_data.key? 'paging'
+          self.total = response_data['paging']['total']
+          self.per_page = response_data['paging']['per_page']
+          self.page = response_data['paging']['page']
+        end
+        self.raw_data = response_data['data']
         self.collection = raw_data.map { |record_data| resource.response_record record_data }
       end
 

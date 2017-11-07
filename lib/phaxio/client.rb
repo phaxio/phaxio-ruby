@@ -60,7 +60,13 @@ module Phaxio
         if response.success?
           raise(Error::GeneralError, body['message']) unless body['success']
 
-          body['data']
+          # Check if this is a response with paging. If so, we want to return that along with the
+          # data.
+          if body.key? 'paging'
+            {'data' => body['data'], 'paging' => body['paging']}
+          else
+            body['data']
+          end
         else
           status = response.status
           # TODO: Handle blank message

@@ -293,6 +293,5 @@ end
 
 ## TODO
 
-1. Include paging params on collections when present.
-2. Add documentation for existing code.
-3. Refactor.
+1. Add documentation for existing code.
+2. Refactor.
