@@ -1,6 +1,6 @@
 module PhaxioExpectations
-  def expect_api_request method, path, params = {}, options = {}
-    expect(Phaxio::Client).to receive(:request).with(method, path, params, options).and_call_original
+  def expect_api_request method, path, params = {}
+    expect(Phaxio::Client).to receive(:request).with(method, path, params).and_call_original
   end
 end
 

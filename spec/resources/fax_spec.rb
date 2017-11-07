@@ -6,9 +6,8 @@ RSpec.describe Fax do
   let(:test_recipient_number) { ENV.fetch 'TEST_RECIPIENT_NUMBER' }
 
   describe 'creating a fax' do
-    let(:action) { Fax.create params, options }
+    let(:action) { Fax.create params }
     let(:params) { {to: test_recipient_number, file: test_file} }
-    let(:options) { {} }
 
     around(:each) do |example|
       VCR.use_cassette('resources/fax/create') do
@@ -17,7 +16,7 @@ RSpec.describe Fax do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :post, 'faxes', {to: test_recipient_number, file: test_file}, {}
+      expect_api_request :post, 'faxes', to: test_recipient_number, file: test_file
       action
     end
 
@@ -29,9 +28,9 @@ RSpec.describe Fax do
   end
 
   describe 'retrieving a fax' do
-    let(:action) { Fax.get fax_id, options }
-    let(:options) { {} }
+    let(:action) { Fax.get fax_id, params }
     let(:fax_id) { 1234 }
+    let(:params) { {} }
 
     around(:each) do |example|
       VCR.use_cassette('resources/fax/get') do
@@ -40,7 +39,7 @@ RSpec.describe Fax do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :get, "faxes/#{fax_id}", {}, {}
+      expect_api_request :get, "faxes/#{fax_id}", params
       action
     end
 
@@ -51,14 +50,15 @@ RSpec.describe Fax do
     end
   end
 
+  # TODO: Refactor this
   # This one's a little tricky, since it relies on having a fax to cancel.
   describe 'cancelling a fax' do
-    let(:action) { Fax.cancel @fax_id, options }
-    let(:options) { {} }
+    let(:action) { Fax.cancel @fax_id, params }
+    let(:params) { {} }
 
     before do
       VCR.use_cassette('resources/fax/create') do
-        @fax_id = Fax.create({to: test_recipient_number, file: test_file}).id
+        @fax_id = Fax.create(to: test_recipient_number, file: test_file).id
       end
     end
 
@@ -69,7 +69,7 @@ RSpec.describe Fax do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :post, "faxes/#{@fax_id}/cancel"
+      expect_api_request :post, "faxes/#{@fax_id}/cancel", params
       action
     end
 
@@ -81,7 +81,8 @@ RSpec.describe Fax do
   end
 
   describe 'listing faxes' do
-    let(:action) { Fax.list({created_before: time}) }
+    let(:action) { Fax.list params }
+    let(:params) { {created_before: time} }
     let(:time) { Time.new 2017, 10, 28, 0, 17, 0, 0 }
 
     around do |example|
@@ -91,7 +92,7 @@ RSpec.describe Fax do
     end
 
     it 'sends the request to phaxio' do
-      expect_api_request :get, 'faxes', {created_before: time}, {}
+      expect_api_request :get, 'faxes', params
       action
     end
 
@@ -102,9 +103,9 @@ RSpec.describe Fax do
   end
 
   describe 'resending a fax' do
-    let(:action) { Fax.resend fax_id, options }
+    let(:action) { Fax.resend fax_id, params }
     let(:fax_id) { 1234 }
-    let(:options) { {} }
+    let(:params) { {} }
 
     around do |example|
       VCR.use_cassette('resources/fax/resend') do
@@ -113,7 +114,7 @@ RSpec.describe Fax do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :post, "faxes/#{fax_id}/resend", {}, {}
+      expect_api_request :post, "faxes/#{fax_id}/resend", params
       action
     end
 
@@ -125,9 +126,9 @@ RSpec.describe Fax do
   end
 
   describe 'deleting a fax' do
-    let(:action) { Fax.delete fax_id, options }
+    let(:action) { Fax.delete fax_id, params }
     let(:fax_id) { 1234 }
-    let(:options) { {} }
+    let(:params) { {} }
 
     around do |example|
       VCR.use_cassette('resources/fax/delete') do
@@ -136,7 +137,7 @@ RSpec.describe Fax do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :delete, "faxes/#{fax_id}", {}, options
+      expect_api_request :delete, "faxes/#{fax_id}", params
       action
     end
 
@@ -147,9 +148,9 @@ RSpec.describe Fax do
   end
 
   describe 'deleting a fax file' do
-    let(:action) { Fax.delete_file fax_id, options }
+    let(:action) { Fax.delete_file fax_id, params }
     let(:fax_id) { 1234 }
-    let(:options) { {} }
+    let(:params) { {} }
 
     around do |example|
       VCR.use_cassette('resources/fax/delete_file') do
@@ -158,7 +159,7 @@ RSpec.describe Fax do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :delete, "faxes/#{fax_id}/file", {}, options
+      expect_api_request :delete, "faxes/#{fax_id}/file", params
       action
     end
 
@@ -169,9 +170,9 @@ RSpec.describe Fax do
   end
 
   describe 'downloading a fax file' do
-    let(:action) { Fax.file fax_id, options }
+    let(:action) { Fax.file fax_id, params }
     let(:fax_id) { 1234 }
-    let(:options) { {} }
+    let(:params) { {} }
 
     around do |example|
       VCR.use_cassette('resources/fax/file') do
@@ -180,7 +181,7 @@ RSpec.describe Fax do
     end
 
     it 'makes the request to phaxio' do
-      expect_api_request :get, "faxes/#{fax_id}/file", {}, options
+      expect_api_request :get, "faxes/#{fax_id}/file", params
       action
     end
 
@@ -191,9 +192,8 @@ RSpec.describe Fax do
   end
 
   describe 'receiving a test fax' do
-    let(:action) { Fax.test_receive params, options }
+    let(:action) { Fax.test_receive params }
     let(:params) { {file: test_file} }
-    let(:options) { {} }
 
     around do |example|
       VCR.use_cassette('resources/fax/test_receive') do
@@ -202,7 +202,7 @@ RSpec.describe Fax do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :post, 'faxes', {file: test_file, direction: 'received'}, options
+      expect_api_request :post, 'faxes', {file: test_file, direction: 'received'}
       action
     end
 
@@ -215,7 +215,6 @@ RSpec.describe Fax do
   describe 'getting a list of supported countries' do
     let(:action) { Fax.supported_countries }
     let(:params) { {} }
-    let(:options) { {} }
 
     around do |example|
       VCR.use_cassette('resources/fax/supported_countries') do
@@ -224,7 +223,7 @@ RSpec.describe Fax do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :get, 'public/countries', params, options
+      expect_api_request :get, 'public/countries', params
       action
     end
 

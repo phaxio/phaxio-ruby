@@ -2,9 +2,8 @@ require 'spec_helper'
 
 RSpec.describe PhoneNumber do
   describe 'provisioning a number' do
-    let(:action) { PhoneNumber.create params, options }
+    let(:action) { PhoneNumber.create params }
     let(:params) { {country_code: 1, area_code: 225} }
-    let(:options) { {} }
 
     around do |example|
       VCR.use_cassette('resources/phone_number/create') do
@@ -13,7 +12,7 @@ RSpec.describe PhoneNumber do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :post, 'phone_numbers', params, options
+      expect_api_request :post, 'phone_numbers', params
       action
     end
 
@@ -24,9 +23,9 @@ RSpec.describe PhoneNumber do
   end
 
   describe 'getting information about a number' do
-    let(:action) { PhoneNumber.get phone_number, options }
-    let(:options) { {} }
+    let(:action) { PhoneNumber.get phone_number, params }
     let(:phone_number) { '12258675309' }
+    let(:params) { {} }
 
     around do |example|
       VCR.use_cassette('resources/phone_number/get') do
@@ -46,9 +45,8 @@ RSpec.describe PhoneNumber do
   end
 
   describe 'listing numbers' do
-    let(:action) { PhoneNumber.list params, options }
+    let(:action) { PhoneNumber.list params }
     let(:params) { {} }
-    let(:options) { {} }
 
     around do |example|
       VCR.use_cassette('resources/phone_number/list') do
@@ -57,7 +55,7 @@ RSpec.describe PhoneNumber do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :get, 'phone_numbers', {}, {}
+      expect_api_request :get, 'phone_numbers', params
       action
     end
 
@@ -68,9 +66,9 @@ RSpec.describe PhoneNumber do
   end
 
   describe 'releasing a number' do
-    let(:action) { PhoneNumber.release phone_number, options }
+    let(:action) { PhoneNumber.release phone_number, params }
     let(:phone_number) { '+12258675309' }
-    let(:options) { {} }
+    let(:params) { {} }
 
     around do |example|
       VCR.use_cassette('resources/phone_number/release') do
@@ -79,7 +77,7 @@ RSpec.describe PhoneNumber do
     end
 
     it 'sends the request to Phaxio' do
-      expect_api_request :delete, "phone_numbers/#{phone_number}", {}, options
+      expect_api_request :delete, "phone_numbers/#{phone_number}", params
       action
     end
 
@@ -90,9 +88,8 @@ RSpec.describe PhoneNumber do
   end
 
   describe 'listing area codes available for purchasing numbers' do
-    let(:action) { PhoneNumber.list_available_area_codes params, options }
+    let(:action) { PhoneNumber.list_available_area_codes params }
     let(:params) { {} }
-    let(:options) { {} }
 
     around do |example|
       VCR.use_cassette('resources/phone_number/list_available_area_codes') do
@@ -101,7 +98,7 @@ RSpec.describe PhoneNumber do
     end
 
     it 'sends the request to Phaxio' do
-      expect_api_request :get, 'public/area_codes', params, options
+      expect_api_request :get, 'public/area_codes', params
       action
     end
 

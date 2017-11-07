@@ -41,7 +41,7 @@ RSpec.describe Phaxio::Client do
       client.request :get, 'test'
     end
 
-    it 'uses the api key specified in the options hash' do
+    it 'uses the api key specified in the params hash' do
       custom_api_key = 'custom-api-key'
       custom_api_secret = 'custom-api-secret'
       expect(test_connection).to receive(:get) do |_endpoint, request_params|
@@ -49,7 +49,7 @@ RSpec.describe Phaxio::Client do
         expect(request_params[:api_secret]).to eq(custom_api_secret)
         test_response 200
       end
-      client.request :get, 'test', {}, {api_key: custom_api_key, api_secret: custom_api_secret}
+      client.request :get, 'test', api_key: custom_api_key, api_secret: custom_api_secret
     end
 
     it 'parses the response JSON and returns the data if the response indicates success' do

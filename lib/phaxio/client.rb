@@ -12,14 +12,12 @@ module Phaxio
       # @param endpoint [String]
       #   The endpoint for the API action, relative to `BASE_URL`.
       # @param params [Hash]
-      #   Any request-specific parameters.
-      # @param options [Hash]
-      #   Additional parameters, such as overrides for `:api_key` and `:api_secret`
+      #   Any parameters to be sent with the request.
       #
       # @return [Object]
       #   The `"data"` attribute of the deserialized JSON response. Varies based on the API action.
-      def request method, endpoint, params = {}, options = {}
-        params = api_params params, options
+      def request method, endpoint, params = {}
+        params = api_params params
         begin
           response = case method.to_s
                      when 'post' then post(endpoint, params)
@@ -86,7 +84,6 @@ module Phaxio
       def post endpoint, params = {}
         # Handle file params
         params.each do |k, v|
-          # TODO: Support passing in the file path as a string
           next unless k.to_s == 'file'
           mime_type = MimeTypeHelper.mimetype_for_file v.path
           params[k] = Faraday::UploadIO.new v, mime_type
@@ -103,8 +100,8 @@ module Phaxio
         conn.delete endpoint, params
       end
 
-      def api_params params, options
-        params = params.merge(default_params).merge(options)
+      def api_params params
+        params = default_params.merge params
 
         # Convert times to ISO 8601
         params.each do |k, v|

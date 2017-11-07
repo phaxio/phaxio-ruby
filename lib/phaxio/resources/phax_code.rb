@@ -12,17 +12,17 @@ module Phaxio
       has_time_attributes %w[created_at]
 
       class << self
-        def create params = {}, options = {}
+        def create params = {}
           endpoint = case (params[:type] || params['type']).to_s
             when 'png' then phax_codes_endpoint_png
             else phax_codes_endpoint
           end
-          result = Client.request :post, endpoint, params, options
+          result = Client.request :post, endpoint, params
           return result if result.is_a? File
           response_record result
         end
 
-        def get params = {}, options = {}
+        def get params = {}
           identifier = params[:identifier] || params['identifier']
           endpoint = case (identifier)
             when nil then default_phax_code_path
@@ -32,7 +32,7 @@ module Phaxio
             when 'png' then "#{endpoint}.png"
             else endpoint
           end
-          result = Client.request :get, endpoint, {}, options
+          result = Client.request :get, endpoint, {}
           return result if result.is_a? File
           response_record result
         end

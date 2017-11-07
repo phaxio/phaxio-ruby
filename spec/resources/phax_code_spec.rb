@@ -2,9 +2,8 @@ require 'spec_helper'
 
 RSpec.describe PhaxCode do
   describe 'creating a phax code' do
-    let(:action) { PhaxCode.create params, options }
+    let(:action) { PhaxCode.create params }
     let(:params) { {metadata: 'This is a test PhaxCode'} }
-    let(:options) { {} }
 
     around do |example|
       VCR.use_cassette('resources/phax_code/create') do
@@ -13,7 +12,7 @@ RSpec.describe PhaxCode do
     end
 
     it 'makes the request to phaxio' do
-      expect_api_request :post, 'phax_codes', params, options
+      expect_api_request :post, 'phax_codes', params
       action
     end
 
@@ -33,9 +32,8 @@ RSpec.describe PhaxCode do
   end
 
   describe 'getting a phax code' do
-    let(:action) { PhaxCode.get params, options }
+    let(:action) { PhaxCode.get params }
     let(:params) { {} }
-    let(:options) { {} }
 
     around do |example|
       VCR.use_cassette('resources/phax_code/get') do
@@ -44,7 +42,7 @@ RSpec.describe PhaxCode do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :get, 'phax_code', {}, options
+      expect_api_request :get, 'phax_code', params
       action
     end
 

@@ -25,35 +25,34 @@ module Phaxio
         #   A hash of parameters to send to Phaxio:
         #     - "country_code": The country code where you wish to provision the number.
         #     - "area_code": The area code where you wish to provision the number.
-        # @param options [Hash]
         # @return [Phaxio::Resources::PhoneNumber] The newly provisioned number.
         # @raise Phaxio::Error::PhaxioError
-        def create params = {}, options = {}
-          response = Client.request :post, phone_numbers_endpoint, params, options
+        def create params = {}
+          response = Client.request :post, phone_numbers_endpoint, params
           response_record response
         end
         alias :provision :create
 
-        def get phone_number, options = {}
-          response = Client.request :get, phone_number_endpoint(phone_number), {}, options
+        def get phone_number, params = {}
+          response = Client.request :get, phone_number_endpoint(phone_number), params
           response_record response
         end
         alias :find :get
         alias :retrieve :get
 
-        def list params = {}, options = {}
-          response = Client.request :get, phone_numbers_endpoint, params, options
+        def list params = {}
+          response = Client.request :get, phone_numbers_endpoint, params
           response_collection response
         end
 
-        def delete phone_number, options = {}
-          Client.request :delete, phone_number_endpoint(phone_number), {}, options
+        def delete phone_number, params = {}
+          Client.request :delete, phone_number_endpoint(phone_number), params
           true
         end
         alias :release :delete
 
-        def list_available_area_codes params = {}, options = {}
-          response = Client.request :get, available_area_codes_endpoint, params, options
+        def list_available_area_codes params = {}
+          response = Client.request :get, available_area_codes_endpoint, params
           AreaCode.response_collection response
         end
 

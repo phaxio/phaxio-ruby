@@ -15,8 +15,8 @@ module Phaxio
         # today, and number of faxes sent this week.
         #
         # @see https://www.phaxio.com/docs/api/v2/account/status
-        def get options = {}
-          response = Client.request :get, account_status_endpoint, {}, options
+        def get params = {}
+          response = Client.request :get, account_status_endpoint, params
           response_record response
         end
         alias :status :get

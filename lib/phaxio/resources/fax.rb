@@ -50,55 +50,55 @@ module Phaxio
       end
 
       class << self
-        def list params = {}, options = {}
-          response = Client.request :get, faxes_endpoint, params, options
+        def list params = {}
+          response = Client.request :get, faxes_endpoint, params
           response_collection response
         end
 
-        def create params = {}, options = {}
-          response = Client.request :post, faxes_endpoint, params, options
+        def create params = {}
+          response = Client.request :post, faxes_endpoint, params
           response_reference response
         end
         alias :send :create
 
-        def get id, options = {}
-          response = Client.request :get, fax_endpoint(id.to_i), {}, options
+        def get id, params = {}
+          response = Client.request :get, fax_endpoint(id.to_i), params
           response_record response
         end
         alias :retrieve :get
         alias :find :get
 
-        def cancel id, options = {}
-          response = Client.request :post, cancel_fax_endpoint(id), {}, options
+        def cancel id, params = {}
+          response = Client.request :post, cancel_fax_endpoint(id), params
           response_reference response
         end
 
-        def resend id, options = {}
-          response = Client.request :post, resend_fax_endpoint(id), {}, options
+        def resend id, params = {}
+          response = Client.request :post, resend_fax_endpoint(id), params
           response_reference response
         end
 
-        def delete id, options = {}
-          Client.request :delete, fax_endpoint(id), {}, options
+        def delete id, params = {}
+          Client.request :delete, fax_endpoint(id), params
           true
         end
 
-        def delete_file id, options = {}
-          Client.request :delete, fax_file_endpoint(id), {}, options
+        def delete_file id, params = {}
+          Client.request :delete, fax_file_endpoint(id), params
           true
         end
 
-        def file id, options = {}
-          Client.request :get, fax_file_endpoint(id), {}, options
+        def file id, params = {}
+          Client.request :get, fax_file_endpoint(id), params
         end
 
-        def test_receive params = {}, options = {}
-          Client.request :post, faxes_endpoint, test_receive_params(params), options
+        def test_receive params = {}
+          Client.request :post, faxes_endpoint, test_receive_params(params)
           true
         end
 
-        def supported_countries params = {}, options = {}
-          response = Client.request :get, supported_countries_endpoint, params, options
+        def supported_countries params = {}
+          response = Client.request :get, supported_countries_endpoint, params
           Country.response_collection response
         end
 
