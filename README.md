@@ -198,8 +198,6 @@ Lists available area codes for purchasing Phaxio numbers.
 ``` ruby
 phone_numbers = PhoneNumber.list_available_area_codes toll_free: true
 # => Phaxio::Resource::Collection([AreaCode(city: 'Chicago', ...), ...], page: 1)
-phone_numbers = phone_numbers.next_page
-# => Phaxio::Resource::Collection([AreaCode(city: 'Atlanta', ...), ...], page: 2)
 ```
 
 #### PhaxCodes
