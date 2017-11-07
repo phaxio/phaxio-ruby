@@ -1,13 +1,32 @@
 module Phaxio
   module Resources
+    # Provides utilities for working with callbacks.
+    # @see https://www.phaxio.com/docs/api/v2/faxes/send_callback
+    # @see https://www.phaxio.com/docs/api/v2/faxes/receive_callback
     class Callback
       DIGEST = OpenSSL::Digest.new('sha1')
+      private_constant :DIGEST
 
       class << self
+        # Determines whether or not the passed signature is valid for the given
+        # url, params, and files.
+        # @param signature [String]
+        #   The signature received from Phaxio.
+        # @param url [String]
+        #   The callback URL used in this request.
+        # @param params [Hash]
+        #   The parameters received with the callback, excluding files.
+        # @param files [Array<File>]
+        #   The files received with the callback, if any.
+        # @return [true, false]
+        # @raise [Phaxio::Error::PhaxioError]
+        # @see https://www.phaxio.com/docs/security/callbacks
         def valid_signature? signature, url, params, files = []
           check_signature = generate_check_signature url, params, files
           check_signature == signature
         end
+
+        private
 
         def generate_check_signature url, params, files = []
           params_string = generate_params_string(params)
@@ -15,8 +34,6 @@ module Phaxio
           callback_data = "#{url}#{params_string}#{files_string}"
           OpenSSL::HMAC.hexdigest(DIGEST, callback_token, callback_data)
         end
-
-        private
 
         def callback_token
           Phaxio.callback_token or raise(Error::PhaxioError, 'No callback token has been set')

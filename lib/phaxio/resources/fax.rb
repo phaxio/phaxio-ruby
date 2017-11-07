@@ -93,14 +93,14 @@ module Phaxio
         alias :retrieve :get
         alias :find :get
 
+        def to_i
+          id
+        end
+
         private
 
         def initialize id
           self.id = id
-        end
-
-        def to_i
-          id
         end
       end
 
