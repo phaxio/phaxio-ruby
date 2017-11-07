@@ -2,8 +2,8 @@
 require File.expand_path('../lib/phaxio/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Sean Behan", "Brett Chalupa"]
-  gem.email         = ["inbox@seanbehan.com", "brettchalupa@gmail.com"]
+  gem.authors       = ["Julien Negrotto"]
+  gem.email         = ["julien@phaxio.com"]
   gem.description   = %q{Official ruby gem for interacting with Phaxio's API.}
   gem.summary       = %q{Official ruby gem for interacting with Phaxio's API.}
   gem.homepage      = "https://github.com/phaxio/phaxio-ruby"

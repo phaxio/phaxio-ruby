@@ -4,12 +4,15 @@
 
 A Ruby gem for interacting with the [Phaxio API](https://www.phaxio.com/docs/api/v2).
 
+**NOTE: Versions of this gem before 2.1.0.0 are considered "beta". Breaking changes may be more
+common in this period.**
+
 ## Installation
 
 Add to your application's Gemfile:
 
 ``` ruby
-gem 'phaxio', '2.1.0.0.beta1'
+gem 'phaxio', '2.1.0.0'
 ```
 
 And then execute:
@@ -289,7 +292,8 @@ end
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-## TODO
+## Modified Semantic Versioning
 
-1. Add documentation for existing code.
-2. Refactor.
+Versions consist of four parts. The first corresponds to the supported Phaxio API version, the
+second to the major version of the gem itself, the third to the minor version of the gem, and the
+fourth to the patch level of the gem.
