@@ -1,12 +1,12 @@
+# @!macro [new] paging
+#   @note
+#     This action accepts paging parameters:
+#     - *per_page* [Integer] - The maximum number of results to return per
+#       call (i.e. "page"). Max 1000.
+#     - *page* [Integer] - The page number to return for the request. 1-based.
+
 module Phaxio
   # @api private
-
-  # @!macro [new] paging
-  #   @note
-  #     This action accepts paging parameters:
-  #     - *per_page* [Integer] - The maximum number of results to return per
-  #       call (i.e. "page"). Max 1000.
-  #     - *page* [Integer] - The page number to return for the request. 1-based.
 
   class Client
     BASE_URL = 'https://api.phaxio.com/v2/'

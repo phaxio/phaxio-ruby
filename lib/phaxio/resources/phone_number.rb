@@ -67,6 +67,7 @@ module Phaxio
         alias :find :get
         alias :retrieve :get
 
+        # @macro paging
         # Get a list of phone numbers that you currently own on Phaxio.
         # @param params [Hash]
         #   A hash of parameters to send to Phaxio.
@@ -97,6 +98,7 @@ module Phaxio
         end
         alias :release :delete
 
+        # @macro paging
         # Displays a list of area codes available for purchasing Phaxio numbers. This operation
         # requires no authentication and can be used without passing an API key.
         # @param params [Hash]
