@@ -253,8 +253,6 @@ Callback.valid_signature? received_signature, callback_url, received_params, rec
 
 ## Callback Validation Example with Sinatra
 
-**TODO: Revise for v2**
-
 ``` ruby
 require 'sinatra/base'
 require 'phaxio'
@@ -295,7 +293,6 @@ end
 
 ## TODO
 
-1. Change params so that we don't have to deal with multiple hashes.
-2. Include paging params on collections when present.
-3. Add documentation for existing code.
-4. Refactor.
+1. Include paging params on collections when present.
+2. Add documentation for existing code.
+3. Refactor.
