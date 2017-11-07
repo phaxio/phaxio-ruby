@@ -6,29 +6,71 @@ module Phaxio
       SUPPORTED_COUNTRIES_PATH = 'public/countries'.freeze
       private_constant :FAXES_PATH, :SUPPORTED_COUNTRIES_PATH
 
+      # @return [Integer] The ID associated with this fax.
       # @!attribute id
+
+      # @return ["sent" | "received"] The direction of the fax.
       # @!attribute direction
+
+      # @return [Integer] The number of pages in the fax.
       # @!attribute num_pages
+
+      # @return [Integer] The cost of the fax in cents.
       # @!attribute cost
+
+      # @return [String] The status of the fax.
       # @!attribute status
+
+      # @return [true | false] Indicates whether or not this is a test fax.
       # @!attribute is_test
+
+      # @return [String]
+      #   For sent faxes, the number set as the Caller ID when sending the fax.
       # @!attribute caller_id
+
+      # @return [String]
+      #   For received faxes, this is the sender's E.164 phone number.
       # @!attribute from_number
+
+      # @return [String]
+      #   For received faxes, this is the Phaxio phone number that was used to
+      #   receive the call.
       # @!attribute to_number
+
+      # @return [String]
+      #   One of the Phaxio error types. Will give you a general idea of what
+      #   went wrong for a failed fax.
       # @!attribute error_type
+
+      # @return [String]
+      #   A more detailed description of what went wrong for a failed fax.
       # @!attribute error_message
+
+      # @return [Integer]
+      #   A numeric error code that corresponds to the error message, if any.
       # @!attribute error_id
+
+      # @return [Hash]
+      #   A hash of tag name and value pairs. If a fax was sent with tag
+      #   metadata, it will appear here.
       # @!attribute tags
       has_normal_attributes %w[
         id direction num_pages cost status is_test caller_id from_number
         to_number error_type error_message error_id tags
       ]
 
+      # @return [Time] The time the fax was created.
       # @!attribute created_at
+
+      # @return [Time] The time the fax was completed.
       # @!attribute completed_at
+
       has_time_attributes %w[created_at completed_at]
 
+      # @return [Phaxio::Resource::Collection<Phaxio::Resources::FaxRecipient>]
+      #   A collection of this fax's recipients.
       # @!attribute recipients
+
       has_collection_attributes({recipients: FaxRecipient})
 
       class Reference
