@@ -255,32 +255,35 @@ Callback.valid_signature? received_signature, callback_url, received_params, rec
 
 **TODO: Revise for v2**
 
-    require 'sinatra/base'
-    require 'phaxio'
+``` ruby
+require 'sinatra/base'
+require 'phaxio'
 
-    class PhaxioCallbackExample < Sinatra::Base
-      Phaxio.config do |config|
-        config.api_key = '0123456789'
-        config.api_secret = '0123456789'
-        config.callback_token = '0123456789'
-      end
+class PhaxioCallbackExample < Sinatra::Base
+  Phaxio.config do |config|
+    config.api_key = '0123456789'
+    config.api_secret = '0123456789'
+    config.callback_token = '0123456789'
+  end
 
-      post '/phaxio_callback' do
-        if Phaxio.valid_callback_signature?(
-          request.env['HTTP_X_PHAXIO_SIGNATURE'],
-          request.url, callback_params, params[:filename])
-          'Success'
-        else
-          'Invalid callback signature'
-        end
-      end
-
-      def callback_params
-        params.select do |key, _value|
-          %w(success is_test direction fax metadata message).include?(key)
-        end
-      end
+  post '/phaxio_callback' do
+    signature = request.env['HTTP_X_PHAXIO_SIGNATURE']
+    url = request.url
+    file_params = params[:filename]
+    if Phaxio::Callback.valid_signature? signature, url, callback_params, file_params
+      'Success'
+    else
+      'Invalid callback signature'
     end
+  end
+
+  def callback_params
+    params.select do |key, _value|
+      %w(success is_test direction fax metadata message).include?(key)
+    end
+  end
+end
+```
 
 ## Contributing
 
@@ -292,8 +295,7 @@ Callback.valid_signature? received_signature, callback_url, received_params, rec
 
 ## TODO
 
-1. Rewrite README for v2 updates.
-2. Change params so that we don't have to deal with multiple hashes.
-3. Include paging params on collections when present.
-4. Add documentation for existing code.
-5. Refactor.
+1. Change params so that we don't have to deal with multiple hashes.
+2. Include paging params on collections when present.
+3. Add documentation for existing code.
+4. Refactor.
