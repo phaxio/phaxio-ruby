@@ -104,7 +104,7 @@ module Phaxio
 
       # Creates accessors for the given collection attributes and adds them to the class's internal
       # attribute lists.
-      # @param attribute_mappings [Hash(String|Symbol => Phaxio::Resource)]
+      # @param attribute_hash [Hash<String, Symbol => Phaxio::Resource>]
       #   A hash which has keys corresponding to the attribute name on this resource, and values
       #   corresponding to the resource class for the collection's items.
       # @see Phaxio::Resource.collection_attribute_mappings
