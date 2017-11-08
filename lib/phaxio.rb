@@ -1,4 +1,3 @@
-require 'yaml' # Needed by Mimetype Fu
 require 'json'
 require 'tempfile'
 require 'openssl'
