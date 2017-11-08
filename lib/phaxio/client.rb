@@ -54,7 +54,7 @@ module Phaxio
         content_type = response.headers[:content_type]
 
         if content_type.start_with? 'application/json'
-          body = JSON.parse response.body
+          body = JSON.parse(response.body).with_indifferent_access
         else
           extension = MimeTypeHelper.extension_for_mimetype content_type
           filename = File.join(

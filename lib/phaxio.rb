@@ -3,6 +3,7 @@ require 'tempfile'
 require 'openssl'
 require 'time'
 require 'faraday'
+require 'active_support/core_ext/hash/indifferent_access'
 require 'mime/types/full'
 require 'phaxio/version'
 require 'phaxio/config'
@@ -22,8 +23,6 @@ end
 module Phaxio
   include Resources
 
-  # `#define_method` defines an instance method, so to define a class method
-  # with it we need to open up `Phaxio`s eigenclass.
   class << self
     # @!attribute api_key
     #   @see Config.api_key
