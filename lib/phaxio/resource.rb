@@ -109,7 +109,10 @@ module Phaxio
       #   corresponding to the resource class for the collection's items.
       # @see Phaxio::Resource.collection_attribute_mappings
       def has_collection_attributes attribute_hash
-        attribute_hash = attribute_hash.map { |k, v| [k.to_s.freeze, v] }.to_h
+        # Array#to_h doesn't exist in 2.0.0, hence the inject here.
+        attribute_hash = attribute_hash
+          .map { |k, v| [ k.to_s.freeze, v ] }
+          .inject({}) { |memo, obj| memo.tap { |memo| memo[obj.first] = obj.last } }
         attr_accessor *attribute_hash.keys
         self.attribute_list += attribute_hash.keys
         self.collection_attribute_mappings = self.collection_attribute_mappings.merge(attribute_hash)
