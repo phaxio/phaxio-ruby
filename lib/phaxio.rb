@@ -16,7 +16,7 @@ Dir[File.expand_path(File.join('..', 'phaxio', 'helpers', '*.rb'), __FILE__)].ea
   require file
 end
 
-%w[fax_recipient country fax account area_code callback phax_code phone_number].each do |filename|
+%w[fax_recipient country fax account callback phax_code phone_number public].each do |filename|
   require File.expand_path(File.join('..', 'phaxio', 'resources', filename), __FILE__)
 end
 

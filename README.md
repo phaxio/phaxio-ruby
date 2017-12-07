@@ -193,12 +193,14 @@ PhoneNumber.delete '+15558675309'
 # => true
 ```
 
-##### `PhoneNumber.list_available_area_codes`
+#### Area Codes
+
+##### `AreaCode.list`
 
 Lists available area codes for purchasing Phaxio numbers.
 
 ``` ruby
-phone_numbers = PhoneNumber.list_available_area_codes toll_free: true
+area_codes = AreaCode.list_available_area_codes toll_free: true
 # => Phaxio::Resource::Collection([AreaCode(city: 'Chicago', ...), ...], page: 1)
 ```
 

@@ -86,25 +86,4 @@ RSpec.describe PhoneNumber do
       expect(result).to eq(true)
     end
   end
-
-  describe 'listing area codes available for purchasing numbers' do
-    let(:action) { PhoneNumber.list_available_area_codes params }
-    let(:params) { {} }
-
-    around do |example|
-      VCR.use_cassette('resources/phone_number/list_available_area_codes') do
-        example.run
-      end
-    end
-
-    it 'sends the request to Phaxio' do
-      expect_api_request :get, 'public/area_codes', params
-      action
-    end
-
-    it 'returns a collection of available area codes' do
-      result = action
-      expect(result).to be_a(Phaxio::Resource::Collection)
-    end
-  end
 end
