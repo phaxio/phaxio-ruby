@@ -146,13 +146,13 @@ Fax.test_receive file: fax_file
 # => true
 ```
 
-##### `Fax.supported_countries`
+#### `Public::Country`
 
 Get a list of supported countries.
 
 ``` ruby
-Fax.supported_countries
-# => Phaxio::Resource::Collection([Country(alpha2: 'US', ...), ...])
+Public::Country.list
+# => Phaxio::Resource::Collection([Public::Country(alpha2: 'US', ...), ...])
 ```
 
 #### Phone Numbers
@@ -195,13 +195,13 @@ PhoneNumber.delete '+15558675309'
 
 #### Area Codes
 
-##### `AreaCode.list`
+##### `Public::AreaCode`
 
 Lists available area codes for purchasing Phaxio numbers.
 
 ``` ruby
-area_codes = AreaCode.list_available_area_codes toll_free: true
-# => Phaxio::Resource::Collection([AreaCode(city: 'Chicago', ...), ...], page: 1)
+area_codes = Public::AreaCode.list toll_free: true
+# => Phaxio::Resource::Collection([Public::AreaCode(city: 'Chicago', ...), ...], page: 1)
 ```
 
 #### PhaxCodes

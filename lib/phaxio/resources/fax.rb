@@ -3,8 +3,7 @@ module Phaxio
     # Provides functionality for viewing and managing faxes.
     class Fax < Resource
       FAXES_PATH = 'faxes'.freeze
-      SUPPORTED_COUNTRIES_PATH = 'public/countries'.freeze
-      private_constant :FAXES_PATH, :SUPPORTED_COUNTRIES_PATH
+      private_constant :FAXES_PATH
 
       # @return [Integer] the ID associated with this fax.
       # @!attribute id
@@ -276,20 +275,6 @@ module Phaxio
           true
         end
 
-        # @macro paging
-        # Get a list of supported countries for sending faxes.
-        # @param params [Hash]
-        #   A hash of parameters to send to Phaxio. This action has no unique
-        #   parameters.
-        # @return [Phaxio::Resource::Collection<Phaxio::Resources::Country>]
-        #   A collection of supported countries.
-        # @raise Phaxio::Error::PhaxioError
-        # @see https://www.phaxio.com/docs/api/v2/public/list_countries
-        def supported_countries params = {}
-          response = Client.request :get, supported_countries_endpoint, params
-          Country.response_collection response
-        end
-
         private
 
         def response_reference response
@@ -314,10 +299,6 @@ module Phaxio
 
         def resend_fax_endpoint id
           "#{fax_endpoint(id)}/resend"
-        end
-
-        def supported_countries_endpoint
-          SUPPORTED_COUNTRIES_PATH
         end
 
         def test_receive_params params
