@@ -30,7 +30,9 @@ module Phaxio
     #   @see Config.api_secret
     # @!attribute callback_token
     #   @see Config.callback_token
-    %w(api_key api_secret callback_token).each do |config_attribute|
+    # @!attribute api_endpoint
+    #   @see Config.api_endpoint
+    %w(api_key api_secret callback_token api_endpoint).each do |config_attribute|
       # Define getters
       define_method(config_attribute) do
         Config.public_send config_attribute

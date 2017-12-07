@@ -9,8 +9,6 @@ module Phaxio
   # @api private
 
   class Client
-    BASE_URL = 'https://api.phaxio.com/v2/'
-
     class << self
       # Makes a request to the Phaxio API.
       #
@@ -18,7 +16,7 @@ module Phaxio
       #   The HTTP method for the request. Currently only `:get`, `:post`, and `:delete` are
       #   supported.
       # @param endpoint [String]
-      #   The endpoint for the API action, relative to `BASE_URL`.
+      #   The endpoint for the API action, relative to `Phaxio::Config.api_endpoint`.
       # @param params [Hash]
       #   Any parameters to be sent with the request.
       #
@@ -39,9 +37,9 @@ module Phaxio
         end
       end
 
-      # @return [Faraday::Connection] A new Faraday connection to `BASE_URL`.
+      # @return [Faraday::Connection] A new Faraday connection to `Phaxio::Config.api_endpoint`.
       def conn
-        Faraday.new(BASE_URL) do |conn|
+        Faraday.new(Phaxio.api_endpoint) do |conn|
           conn.request :multipart
           conn.request :url_encoded
           conn.adapter :net_http

@@ -1,5 +1,7 @@
 module Phaxio
   class Config
+    DEFAULT_API_ENDPOINT = 'https://api.phaxio.com/v2/'.freeze
+
     class << self
       # Your Phaxio API key. This will be used for all interactions with the Phaxio API.
       #
@@ -16,6 +18,14 @@ module Phaxio
       #
       # To find your callback token, visit https://console.phaxio.com/user/callbacks/edit
       attr_accessor :callback_token
+
+      # The Phaxio API endpoint. Users generally shouldn't need to change it.
+      # Defaults to https://api.phaxio.com/v2/
+      attr_writer :api_endpoint
+
+      def api_endpoint
+        @api_endpoint || DEFAULT_API_ENDPOINT
+      end
     end
   end
 end
