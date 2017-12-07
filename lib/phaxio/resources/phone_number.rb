@@ -73,7 +73,7 @@ module Phaxio
         #   A hash of parameters to send to Phaxio.
         #   - *country_code* [Integer] - An E.164 country code that you'd like to filter by.
         #   - *area_code* [Integer] - An area code that you'd like to filter by. If an area code is
-        #     specified, then *country* is required.
+        #     specified, then *country_code* is required.
         # @return [Phaxio::Resource::Collection<Phaxio::Resources::PhoneNumber>]
         #   A collection of phone numbers.
         # @raise [Phaxio::Error::PhaxioError]

@@ -4,15 +4,12 @@
 
 A Ruby gem for interacting with the [Phaxio API](https://www.phaxio.com/docs/api/v2).
 
-**NOTE: Versions of this gem before 2.1.0.0 are considered "beta". Breaking changes may be more
-common in this period.**
-
 ## Installation
 
 Add to your application's Gemfile:
 
 ``` ruby
-gem 'phaxio', '2.1.0.0'
+gem 'phaxio', '~> 2.0.0'
 ```
 
 And then execute:
@@ -32,6 +29,8 @@ $ gem install phaxio
 Set up your API Key, API Secret, and, optionally, Callback Token.
 
 ``` ruby
+require 'phaxio'
+
 Phaxio.api_key = '11111'
 Phaxio.api_secret = '22222'
 Phaxio.callback_token = '33333'
