@@ -23,7 +23,7 @@ RSpec.describe Fax do
     it 'returns a reference to the fax' do
       result = action
       expect(result).to be_a(Fax::Reference)
-      expect(result.id).to be_a(Fixnum)
+      expect(result.id).to be_a(Integer)
     end
   end
 
