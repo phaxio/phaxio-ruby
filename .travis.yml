@@ -6,6 +6,6 @@ rvm:
   - 2.2
   - 2.3
   - 2.4
-  - jruby
+  - jruby-19mode
 
 sudo: false
