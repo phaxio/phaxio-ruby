@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2/phone_numbers
+    body:
+      encoding: UTF-8
+      string: api_key=<API_KEY>&api_secret=<API_SECRET>&area_code=225&country_code=1
+    headers:
+      User-Agent:
+      - Faraday v0.13.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Tue, 31 Oct 2017 02:51:12 GMT
+      etag:
+      - W/"8a85980fdbb5f8f3cb813a1704f55ac8"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - ef857553-09d4-4144-95f3-e2681de3f72a
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      x-runtime:
+      - '0.189105'
+      content-length:
+      - '307'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Number provisioned successfully!","data":{"phone_number":"+12255000373","city":"Baton
+        Rouge","state":"Louisiana","country":"United States of America","cost":200,"last_billed_at":"2017-10-30T21:51:12.000-05:00","provisioned_at":"2017-10-30T21:51:12.000-05:00","callback_url":null}}'
+    http_version: 
+  recorded_at: Tue, 31 Oct 2017 02:51:13 GMT
+recorded_with: VCR 3.0.3

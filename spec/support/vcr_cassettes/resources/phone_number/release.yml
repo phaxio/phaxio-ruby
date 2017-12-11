@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://api.phaxio.com/v2/phone_numbers/+12258675309?api_key=<API_KEY>&api_secret=<API_SECRET>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.13.1
+  response:
+    status:
+      code: 200
+      message:
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Tue, 31 Oct 2017 03:01:31 GMT
+      etag:
+      - W/"72f232a3122ac0559f594e0dc20e2512"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 5d9baff3-8717-45d1-a3e8-519163964b82
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      x-runtime:
+      - '0.093251'
+      content-length:
+      - '58'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Number released successfully!"}'
+    http_version:
+  recorded_at: Tue, 31 Oct 2017 03:01:31 GMT
+recorded_with: VCR 3.0.3

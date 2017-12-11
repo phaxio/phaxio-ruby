@@ -1,9 +1,0 @@
-{
-    "success":true,
-    "message":"Account status retrieved successfully",
-    "data":{
-        "faxes_sent_this_month":120,
-        "faxes_sent_today":10,
-        "balance":3000
-    }
-}

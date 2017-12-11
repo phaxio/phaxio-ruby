@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2/account/status?api_key=<API_KEY>&api_secret=<API_SECRET>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.13.1
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Tue, 31 Oct 2017 03:07:02 GMT
+      etag:
+      - W/"97e961f35ce919cc15be5de8e77175d7"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 87f6ebc0-8f82-4e7e-87c9-5d53d2e505cb
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      x-runtime:
+      - '0.036786'
+      content-length:
+      - '172'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Account status retrieved successfully","data":{"balance":810,"faxes_today":{"sent":5,"received":5},"faxes_this_month":{"sent":13,"received":18}}}'
+    http_version: 
+  recorded_at: Tue, 31 Oct 2017 03:07:02 GMT
+recorded_with: VCR 3.0.3

@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2/phone_numbers?api_key=<API_KEY>&api_secret=<API_SECRET>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.13.1
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Tue, 31 Oct 2017 02:57:00 GMT
+      etag:
+      - W/"d146491212cda96fc08f7e8a8e6e5147"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-page:
+      - '1'
+      x-per-page:
+      - '25'
+      x-request-id:
+      - 711de3a2-8f35-4983-b349-c57dba2a550d
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      x-runtime:
+      - '0.060597'
+      x-total:
+      - '2'
+      content-length:
+      - '601'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Retrieved user phone numbers successfully","data":[{"phone_number":"+15558675309","city":"Baton
+        Rouge","state":"Louisiana","country":"United States of America","cost":200,"last_billed_at":"2017-10-13T15:32:37.000-05:00","provisioned_at":"2016-10-13T15:32:37.000-05:00","callback_url":null},{"phone_number":"+12255000373","city":"Baton
+        Rouge","state":"Louisiana","country":"United States of America","cost":200,"last_billed_at":"2017-10-30T21:51:12.000-05:00","provisioned_at":"2017-10-30T21:51:12.000-05:00","callback_url":null}],"paging":{"total":2,"per_page":25,"page":1}}'
+    http_version: 
+  recorded_at: Tue, 31 Oct 2017 02:57:01 GMT
+recorded_with: VCR 3.0.3
