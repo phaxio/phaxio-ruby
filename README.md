@@ -146,7 +146,9 @@ Fax.test_receive file: fax_file
 # => true
 ```
 
-#### `Public::Country`
+#### Countries
+
+##### `Public::Country.list`
 
 Get a list of supported countries.
 
@@ -195,13 +197,13 @@ PhoneNumber.delete '+15558675309'
 
 #### Area Codes
 
-##### `Public::AreaCode`
+##### `Public::AreaCode.list`
 
 Lists available area codes for purchasing Phaxio numbers.
 
 ``` ruby
 area_codes = Public::AreaCode.list toll_free: true
-# => Phaxio::Resource::Collection([Public::AreaCode(city: 'Chicago', ...), ...], page: 1)
+# => Phaxio::Resource::Collection([Public::AreaCode(city: 'Toll Free Service', ...), ...], page: 1)
 ```
 
 #### PhaxCodes
