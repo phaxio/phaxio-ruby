@@ -292,9 +292,3 @@ end
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-## Modified Semantic Versioning
-
-Versions consist of four parts. The first corresponds to the supported Phaxio API version, the
-second to the major version of the gem itself, the third to the minor version of the gem, and the
-fourth to the patch level of the gem.
