@@ -43,12 +43,15 @@ To send a fax:
 * list_numbers - `Phaxio.list_numbers(area_code: 802)`
 * get_fax_file - `Phaxio.get_fax_file(id: 123456, type: p)`
 * list_faxes - `Phaxio.list_numbers(area_code: 802)`
-* list_faxes - `Phaxio.list_faxes(start: Time.now - 48000,
-end: Time.now)`
+* list_faxes - `Phaxio.list_faxes(start: Time.now - 48000, end: Time.now)`
 * get_fax_status - `Phaxio.get_fax_status(id: 123456)`
 * cancel_fax - `Phaxio.cancel_fax(id: 123456)`
 * delete_fax - `Phaxio.delete_fax(id: 1234, files_only: true)`
 * get_account_status - `Phaxio.get_account_status`
+* attach_phaxcode_to_pdf - `Phaxio.attach_phaxcode_to_pdf(x: 10, y:10, File.new("input.pdf"))`
+* create_phaxcode - `Phaxio.create_phaxcode(metadata: "some metadata")`
+* supported_countries
+* area_codes
 
 ### Example
 

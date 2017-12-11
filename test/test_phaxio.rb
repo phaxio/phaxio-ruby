@@ -3,6 +3,7 @@ require_relative "test_helper"
 class TestPhaxio < MiniTest::Test
   def setup
     @callback_data = ['example.com', { test: true }]
+    @testPDF = File.new(File.dirname(__FILE__) + "/files/test.pdf")
   end
 
   def test_config
@@ -14,10 +15,11 @@ class TestPhaxio < MiniTest::Test
   end
 
   def test_send_fax
-    @response = Phaxio.send_fax(to: "0123456789", filename: "test.pdf")
-    assert_equal true, @response["success"]
-    assert_equal "Fax queued for sending", @response["message"]
-    assert_equal 1234, @response["faxId"]
+    Phaxio.expects(:send_post).with(
+        '/send',
+        to: "+18005551234", filename: @testPDF
+    )
+    Phaxio.send_fax(to: "+18005551234", filename: @testPDF)
   end
 
   def test_resend_fax
@@ -99,9 +101,9 @@ class TestPhaxio < MiniTest::Test
   def test_attach_phax_code_to_pdf
     Phaxio.expects(:send_post).with(
       '/attachPhaxCodeToPdf',
-      x: 0, y: 100, filename: 'test.pdf'
+      x: 0, y: 100, filename: @testPDF
     )
-    Phaxio.attach_phaxcode_to_pdf(x: 0, y: 100, filename: 'test.pdf')
+    Phaxio.attach_phaxcode_to_pdf(x: 0, y: 100, filename: @testPDF)
   end
 
   def test_create_phaxcode

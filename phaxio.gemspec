@@ -2,11 +2,11 @@
 require File.expand_path('../lib/phaxio/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Sean Behan", "Brett Chalupa"]
-  gem.email         = ["inbox@seanbehan.com", "brettchalupa@gmail.com"]
-  gem.description   = %q{A Ruby Gem for interacting with Phaxio's JSON API. Currently, not all of the Phaxio API calls are supported. The essentials are in place and more will be coming with future versions of this gem.}
-  gem.summary       = %q{A Ruby Gem for interacting with Phaxio's JSON API}
-  gem.homepage      = "http://www.gristmill.io/posts/17-introducing-the-phaxio-gem-an-easy-way-to-use-phaxio-with-ruby"
+  gem.authors       = ["Josh Nankin"]
+  gem.email         = ["support@phaxio.com"]
+  gem.description   = %q{Ruby wrapper for the Phaxio API}
+  gem.summary       = %q{Ruby wrapper for the Phaxio API}
+  gem.homepage      = "http://github.com/phaxio/phaxio-ruby"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
