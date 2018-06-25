@@ -97,8 +97,14 @@ module Phaxio
         # Handle file params
         params.each do |k, v|
           next unless k.to_s == 'file'
-          mime_type = MimeTypeHelper.mimetype_for_file v.path
-          params[k] = Faraday::UploadIO.new v, mime_type
+
+          if v.is_a? Array
+            file_param = v.map { |file| file_to_param file }
+          else
+            file_param = file_to_param v
+          end
+
+          params[k] = file_param
         end
 
         conn.post endpoint, params
@@ -129,6 +135,11 @@ module Phaxio
           api_key: Phaxio.api_key,
           api_secret: Phaxio.api_secret
         }
+      end
+
+      def file_to_param file
+        mime_type = MimeTypeHelper.mimetype_for_file file.path
+        Faraday::UploadIO.new file, mime_type
       end
     end
   end

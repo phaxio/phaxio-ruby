@@ -32,6 +32,38 @@ RSpec.describe Phaxio::Client do
       client.request :get, endpoint, params
     end
 
+    it 'handles a single file param' do
+      file_path = File.expand_path File.join('..', 'support', 'files', 'test.pdf'), __FILE__
+      params = {to: '+12258888888', file: File.open(file_path)}
+      expect(test_connection).to receive(:post) do |request_endpoint, request_params|
+        expect(request_params[:file]).to be_a(Faraday::UploadIO)
+        expect(request_params[:file].original_filename).to eq(File.basename(file_path))
+        test_response 200
+      end
+
+      client.request :post, 'faxes', params
+    end
+
+    it 'handles multiple file params' do
+      file_names = ['test.pdf', 'test.txt']
+      file_paths = file_names.map do |file_name|
+        File.expand_path File.join('..', 'support', 'files', file_name), __FILE__
+      end
+      params = {to: '+12258888888', file: file_paths.map { |file_path| File.open(file_path) }}
+
+      expect(test_connection).to receive(:post) do |request_endpoint, request_params|
+        expect(request_params[:file]).to be_a(Array)
+        correct_file_params = request_params[:file].all? do |file_param|
+          file_param.is_a? Faraday::UploadIO
+        end
+        expect(correct_file_params).to eq(true)
+        expect(request_params[:file].map(&:original_filename)).to eq(file_names)
+        test_response 200
+      end
+
+      client.request :post, 'faxes', params
+    end
+
     it 'uses the configured API key and secret by default' do
       expect(test_connection).to receive(:get) do |_endpoint, request_params|
         expect(request_params[:api_key]).to eq(Phaxio.api_key)
