@@ -55,10 +55,7 @@ module Phaxio
           body = JSON.parse(response.body).with_indifferent_access
         else
           extension = MimeTypeHelper.extension_for_mimetype content_type
-          filename = File.join(
-            Dir.tmpdir,
-            Dir::Tmpname.make_tmpname('phaxio-', "download.#{extension}")
-          )
+          filename = File.join Dir.tmpdir, tmpname(extension)
           File.open(filename, 'wb') { |file| file.write response.body }
           body = {'success' => response.success?, 'data' => File.open(filename, 'rb')}
         end
@@ -91,6 +88,11 @@ module Phaxio
             raise Error::GeneralError, "#{status}: #{message}"
           end
         end
+      end
+
+      def tmpname(extension)
+      	t = Time.now.strftime("%Y%m%d")
+      	"phaxio-#{t}-#{$$}-#{rand(0x100000000).to_s(36)}-download.#{extension}"
       end
 
       def post endpoint, params = {}
