@@ -91,8 +91,8 @@ module Phaxio
       end
 
       def tmpname(extension)
-      	t = Time.now.strftime("%Y%m%d")
-      	"phaxio-#{t}-#{$$}-#{rand(0x100000000).to_s(36)}-download.#{extension}"
+        t = Time.now.strftime("%Y%m%d")
+        "phaxio-#{t}-#{$$}-#{rand(0x100000000).to_s(36)}-download.#{extension}"
       end
 
       def post endpoint, params = {}
