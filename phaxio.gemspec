@@ -14,6 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "phaxio"
   gem.require_paths = ["lib"]
   gem.version       = Phaxio::VERSION
+  gem.licenses      = ['MIT']
 
   gem.required_ruby_version = '>= 2.0'
   gem.add_dependency 'faraday', '~> 0.10'
