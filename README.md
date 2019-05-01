@@ -261,27 +261,60 @@ Callback.valid_signature? received_signature, callback_url, received_params, rec
 require 'sinatra/base'
 require 'phaxio'
 
-class PhaxioCallbackExample < Sinatra::Base
-  Phaxio.config do |config|
-    config.api_key = '0123456789'
-    config.api_secret = '0123456789'
-    config.callback_token = '0123456789'
-  end
-
-  post '/phaxio_callback' do
+class PhaxioWebhookExample < Sinatra::Base
+  Phaxio.callback_token = 'YOUR WEBHOOK TOKEN HERE'
+  
+  post '/webhook' do
     signature = request.env['HTTP_X_PHAXIO_SIGNATURE']
     url = request.url
-    file_params = params[:filename]
-    if Phaxio::Callback.valid_signature? signature, url, callback_params, file_params
+    file_params = params[:file]
+    if Phaxio::Callback.valid_signature? signature, url, webhook_params, file_params
       'Success'
     else
-      'Invalid callback signature'
+      'Invalid webhook signature'
     end
   end
 
-  def callback_params
+  def webhook_params
     params.select do |key, _value|
-      %w(success is_test direction fax metadata message).include?(key)
+      %w(success is_test direction fax metadata message event_type).include?(key)
+    end
+  end
+end
+```
+
+## Webhook Validation Example with Rails Controller
+
+``` ruby
+class WebhookController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
+	def index
+    signature = request.headers['X-Phaxio-Signature']  
+    Phaxio.callback_token = 'YOUR WEBHOOK TOKEN HERE'
+    url = request.original_url
+
+    Rails.logger.debug "URL: " + url
+    Rails.logger.debug "Signature: " + signature
+    Rails.logger.debug "params: " + params.inspect
+    Rails.logger.debug "webhook_params: " + webhook_params.to_h.inspect
+    
+    if Phaxio::Callback.valid_signature? signature, url, webhook_params.to_h, file_params
+      Rails.logger.debug "Success"
+      render plain: 'Success'
+    else
+      Rails.logger.debug "Invalid callback signature"
+      render plain: 'Invalid callback signature'
+    end
+  end
+
+  def webhook_params 
+    params.permit(:success, :is_test, :direction, :fax, :metadata, :event_type, :message)
+  end
+
+  def file_params 
+    if params[:file]
+      [{ :name => 'file', :tempfile => params[:file].tempfile }]
     end
   end
 end
