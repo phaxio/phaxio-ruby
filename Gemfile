@@ -10,4 +10,5 @@ group :development do
   gem 'webmock'
   gem 'pry'
   gem 'yard'
+  gem 'faraday', '~> 0.9.0'
 end
