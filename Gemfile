@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gemspec
+gem 'faraday', '~> 0.9.0'
 
 group :development do
   gem 'bundler'
@@ -10,5 +11,4 @@ group :development do
   gem 'webmock'
   gem 'pry'
   gem 'yard'
-  gem 'faraday', '~> 0.9.0'
 end
