@@ -2,45 +2,46 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.phaxio.com/v2/faxes/1234/resend
+    uri: https://api.phaxio.com/v2.1/faxes/253964881/resend
     body:
       encoding: UTF-8
-      string: api_key=<API_KEY>&api_secret=<API_SECRET>
+      string: ''
     headers:
+      Authorization:
+      - Basic dGVzdC1hcGkta2V5OnRlc3QtYXBpLXNlY3JldA==
       User-Agent:
-      - Faraday v0.13.1
+      - Faraday v1.3.0
       Content-Type:
       - application/x-www-form-urlencoded
   response:
     status:
       code: 200
-      message:
+      message: OK
     headers:
       cache-control:
       - max-age=0, private, must-revalidate
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 30 Oct 2017 19:44:32 GMT
+      - Wed, 24 Feb 2021 18:56:11 GMT
       etag:
-      - W/"cd24c7f7416f6ba33a090724da943372"
+      - W/"c913676c758ee5ebb4cd5c50e687d644"
       server:
       - nginx
       strict-transport-security:
       - max-age=15768000; preload
       x-request-id:
-      - 6f44c0d0-c98f-460a-b89a-1a32e7d900a5
+      - 456e2adb-ba4c-4aa6-8319-af3f263b6e3b
       x-robots-tag:
       - noindex, nofollow, nosnippet, noarchive
       x-runtime:
-      - '0.101165'
+      - '0.417675'
       content-length:
-      - '76'
+      - '77'
       connection:
-      - Close
+      - keep-alive
     body:
       encoding: UTF-8
-      string: '{"success":true,"message":"Fax queued for resending","data":{"id":5678}}'
-    http_version:
-  recorded_at: Mon, 30 Oct 2017 19:44:32 GMT
-recorded_with: VCR 3.0.3
+      string: '{"success":true,"message":"Fax queued for resending","data":{"id":253965118}}'
+  recorded_at: Wed, 24 Feb 2021 18:55:24 GMT
+recorded_with: VCR 6.0.0

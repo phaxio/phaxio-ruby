@@ -114,7 +114,7 @@ module Phaxio
           params[k] = file_param
         end
 
-        conn.post endpoint, params
+        conn.post endpoint, params, api_headers(params)
       end
 
       def patch endpoint, params = {}
@@ -131,15 +131,15 @@ module Phaxio
           params[k] = file_param
         end
 
-        conn.patch endpoint, params
+        conn.patch endpoint, params, api_headers(params)
       end
 
       def get endpoint, params = {}
-        conn.get endpoint, params
+        conn.get endpoint, params, api_headers(params)
       end
 
       def delete endpoint, params = {}
-        conn.delete endpoint, params
+        conn.delete endpoint, params, api_headers(params)
       end
 
       def api_params params
@@ -150,6 +150,14 @@ module Phaxio
         end
 
         params
+      end
+
+      def api_headers params
+        api_key    = params[:api_key]    || Phaxio.api_key
+        api_secret = params[:api_secret] || Phaxio.api_secret
+        return unless api_key && api_secret
+        auth = Base64.strict_encode64("#{api_key}:#{api_secret}")
+        {'Authorization' => "Basic #{auth}"}
       end
 
       def file_to_param file

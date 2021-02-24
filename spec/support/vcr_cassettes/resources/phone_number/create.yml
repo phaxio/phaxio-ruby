@@ -2,46 +2,47 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.phaxio.com/v2/phone_numbers
+    uri: https://api.phaxio.com/v2.1/phone_numbers
     body:
       encoding: UTF-8
-      string: api_key=<API_KEY>&api_secret=<API_SECRET>&area_code=225&country_code=1
+      string: area_code=225&country_code=1
     headers:
+      Authorization:
+      - Basic dGVzdC1hcGkta2V5OnRlc3QtYXBpLXNlY3JldA==
       User-Agent:
-      - Faraday v0.13.1
+      - Faraday v1.3.0
       Content-Type:
       - application/x-www-form-urlencoded
   response:
     status:
       code: 200
-      message: 
+      message: OK
     headers:
       cache-control:
       - max-age=0, private, must-revalidate
       content-type:
       - application/json; charset=utf-8
       date:
-      - Tue, 31 Oct 2017 02:51:12 GMT
+      - Wed, 24 Feb 2021 19:44:18 GMT
       etag:
-      - W/"8a85980fdbb5f8f3cb813a1704f55ac8"
+      - W/"26f3258916adfa754e8f1b238e5db130"
       server:
       - nginx
       strict-transport-security:
       - max-age=15768000; preload
       x-request-id:
-      - ef857553-09d4-4144-95f3-e2681de3f72a
+      - f0ccfe6c-d616-42cf-8ba9-cb1fff17f3cd
       x-robots-tag:
       - noindex, nofollow, nosnippet, noarchive
       x-runtime:
-      - '0.189105'
+      - '1.737176'
       content-length:
-      - '307'
+      - '323'
       connection:
-      - Close
+      - keep-alive
     body:
       encoding: UTF-8
-      string: '{"success":true,"message":"Number provisioned successfully!","data":{"phone_number":"+12255000373","city":"Baton
-        Rouge","state":"Louisiana","country":"United States of America","cost":200,"last_billed_at":"2017-10-30T21:51:12.000-05:00","provisioned_at":"2017-10-30T21:51:12.000-05:00","callback_url":null}}'
-    http_version: 
-  recorded_at: Tue, 31 Oct 2017 02:51:13 GMT
-recorded_with: VCR 3.0.3
+      string: '{"success":true,"message":"Number provisioned successfully!","data":{"phone_number":"+12258675309","city":"Baton
+        Rouge","state":"Louisiana","country":"United States of America","cost":200,"last_billed_at":"2021-02-24T13:44:18.000-06:00","provisioned_at":"2021-02-24T13:44:18.000-06:00","callback_url":null,"ata_name":null}}'
+  recorded_at: Wed, 24 Feb 2021 19:43:31 GMT
+recorded_with: VCR 6.0.0

@@ -2,26 +2,28 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.phaxio.com/v2/public/countries?api_key=<API_KEY>&api_secret=<API_SECRET>
+    uri: https://api.phaxio.com/v2.1/public/countries
     body:
       encoding: US-ASCII
       string: ''
     headers:
+      Authorization:
+      - Basic dGVzdC1hcGkta2V5OnRlc3QtYXBpLXNlY3JldA==
       User-Agent:
-      - Faraday v0.13.1
+      - Faraday v1.3.0
   response:
     status:
       code: 200
-      message: 
+      message: OK
     headers:
       cache-control:
       - max-age=0, private, must-revalidate
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 03 Nov 2017 19:57:20 GMT
+      - Wed, 24 Feb 2021 19:37:27 GMT
       etag:
-      - W/"663bfaccf5b6e4ededbd00fd1ec1ef1b"
+      - W/"1662637ad255ab3635318bef0bf5068b"
       server:
       - nginx
       strict-transport-security:
@@ -31,24 +33,23 @@ http_interactions:
       x-per-page:
       - '25'
       x-request-id:
-      - 38c96146-6edc-4ae5-acd2-4c9cf0ff6f6c
+      - b394b58a-a31e-42ba-b342-d8441dedc7c9
       x-robots-tag:
       - noindex, nofollow, nosnippet, noarchive
       x-runtime:
-      - '0.105774'
+      - '0.014810'
       x-total:
-      - '51'
+      - '250'
       content-length:
       - '3128'
       connection:
-      - Close
+      - keep-alive
     body:
       encoding: UTF-8
       string: '{"success":true,"message":"Data contains countries info","data":[{"name":"United
         States of America","alpha2":"US","country_code":1,"price_per_page":7,"send_support":"full","receive_support":"full"},{"name":"Canada","alpha2":"CA","country_code":1,"price_per_page":7,"send_support":"full","receive_support":"full"},{"name":"Puerto
-        Rico","alpha2":"PR","country_code":1,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Argentina","alpha2":"AR","country_code":54,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Austria","alpha2":"AT","country_code":43,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Australia","alpha2":"AU","country_code":61,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Belgium","alpha2":"BE","country_code":32,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Brazil","alpha2":"BR","country_code":55,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Switzerland","alpha2":"CH","country_code":41,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Germany","alpha2":"DE","country_code":49,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Denmark","alpha2":"DK","country_code":45,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Spain","alpha2":"ES","country_code":34,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"France","alpha2":"FR","country_code":33,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"United
+        Rico","alpha2":"PR","country_code":1,"price_per_page":7,"send_support":"full","receive_support":"none"},{"name":"Argentina","alpha2":"AR","country_code":54,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Austria","alpha2":"AT","country_code":43,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Australia","alpha2":"AU","country_code":61,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Belgium","alpha2":"BE","country_code":32,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Brazil","alpha2":"BR","country_code":55,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Switzerland","alpha2":"CH","country_code":41,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Germany","alpha2":"DE","country_code":49,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Denmark","alpha2":"DK","country_code":45,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Spain","alpha2":"ES","country_code":34,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"France","alpha2":"FR","country_code":33,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"United
         Kingdom of Great Britain and Northern Ireland","alpha2":"GB","country_code":44,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Greece","alpha2":"GR","country_code":30,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Hong
-        Kong","alpha2":"HK","country_code":852,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Ireland","alpha2":"IE","country_code":353,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Israel","alpha2":"IL","country_code":972,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"India","alpha2":"IN","country_code":91,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Italy","alpha2":"IT","country_code":39,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Jersey","alpha2":"JE","country_code":44,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Japan","alpha2":"JP","country_code":81,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Luxembourg","alpha2":"LU","country_code":352,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Netherlands","alpha2":"NL","country_code":31,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Norway","alpha2":"NO","country_code":47,"price_per_page":10,"send_support":"full","receive_support":"none"}],"paging":{"total":51,"per_page":25,"page":1}}'
-    http_version: 
-  recorded_at: Fri, 03 Nov 2017 19:57:20 GMT
-recorded_with: VCR 3.0.3
+        Kong","alpha2":"HK","country_code":852,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Ireland","alpha2":"IE","country_code":353,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Israel","alpha2":"IL","country_code":972,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"India","alpha2":"IN","country_code":91,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Italy","alpha2":"IT","country_code":39,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Jersey","alpha2":"JE","country_code":44,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Japan","alpha2":"JP","country_code":81,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Luxembourg","alpha2":"LU","country_code":352,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Netherlands","alpha2":"NL","country_code":31,"price_per_page":10,"send_support":"full","receive_support":"none"},{"name":"Norway","alpha2":"NO","country_code":47,"price_per_page":10,"send_support":"full","receive_support":"none"}],"paging":{"total":250,"per_page":25,"page":1}}'
+  recorded_at: Wed, 24 Feb 2021 19:36:40 GMT
+recorded_with: VCR 6.0.0
