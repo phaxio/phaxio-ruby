@@ -4,7 +4,7 @@ gemspec
 
 group :development do
   gem 'bundler'
-  gem 'rake', '~> 10'
+  gem 'rake'
   gem 'rspec', '~> 3.7'
   gem 'vcr'
   gem 'webmock'
