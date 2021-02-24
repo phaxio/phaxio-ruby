@@ -1,18 +1,16 @@
 ---
 http_interactions:
 - request:
-    method: post
-    uri: https://api.phaxio.com/v2.1/faxes/253964483/cancel
+    method: get
+    uri: https://api.phaxio.com/v2.1/phax_codes/-Y3jxX
     body:
-      encoding: UTF-8
+      encoding: US-ASCII
       string: ''
     headers:
       Authorization:
       - Basic dGVzdC1hcGkta2V5OnRlc3QtYXBpLXNlY3JldA==
       User-Agent:
       - Faraday v1.3.0
-      Content-Type:
-      - application/x-www-form-urlencoded
   response:
     status:
       code: 200
@@ -23,25 +21,26 @@ http_interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Wed, 24 Feb 2021 18:54:53 GMT
+      - Wed, 24 Feb 2021 19:43:33 GMT
       etag:
-      - W/"99aa7cac517e112e0896adae6efb2a4f"
+      - W/"78c920ebcae905a8a076a0af95923885"
       server:
       - nginx
       strict-transport-security:
       - max-age=15768000; preload
       x-request-id:
-      - df874d52-449c-460b-8918-8acf889266e6
+      - 152a4709-21c0-4af8-a04c-edd33bfebc92
       x-robots-tag:
       - noindex, nofollow, nosnippet, noarchive
       x-runtime:
-      - '0.021847'
-      transfer-encoding:
-      - chunked
+      - '0.015573'
+      content-length:
+      - '159'
       connection:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"success":true,"message":"Fax cancellation scheduled successfully.","data":{"id":253964483}}'
-  recorded_at: Wed, 24 Feb 2021 18:54:06 GMT
+      string: '{"success":true,"message":"Info for PhaxCode","data":{"identifier":"-Y3jxX","created_at":"2017-11-06T02:57:46.000-06:00","metadata":"This
+        is a test PhaxCode"}}'
+  recorded_at: Wed, 24 Feb 2021 19:42:46 GMT
 recorded_with: VCR 6.0.0

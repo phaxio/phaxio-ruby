@@ -1,6 +1,6 @@
 module Phaxio
   class Config
-    DEFAULT_API_ENDPOINT = 'https://api.phaxio.com/v2/'.freeze
+    DEFAULT_API_ENDPOINT = 'https://api.phaxio.com/v2.1/'.freeze
 
     class << self
       # Your Phaxio API key. This will be used for all interactions with the Phaxio API.

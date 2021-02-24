@@ -10,4 +10,5 @@ group :development do
   gem 'webmock'
   gem 'pry'
   gem 'yard'
+  gem 'dotenv', require: false
 end

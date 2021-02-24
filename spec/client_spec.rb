@@ -65,9 +65,9 @@ RSpec.describe Phaxio::Client do
     end
 
     it 'uses the configured API key and secret by default' do
-      expect(test_connection).to receive(:get) do |_endpoint, request_params|
-        expect(request_params[:api_key]).to eq(Phaxio.api_key)
-        expect(request_params[:api_secret]).to eq(Phaxio.api_secret)
+      expect(test_connection).to receive(:get) do |_endpoint, _request_params, request_headers|
+        auth_header = "Basic #{Base64.strict_encode64("#{Phaxio.api_key}:#{Phaxio.api_secret}")}"
+        expect(request_headers['Authorization']).to eq(auth_header)
         test_response 200
       end
       client.request :get, 'test'
@@ -76,9 +76,9 @@ RSpec.describe Phaxio::Client do
     it 'uses the api key specified in the params hash' do
       custom_api_key = 'custom-api-key'
       custom_api_secret = 'custom-api-secret'
-      expect(test_connection).to receive(:get) do |_endpoint, request_params|
-        expect(request_params[:api_key]).to eq(custom_api_key)
-        expect(request_params[:api_secret]).to eq(custom_api_secret)
+      expect(test_connection).to receive(:get) do |_endpoint, _request_params, request_headers|
+        auth_header = "Basic #{Base64.strict_encode64('custom-api-key:custom-api-secret')}"
+        expect(request_headers['Authorization']).to eq(auth_header)
         test_response 200
       end
       client.request :get, 'test', api_key: custom_api_key, api_secret: custom_api_secret

@@ -2,43 +2,44 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.phaxio.com/v2/faxes/1234?api_key=<API_KEY>&api_secret=<API_SECRET>
+    uri: https://api.phaxio.com/v2.1/faxes/253962924
     body:
       encoding: US-ASCII
       string: ''
     headers:
+      Authorization:
+      - Basic dGVzdC1hcGkta2V5OnRlc3QtYXBpLXNlY3JldA==
       User-Agent:
-      - Faraday v0.13.1
+      - Faraday v1.3.0
   response:
     status:
       code: 200
-      message: 
+      message: OK
     headers:
       cache-control:
       - max-age=0, private, must-revalidate
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 27 Oct 2017 19:41:23 GMT
+      - Wed, 24 Feb 2021 18:51:13 GMT
       etag:
-      - W/"9274b8f2f1cea30f9c398d83d5ea296c"
+      - W/"db5e8fc1a8305cde75adee13942feceb"
       server:
       - nginx
       strict-transport-security:
       - max-age=15768000; preload
       x-request-id:
-      - 958c6cf1-e42f-4ac5-82a3-f17f69e3f774
+      - 0cd9353c-1f3a-4f66-b5be-9d0134aa2922
       x-robots-tag:
       - noindex, nofollow, nosnippet, noarchive
       x-runtime:
-      - '0.080669'
+      - '0.035515'
       content-length:
-      - '524'
+      - '562'
       connection:
-      - Close
+      - keep-alive
     body:
       encoding: UTF-8
-      string: '{"success":true,"message":"Metadata for fax","data":{"id":1234,"direction":"sent","num_pages":1,"status":"inprogress","is_test":false,"created_at":"2017-10-27T14:41:11.000-05:00","caller_id":null,"from_number":null,"completed_at":null,"cost":7,"tags":{},"recipients":[{"phone_number":"+15558675309","status":"callactive","retry_count":0,"completed_at":null,"bitrate":null,"resolution":null,"error_type":null,"error_id":null,"error_message":null}],"to_number":null,"error_id":null,"error_type":null,"error_message":null}}'
-    http_version: 
-  recorded_at: Fri, 27 Oct 2017 19:41:23 GMT
-recorded_with: VCR 3.0.3
+      string: '{"success":true,"message":"Metadata for fax","data":{"id":253962924,"direction":"sent","num_pages":0,"status":"queued","is_test":true,"created_at":"2021-02-24T12:51:12.000-06:00","caller_id":null,"from_number":null,"completed_at":null,"caller_name":null,"cost":0,"tags":{},"recipients":[{"phone_number":"+15551231234","status":null,"retry_count":0,"completed_at":null,"bitrate":null,"resolution":null,"error_type":null,"error_id":null,"error_message":null,"phone_calls":[]}],"to_number":null,"error_id":null,"error_type":null,"error_message":null,"barcodes":[]}}'
+  recorded_at: Wed, 24 Feb 2021 18:50:26 GMT
+recorded_with: VCR 6.0.0

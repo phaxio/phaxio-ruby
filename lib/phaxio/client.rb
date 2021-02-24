@@ -27,6 +27,7 @@ module Phaxio
         begin
           response = case method.to_s
                      when 'post' then post(endpoint, params)
+                     when 'patch' then patch(endpoint, params)
                      when 'get' then get(endpoint, params)
                      when 'delete' then delete(endpoint, params)
                      else raise ArgumentError, "HTTP method `#{method}` is not supported."
@@ -43,6 +44,10 @@ module Phaxio
           conn.request :multipart
           conn.request :url_encoded
           conn.adapter :net_http
+
+          if Phaxio.api_key && Phaxio.api_secret
+            conn.basic_auth Phaxio.api_key, Phaxio.api_secret
+          end
         end
       end
 
@@ -109,20 +114,35 @@ module Phaxio
           params[k] = file_param
         end
 
-        conn.post endpoint, params
+        conn.post endpoint, params, api_headers(params)
+      end
+
+      def patch endpoint, params = {}
+        # Handle file params
+        params.each do |k, v|
+          next unless k.to_s == 'file'
+
+          if v.is_a? Array
+            file_param = v.map { |file| file_to_param file }
+          else
+            file_param = file_to_param v
+          end
+
+          params[k] = file_param
+        end
+
+        conn.patch endpoint, params, api_headers(params)
       end
 
       def get endpoint, params = {}
-        conn.get endpoint, params
+        conn.get endpoint, params, api_headers(params)
       end
 
       def delete endpoint, params = {}
-        conn.delete endpoint, params
+        conn.delete endpoint, params, api_headers(params)
       end
 
       def api_params params
-        params = default_params.merge params
-
         # Convert times to ISO 8601
         params.each do |k, v|
           next unless v.kind_of?(Time) || v.kind_of?(Date)
@@ -132,11 +152,12 @@ module Phaxio
         params
       end
 
-      def default_params
-        {
-          api_key: Phaxio.api_key,
-          api_secret: Phaxio.api_secret
-        }
+      def api_headers params
+        api_key    = params[:api_key]    || Phaxio.api_key
+        api_secret = params[:api_secret] || Phaxio.api_secret
+        return unless api_key && api_secret
+        auth = Base64.strict_encode64("#{api_key}:#{api_secret}")
+        {'Authorization' => "Basic #{auth}"}
       end
 
       def file_to_param file

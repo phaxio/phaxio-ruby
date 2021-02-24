@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe Fax do
   let(:test_file) { File.open test_file_path }
   let(:test_file_path) { File.expand_path(File.join('..', '..', 'support', 'files', 'test.pdf'), __FILE__) }
-  let(:test_recipient_number) { ENV.fetch 'TEST_RECIPIENT_NUMBER' }
+  let(:test_recipient_number) { ENV.fetch('TEST_RECIPIENT_NUMBER', '+15558675309') }
 
   describe 'creating a fax' do
     let(:action) { Fax.create params }
@@ -29,7 +29,11 @@ RSpec.describe Fax do
 
   describe 'retrieving a fax' do
     let(:action) { Fax.get fax_id, params }
-    let(:fax_id) { 1234 }
+    let!(:fax_id) {
+      VCR.use_cassette('resources/fax/create_for_get') do
+        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
+      end
+    }
     let(:params) { {} }
 
     around(:each) do |example|
@@ -50,17 +54,14 @@ RSpec.describe Fax do
     end
   end
 
-  # TODO: Refactor this
-  # This one's a little tricky, since it relies on having a fax to cancel.
   describe 'cancelling a fax' do
-    let(:action) { Fax.cancel @fax_id, params }
+    let(:action) { Fax.cancel fax_id, params }
     let(:params) { {} }
-
-    before do
-      VCR.use_cassette('resources/fax/create') do
-        @fax_id = Fax.create(to: test_recipient_number, file: test_file).id
+    let!(:fax_id) {
+      VCR.use_cassette('resources/fax/create_for_cancel') do
+        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
       end
-    end
+    }
 
     around(:each) do |example|
       VCR.use_cassette('resources/fax/cancel') do
@@ -69,14 +70,14 @@ RSpec.describe Fax do
     end
 
     it 'makes the request to Phaxio' do
-      expect_api_request :post, "faxes/#{@fax_id}/cancel", params
+      expect_api_request :post, "faxes/#{fax_id}/cancel", params
       action
     end
 
     it 'returns a reference to the fax' do
       result = action
       expect(result).to be_a(Fax::Reference)
-      expect(result.id).to eq(@fax_id)
+      expect(result.id).to eq(fax_id)
     end
   end
 
@@ -104,7 +105,11 @@ RSpec.describe Fax do
 
   describe 'resending a fax' do
     let(:action) { Fax.resend fax_id, params }
-    let(:fax_id) { 1234 }
+    let!(:fax_id) {
+      VCR.use_cassette('resources/fax/create_for_resend') do
+        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
+      end
+    }
     let(:params) { {} }
 
     around do |example|
@@ -127,7 +132,11 @@ RSpec.describe Fax do
 
   describe 'deleting a fax' do
     let(:action) { Fax.delete fax_id, params }
-    let(:fax_id) { 1234 }
+    let!(:fax_id) {
+      VCR.use_cassette('resources/fax/create_for_delete') do
+        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
+      end
+    }
     let(:params) { {} }
 
     around do |example|
@@ -149,7 +158,11 @@ RSpec.describe Fax do
 
   describe 'deleting a fax file' do
     let(:action) { Fax.delete_file fax_id, params }
-    let(:fax_id) { 1234 }
+    let!(:fax_id) {
+      VCR.use_cassette('resources/fax/create_for_delete_file') do
+        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
+      end
+    }
     let(:params) { {} }
 
     around do |example|
@@ -171,7 +184,11 @@ RSpec.describe Fax do
 
   describe 'downloading a fax file' do
     let(:action) { Fax.file fax_id, params }
-    let(:fax_id) { 1234 }
+    let!(:fax_id) {
+      VCR.use_cassette('resources/fax/create_for_download_file') do
+        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
+      end
+    }
     let(:params) { {} }
 
     around do |example|
@@ -213,14 +230,18 @@ RSpec.describe Fax do
   end
 
   describe Fax::Reference do
-    let(:fax_id) { 1234 }
+    let!(:fax_id) {
+      VCR.use_cassette('resources/fax/create_for_reference') do
+        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
+      end
+    }
 
     it 'gets the full fax' do
-      VCR.use_cassette('resources/fax/get') do
+      VCR.use_cassette('resources/fax/reference') do
         reference = Fax::Reference.new fax_id
         result = reference.get
         expect(result).to be_a(Fax)
-        expect(result.id).to eq(1234)
+        expect(result.id).to eq(fax_id)
       end
     end
   end
