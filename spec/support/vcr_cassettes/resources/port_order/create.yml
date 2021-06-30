@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2.1/port_orders
+    body:
+      encoding: UTF-8
+      string: contact_number=%2B12251231234&esig=NOT+A+VALID+SIGNATURE&has_bill=true&legal_agreement=true&name_on_account=THIS+IS+A+TEST&port_numbers%5B%5D=%2B12251231234&provider_name=DO+NOT+PORT+--Julien
+    headers:
+      Authorization:
+      - Basic dGVzdC1hcGkta2V5OnRlc3QtYXBpLXNlY3JldA==
+      User-Agent:
+      - Faraday v1.3.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      cache-control:
+      - no-cache
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Wed, 30 Jun 2021 19:01:02 GMT
+      server:
+      - nginx
+      x-request-id:
+      - f74a474f-95ca-4641-82de-5e7d1486c8b7
+      content-length:
+      - '39'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":false,"message":"Not found"}'
+  recorded_at: Wed, 30 Jun 2021 19:00:57 GMT
+recorded_with: VCR 6.0.0
