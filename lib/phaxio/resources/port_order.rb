@@ -56,6 +56,7 @@ module Phaxio
         id contact_number name_on_account name_of_business provider_name
         billing_number billing_address1 billing_address2
         billing_city billing_state billing_zip esig legal_agreement
+        status
       ]
 
       # @return [Time] the time the order was created.
