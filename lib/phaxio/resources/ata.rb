@@ -20,6 +20,9 @@ module Phaxio
       # @return [String] The domain for the ATA.
       # @!attribute domain
 
+      # @return [String] The mac address for the ATA.
+      # @!attribute mac_address
+
       # @return [String] The username for the ATA.
       # @!attribute uername
 
@@ -27,7 +30,7 @@ module Phaxio
       # @!attribute password
 
       has_normal_attributes %w[
-        id name description user_phone_number domain username password
+        id name description user_phone_number domain username password mac_address
       ]
 
       # A reference to an ATA. This is returned by certain actions which don't
@@ -119,6 +122,7 @@ module Phaxio
         #   - *name* [String] - A name used to identify the ATA.
         #   - *description* [String] - A longer description of the ATA.
         #   - *domain* [String] - A domain for the ATA.
+        #   - *mac_address* [String] - A mac address for the ATA.
         # @return [Phaxio::Resources::Ata]
         #   The updated ATA.
         # @raise [Phaxio::Error::PhaxioError]
