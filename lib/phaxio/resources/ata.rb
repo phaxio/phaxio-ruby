@@ -121,7 +121,6 @@ module Phaxio
         #   Any parameters to send to Phaxio.
         #   - *name* [String] - A name used to identify the ATA.
         #   - *description* [String] - A longer description of the ATA.
-        #   - *domain* [String] - A domain for the ATA.
         #   - *mac_address* [String] - A mac address for the ATA.
         # @return [Phaxio::Resources::Ata]
         #   The updated ATA.
