@@ -20,7 +20,7 @@ module Phaxio
       attr_accessor :callback_token
 
       # The Phaxio API endpoint. Users generally shouldn't need to change it.
-      # Defaults to https://api.phaxio.com/v2/
+      # Defaults to https://api.phaxio.com/v2.1/
       attr_writer :api_endpoint
 
       def api_endpoint
