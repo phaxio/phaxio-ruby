@@ -263,7 +263,7 @@ require 'phaxio'
 
 class PhaxioWebhookExample < Sinatra::Base
   Phaxio.callback_token = 'YOUR WEBHOOK TOKEN HERE'
-  
+
   post '/webhook' do
     signature = request.env['HTTP_X_PHAXIO_SIGNATURE']
     url = request.url
@@ -289,7 +289,7 @@ end
 class WebhookController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-	def index
+  def index
     signature = request.headers['X-Phaxio-Signature']  
     Phaxio.callback_token = 'YOUR WEBHOOK TOKEN HERE'
     url = request.original_url
@@ -298,7 +298,7 @@ class WebhookController < ApplicationController
     Rails.logger.debug "Signature: " + signature
     Rails.logger.debug "params: " + params.inspect
     Rails.logger.debug "webhook_params: " + webhook_params.to_h.inspect
-    
+
     if Phaxio::Callback.valid_signature? signature, url, webhook_params.to_h, file_params
       Rails.logger.debug "Success"
       render plain: 'Success'
