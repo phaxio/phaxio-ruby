@@ -28,7 +28,7 @@ module Phaxio
         #     file instead of a PhaxCode object.
         # @return [Phaxio::Resources::PhaxCode | File] The created PhaxCode
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/phaxcodes/create_phax_code
+        # @see https://www.phaxio.com/docs/api/v2.1/phaxcodes/create_phax_code
         def create params = {}
           endpoint = case (params[:type] || params['type']).to_s
             when 'png' then phax_codes_endpoint_png
@@ -48,7 +48,7 @@ module Phaxio
         #     PhaxCode object.
         # @return [Phaxio::Resources::PhaxCode | File]
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/phaxcodes/retrieve_phax_code
+        # @see https://www.phaxio.com/docs/api/v2.1/phaxcodes/retrieve_phax_code
         def get params = {}
           identifier = params[:identifier] || params['identifier']
           endpoint = case (identifier)

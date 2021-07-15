@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/phaxio/phaxio-ruby.svg?branch=master)](https://travis-ci.org/phaxio/phaxio-ruby)
 
-A Ruby gem for interacting with the [Phaxio API](https://www.phaxio.com/docs/api/v2).
+A Ruby gem for interacting with the [Phaxio API](https://www.phaxio.com/docs/api/v2.1).
 
 ## Installation
 

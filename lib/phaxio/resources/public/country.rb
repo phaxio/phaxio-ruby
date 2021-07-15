@@ -36,7 +36,7 @@ module Phaxio
           # @return [Phaxio::Resource::Collection<Phaxio::Resources::Country>]
           #   A collection of supported countries.
           # @raise Phaxio::Error::PhaxioError
-          # @see https://www.phaxio.com/docs/api/v2/public/list_countries
+          # @see https://www.phaxio.com/docs/api/v2.1/public/list_countries
           def list params = {}
             response = Client.request :get, supported_countries_endpoint, params
             Country.response_collection response

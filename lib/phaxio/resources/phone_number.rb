@@ -44,7 +44,7 @@ module Phaxio
         #   - *callback_url* [String] - A callback URL that we'll post to when a fax is received by this number. This will override the global receive callback URL, if you have one specified.
         # @return [Phaxio::Resources::PhoneNumber] The newly provisioned number.
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/phone_numbers/provision
+        # @see https://www.phaxio.com/docs/api/v2.1/phone_numbers/provision
         def create params = {}
           response = Client.request :post, phone_numbers_endpoint, params
           response_record response
@@ -58,7 +58,7 @@ module Phaxio
         #   A hash of parameters to send to Phaxio. This action has no unique parameters.
         # @return [Phaxio::Resources::PhoneNumber] The requested number.
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/phone_numbers/get_number
+        # @see https://www.phaxio.com/docs/api/v2.1/phone_numbers/get_number
         def get phone_number, params = {}
           response = Client.request :get, phone_number_endpoint(phone_number), params
           response_record response
@@ -76,7 +76,7 @@ module Phaxio
         # @return [Phaxio::Resource::Collection<Phaxio::Resources::PhoneNumber>]
         #   A collection of phone numbers.
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/phone_numbers/list
+        # @see https://www.phaxio.com/docs/api/v2.1/phone_numbers/list
         def list params = {}
           response = Client.request :get, phone_numbers_endpoint, params
           response_collection response
@@ -90,7 +90,7 @@ module Phaxio
         #   A hash of parameters to send to Phaxio. This action has no unique parameters.
         # @return true
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/phone_numbers/release
+        # @see https://www.phaxio.com/docs/api/v2.1/phone_numbers/release
         def delete phone_number, params = {}
           Client.request :delete, phone_number_endpoint(phone_number), params
           true
