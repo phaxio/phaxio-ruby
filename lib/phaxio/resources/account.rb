@@ -22,7 +22,7 @@ module Phaxio
         #   Any parameters to send to Phaxio. This action does not have any unique parameters.
         # @return [Phaxio::Resources::Acount] Your account information.
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/account/status
+        # @see https://www.phaxio.com/docs/api/v2.1/account/status
         def get params = {}
           response = Client.request :get, account_status_endpoint, params
           response_record response

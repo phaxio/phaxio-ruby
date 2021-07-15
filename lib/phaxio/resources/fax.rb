@@ -120,7 +120,7 @@ module Phaxio
         # @return [Phaxio::Resource::Collection<Phaxio::Resources::Fax>]
         #   The collection of faxes matching your request.
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/faxes/list_faxes
+        # @see https://www.phaxio.com/docs/api/v2.1/faxes/list_faxes
         def list params = {}
           response = Client.request :get, faxes_endpoint, params
           response_collection response
@@ -159,8 +159,8 @@ module Phaxio
         # @return [Phaxio::Resources::Fax]
         #   The created fax.
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/faxes/create_and_send_fax
-        # @see https://www.phaxio.com/docs/api/v2/faxes/batching
+        # @see https://www.phaxio.com/docs/api/v2.1/faxes/create_and_send_fax
+        # @see https://www.phaxio.com/docs/api/v2.1/faxes/batching
         def create params = {}
           response = Client.request :post, faxes_endpoint, params
           response_reference response
@@ -174,7 +174,7 @@ module Phaxio
         #   A hash of parameters to send to Phaxio. This action takes no unique parameters.
         # @return [Phaxio::Resource::Fax] The requested fax.
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/faxes/get_fax
+        # @see https://www.phaxio.com/docs/api/v2.1/faxes/get_fax
         def get id, params = {}
           response = Client.request :get, fax_endpoint(id.to_i), params
           response_record response
@@ -191,7 +191,7 @@ module Phaxio
         # @return [Phaxio::Resources::Fax::Reference]
         #   A reference to the canceled fax.
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/faxes/cancel
+        # @see https://www.phaxio.com/docs/api/v2.1/faxes/cancel
         def cancel id, params = {}
           response = Client.request :post, cancel_fax_endpoint(id), params
           response_reference response
@@ -207,7 +207,7 @@ module Phaxio
         # @return [Phaxio::Resources::Fax::Reference]
         #   A reference to the resent fax.
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/faxes/resend
+        # @see https://www.phaxio.com/docs/api/v2.1/faxes/resend
         def resend id, params = {}
           response = Client.request :post, resend_fax_endpoint(id), params
           response_reference response
@@ -221,7 +221,7 @@ module Phaxio
         #   parameters.
         # @return [true]
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/faxes/delete_fax
+        # @see https://www.phaxio.com/docs/api/v2.1/faxes/delete_fax
         def delete id, params = {}
           Client.request :delete, fax_endpoint(id), params
           true
@@ -235,7 +235,7 @@ module Phaxio
         #   parameters.
         # @return [true]
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/faxes/delete_fax_file
+        # @see https://www.phaxio.com/docs/api/v2.1/faxes/delete_fax_file
         def delete_file id, params = {}
           Client.request :delete, fax_file_endpoint(id), params
           true
@@ -252,7 +252,7 @@ module Phaxio
         # @return [File]
         #   The requested fax file.
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/faxes/get_fax_file
+        # @see https://www.phaxio.com/docs/api/v2.1/faxes/get_fax_file
         def file id, params = {}
           Client.request :get, fax_file_endpoint(id), params
         end
@@ -269,7 +269,7 @@ module Phaxio
         #     number. Default is the public Phaxio phone number.
         # @return [true]
         # @raise [Phaxio::Error::PhaxioError]
-        # @see https://www.phaxio.com/docs/api/v2/faxes/test_receive
+        # @see https://www.phaxio.com/docs/api/v2.1/faxes/test_receive
         def test_receive params = {}
           Client.request :post, faxes_endpoint, test_receive_params(params)
           true

@@ -46,7 +46,7 @@ module Phaxio
           # @return [Phaxio::Resource::Collection<Phaxio::Resources::AreaCode>] A collection of
           #   AreaCode objects.
           # @raise [Phaxio::Error::PhaxioError]
-          # @see https://www.phaxio.com/docs/api/v2/public/list_area_codes
+          # @see https://www.phaxio.com/docs/api/v2.1/public/list_area_codes
           def list params = {}
             response = Client.request :get, available_area_codes_endpoint, params
             AreaCode.response_collection response

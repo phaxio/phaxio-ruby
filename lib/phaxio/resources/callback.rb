@@ -1,8 +1,8 @@
 module Phaxio
   module Resources
     # Provides utilities for working with callbacks.
-    # @see https://www.phaxio.com/docs/api/v2/faxes/send_callback
-    # @see https://www.phaxio.com/docs/api/v2/faxes/receive_callback
+    # @see https://www.phaxio.com/docs/api/v2.1/faxes/send_webhook
+    # @see https://www.phaxio.com/docs/api/v2.1/faxes/receive_webhooks
     class Callback
       DIGEST = OpenSSL::Digest.new('sha1')
       private_constant :DIGEST
