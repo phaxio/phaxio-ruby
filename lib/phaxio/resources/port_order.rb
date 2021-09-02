@@ -14,6 +14,18 @@ module Phaxio
       # @return [String] the E.164 contact number.
       # @!attribute contact_number
 
+      # @return [String] The email address for the order.
+      # @!attribute contact_email
+
+      # @return [String] The identifier for the account associated with the numbers.
+      # @!attribute account_identifier
+
+      # @return [String] Type of numbers to be ported. Either "business" or "residential".
+      # @!attribute port_type
+
+      # @return [String] The PIN or password needed to port out the numbers.
+      # @!attribute port_out_pin
+
       # @return [String] the name associated with the account.
       # @!attribute name_on_account
 
@@ -31,7 +43,7 @@ module Phaxio
 
       # @return [String] the second billing address line.
       # @!attribute billing_address2
-      
+
       # @return [String] the billing address city.
       # @!attribute billing_city
 
@@ -40,7 +52,7 @@ module Phaxio
 
       # @return [String] the billing address zip.
       # @!attribute billing_zip
-      
+
       # @return [String] the electronic signature used to sign the order.
       # @!attribute esig
 
@@ -53,9 +65,9 @@ module Phaxio
       # @!attribute legal_agreement
 
       has_normal_attributes %w[
-        id contact_number name_on_account name_of_business provider_name
-        billing_number billing_address1 billing_address2
-        billing_city billing_state billing_zip esig legal_agreement
+        id contact_number contact_email name_on_account name_of_business provider_name
+        billing_number billing_address1 billing_address2 account_identifier
+        billing_city billing_state billing_zip esig legal_agreement port_type port_out_pin
         status
       ]
 
@@ -105,6 +117,10 @@ module Phaxio
         #   Any parameters to send to Phaxio.
         #   - *port_numbers* [Array<String>] - Numbers to port.
         #   - *contact_number* [String] - Number to contact about the port.
+        #   - *contact_email* [String] - The email address for the order.
+        #   - *account_identifier* [String] - The identifier for the account associated with the numbers.
+        #   - *port_type* [String] - Type of numbers to be ported. Either "business" or "residential".
+        #   - *port_out_pin* [String] - The PIN or password needed to port out the numbers.
         #   - *name_on_account* [String] - Name on the account for the port.
         #   - *name_of_business* [String] - Name of business associated with the port.
         #   - *provider_name* [String] - Name of provider for the port.
