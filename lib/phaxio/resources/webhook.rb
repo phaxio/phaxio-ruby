@@ -3,7 +3,7 @@ module Phaxio
     # Provides utilities for working with callbacks.
     # @see https://www.phaxio.com/docs/api/v2.1/faxes/send_webhook
     # @see https://www.phaxio.com/docs/api/v2.1/faxes/receive_webhooks
-    class Callback
+    class Webhook
       DIGEST = OpenSSL::Digest.new('sha1')
       private_constant :DIGEST
 
@@ -13,11 +13,11 @@ module Phaxio
         # @param signature [String]
         #   The signature received from Phaxio.
         # @param url [String]
-        #   The callback URL used in this request.
+        #   The webhook URL used in this request.
         # @param params [Hash]
-        #   The parameters received with the callback, excluding files.
+        #   The parameters received with the webhook, excluding files.
         # @param files [Array<File>]
-        #   The files received with the callback, if any.
+        #   The files received with the webhook, if any.
         # @return [true, false]
         # @raise [Phaxio::Error::PhaxioError]
         # @see https://www.phaxio.com/docs/security/callbacks
@@ -31,12 +31,12 @@ module Phaxio
         def generate_check_signature url, params, files = []
           params_string = generate_params_string(params)
           files_string = generate_files_string(files)
-          callback_data = "#{url}#{params_string}#{files_string}"
-          OpenSSL::HMAC.hexdigest(DIGEST, callback_token, callback_data)
+          webhook_data = "#{url}#{params_string}#{files_string}"
+          OpenSSL::HMAC.hexdigest(DIGEST, webhook_token, webhook_data)
         end
 
-        def callback_token
-          Phaxio.callback_token or raise(Error::PhaxioError, 'No callback token has been set')
+        def webhook_token
+          Phaxio.webhook_token or raise(Error::PhaxioError, 'No webhook token has been set')
         end
 
         def generate_params_string(params)
@@ -61,5 +61,8 @@ module Phaxio
         end
       end
     end
+
+    # for backwards compatibility
+    Callback = Webhook
   end
 end

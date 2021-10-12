@@ -18,7 +18,7 @@ Dir[File.expand_path(File.join('..', 'phaxio', 'helpers', '*.rb'), __FILE__)].ea
 end
 
 %w[
-  fax_recipient fax account callback phax_code phone_number public ata
+  fax_recipient fax account webhook phax_code phone_number public ata
   port_number_note port_number port_order
 ].each do |filename|
   require File.expand_path(File.join('..', 'phaxio', 'resources', filename), __FILE__)
@@ -32,11 +32,11 @@ module Phaxio
     #   @see Config.api_key
     # @!attribute api_secret
     #   @see Config.api_secret
-    # @!attribute callback_token
-    #   @see Config.callback_token
+    # @!attribute webhook_token
+    #   @see Config.webhook_token
     # @!attribute api_endpoint
     #   @see Config.api_endpoint
-    %w(api_key api_secret callback_token api_endpoint).each do |config_attribute|
+    %w(api_key api_secret webhook_token api_endpoint).each do |config_attribute|
       # Define getters
       define_method(config_attribute) do
         Config.public_send config_attribute
@@ -48,5 +48,9 @@ module Phaxio
         Config.public_send setter, value
       end
     end
+
+    # for backwards compatibility
+    alias callback_token  webhook_token
+    alias callback_token= webhook_token=
   end
 end

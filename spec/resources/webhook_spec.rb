@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-RSpec.describe Callback do
-  describe 'validating a callback signature' do
-    let(:action) { Callback.valid_signature? signature, url, params, files }
-    let(:signature) { '663099785e5eff09f0cd6f2bd5d78c852f3b670d' }
+RSpec.describe Webhook do
+  describe 'validating a webhook signature' do
+    let(:action) { Webhook.valid_signature? signature, url, params, files }
+    let(:signature) { '64a735ef0c47a0ae671e381c046648f0966deb29' }
     let(:url) { 'example.com' }
     let(:params) { {test: true} }
     let(:files) { [] }
 
-    it 'raises an error if Phaxio::Config.callback_token is unset' do
-      Phaxio.callback_token = nil
+    it 'raises an error if Phaxio::Config.webhook_token is unset' do
+      Phaxio.webhook_token = nil
       expect {
         action
-      }.to raise_error(Phaxio::Error::PhaxioError, 'No callback token has been set')
+      }.to raise_error(Phaxio::Error::PhaxioError, 'No webhook token has been set')
     end
 
     context 'signature matches' do

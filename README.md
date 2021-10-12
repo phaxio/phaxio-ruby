@@ -26,14 +26,14 @@ $ gem install phaxio
 
 ## Usage
 
-Set up your API Key, API Secret, and, optionally, Callback Token.
+Set up your API Key, API Secret, and, optionally, Webhook Token.
 
 ``` ruby
 require 'phaxio'
 
 Phaxio.api_key = '11111'
 Phaxio.api_secret = '22222'
-Phaxio.callback_token = '33333'
+Phaxio.webhook_token = '33333'
 ```
 
 Try sending a fax:
@@ -243,32 +243,32 @@ Account.get
 # => Account(balance: 1000, faxes_today: 0, faxes_this_month: 100)
 ```
 
-#### Callback
+#### Webhook
 
-##### `Callback.valid_signature?`
+##### `Webhook.valid_signature?`
 
-Validate the callback signature sent with a Phaxio callback. Requires that Phaxio.callback_token be
+Validate the webhook signature sent with a Phaxio webhook. Requires that Phaxio.webhook_token be
 set.
 
 ``` ruby
-Callback.valid_signature? received_signature, callback_url, received_params, received_files
+Webhook.valid_signature? received_signature, webhook_url, received_params, received_files
 # => true
 ```
 
-## Callback Validation Example with Sinatra
+## Webhook Validation Example with Sinatra
 
 ``` ruby
 require 'sinatra/base'
 require 'phaxio'
 
 class PhaxioWebhookExample < Sinatra::Base
-  Phaxio.callback_token = 'YOUR WEBHOOK TOKEN HERE'
-  
+  Phaxio.webhook_token = 'YOUR WEBHOOK TOKEN HERE'
+
   post '/webhook' do
     signature = request.env['HTTP_X_PHAXIO_SIGNATURE']
     url = request.url
     file_params = params[:file]
-    if Phaxio::Callback.valid_signature? signature, url, webhook_params, file_params
+    if Phaxio::Webhook.valid_signature? signature, url, webhook_params, file_params
       'Success'
     else
       'Invalid webhook signature'
@@ -289,22 +289,22 @@ end
 class WebhookController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-	def index
+  def index
     signature = request.headers['X-Phaxio-Signature']  
-    Phaxio.callback_token = 'YOUR WEBHOOK TOKEN HERE'
+    Phaxio.webhook_token = 'YOUR WEBHOOK TOKEN HERE'
     url = request.original_url
 
     Rails.logger.debug "URL: " + url
     Rails.logger.debug "Signature: " + signature
     Rails.logger.debug "params: " + params.inspect
     Rails.logger.debug "webhook_params: " + webhook_params.to_h.inspect
-    
-    if Phaxio::Callback.valid_signature? signature, url, webhook_params.to_h, file_params
+
+    if Phaxio::Webhook.valid_signature? signature, url, webhook_params.to_h, file_params
       Rails.logger.debug "Success"
       render plain: 'Success'
     else
-      Rails.logger.debug "Invalid callback signature"
-      render plain: 'Invalid callback signature'
+      Rails.logger.debug "Invalid webhook signature"
+      render plain: 'Invalid webhook signature'
     end
   end
 

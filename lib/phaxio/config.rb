@@ -13,11 +13,11 @@ module Phaxio
       # To find your API secret, visit https://console.phaxio.com/api_credentials
       attr_accessor :api_secret
 
-      # Your Phaxio callback token. This will be used to verify that callback requests are coming
+      # Your Phaxio webhook token. This will be used to verify that webhook requests are coming
       # from Phaxio.
       #
-      # To find your callback token, visit https://console.phaxio.com/user/callbacks/edit
-      attr_accessor :callback_token
+      # To find your webhook token, visit https://console.phaxio.com/user/callbacks/edit
+      attr_accessor :webhook_token
 
       # The Phaxio API endpoint. Users generally shouldn't need to change it.
       # Defaults to https://api.phaxio.com/v2.1/

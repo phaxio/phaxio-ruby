@@ -13,8 +13,8 @@ RSpec.describe Phaxio do
     expect(subject.api_secret).to eq('test-api-secret')
   end
 
-  it 'sets the callback token' do
-    subject.callback_token = 'test-callback-token'
-    expect(subject.callback_token).to eq('test-callback-token')
+  it 'sets the webhook token' do
+    subject.webhook_token = 'test-webhook-token'
+    expect(subject.webhook_token).to eq('test-webhook-token')
   end
 end
