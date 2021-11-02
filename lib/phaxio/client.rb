@@ -44,10 +44,6 @@ module Phaxio
           conn.request :multipart
           conn.request :url_encoded
           conn.adapter :net_http
-
-          if Phaxio.api_key && Phaxio.api_secret
-            conn.basic_auth Phaxio.api_key, Phaxio.api_secret
-          end
         end
       end
 
@@ -153,8 +149,8 @@ module Phaxio
       end
 
       def api_headers params
-        api_key    = params[:api_key]    || Phaxio.api_key
-        api_secret = params[:api_secret] || Phaxio.api_secret
+        api_key    = params.delete(:api_key)    || Phaxio.api_key
+        api_secret = params.delete(:api_secret) || Phaxio.api_secret
         return unless api_key && api_secret
         auth = Base64.strict_encode64("#{api_key}:#{api_secret}")
         {'Authorization' => "Basic #{auth}"}
