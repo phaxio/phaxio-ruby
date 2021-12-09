@@ -1,6 +1,6 @@
 module Phaxio
   module Resources
-    # Provides utilities for working with callbacks.
+    # Provides utilities for working with webhooks.
     # @see https://www.phaxio.com/docs/api/v2.1/faxes/send_webhook
     # @see https://www.phaxio.com/docs/api/v2.1/faxes/receive_webhooks
     class Webhook
@@ -61,8 +61,5 @@ module Phaxio
         end
       end
     end
-
-    # for backwards compatibility
-    Callback = Webhook
   end
 end

@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2.1/phax_codes
+    body:
+      encoding: UTF-8
+      string: metadata=This+is+a+test+PhaxCode
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 04 Nov 2021 21:48:06 GMT
+      etag:
+      - W/"d7018df1bbd5a35311f00287eb47b065"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 4db55e11-d582-4b32-82b4-666d7bb6b2a0
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '82'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"PhaxCode generated","data":{"identifier":"zGdRkLaYVc"}}'
+  recorded_at: Thu, 04 Nov 2021 21:48:46 GMT
+recorded_with: VCR 6.0.0

@@ -2,18 +2,12 @@ require 'spec_helper'
 
 RSpec.describe Fax do
   let(:test_file) { File.open test_file_path }
-  let(:test_file_path) { File.expand_path(File.join('..', '..', 'support', 'files', 'test.pdf'), __FILE__) }
-  let(:test_recipient_number) { ENV.fetch('TEST_RECIPIENT_NUMBER', '+15558675309') }
+  let(:test_file_path) { File.join File.expand_path('..', __dir__), 'support', 'files', 'test.pdf' }
+  let(:test_recipient_number) { TEST_NUMBER }
 
-  describe 'creating a fax' do
+  describe 'creating a fax', vcr: 'fax/create' do
     let(:action) { Fax.create params }
     let(:params) { {to: test_recipient_number, file: test_file} }
-
-    around(:each) do |example|
-      VCR.use_cassette('resources/fax/create') do
-        example.run
-      end
-    end
 
     it 'makes the request to Phaxio' do
       expect_api_request :post, 'faxes', to: test_recipient_number, file: test_file
@@ -27,20 +21,10 @@ RSpec.describe Fax do
     end
   end
 
-  describe 'retrieving a fax' do
+  describe 'retrieving a fax', vcr: 'fax/get' do
     let(:action) { Fax.get fax_id, params }
-    let!(:fax_id) {
-      VCR.use_cassette('resources/fax/create_for_get') do
-        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
-      end
-    }
+    let(:fax_id) { Fax.create(to: test_recipient_number, file: test_file).id }
     let(:params) { {} }
-
-    around(:each) do |example|
-      VCR.use_cassette('resources/fax/get') do
-        example.run
-      end
-    end
 
     it 'makes the request to Phaxio' do
       expect_api_request :get, "faxes/#{fax_id}", params
@@ -54,20 +38,10 @@ RSpec.describe Fax do
     end
   end
 
-  describe 'cancelling a fax' do
+  describe 'cancelling a fax', vcr: 'fax/cancel' do
     let(:action) { Fax.cancel fax_id, params }
+    let(:fax_id) { Fax.create(to: test_recipient_number, file: test_file).id }
     let(:params) { {} }
-    let!(:fax_id) {
-      VCR.use_cassette('resources/fax/create_for_cancel') do
-        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
-      end
-    }
-
-    around(:each) do |example|
-      VCR.use_cassette('resources/fax/cancel') do
-        example.run
-      end
-    end
 
     it 'makes the request to Phaxio' do
       expect_api_request :post, "faxes/#{fax_id}/cancel", params
@@ -81,16 +55,10 @@ RSpec.describe Fax do
     end
   end
 
-  describe 'listing faxes' do
+  describe 'listing faxes', vcr: 'fax/list' do
     let(:action) { Fax.list params }
     let(:params) { {created_before: time} }
     let(:time) { Time.new 2017, 10, 28, 0, 17, 0, 0 }
-
-    around do |example|
-      VCR.use_cassette('resources/fax/list') do
-        example.run
-      end
-    end
 
     it 'sends the request to phaxio' do
       expect_api_request :get, 'faxes', params
@@ -103,20 +71,14 @@ RSpec.describe Fax do
     end
   end
 
-  describe 'resending a fax' do
+  describe 'resending a fax', vcr: 'fax/resend' do
     let(:action) { Fax.resend fax_id, params }
-    let!(:fax_id) {
-      VCR.use_cassette('resources/fax/create_for_resend') do
-        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
-      end
+    let(:fax_id) {
+      fax_id = Fax.create(to: test_recipient_number, file: test_file).id
+      sleep 30 if VCR.current_cassette.recording?
+      fax_id
     }
     let(:params) { {} }
-
-    around do |example|
-      VCR.use_cassette('resources/fax/resend') do
-        example.run
-      end
-    end
 
     it 'makes the request to Phaxio' do
       expect_api_request :post, "faxes/#{fax_id}/resend", params
@@ -130,20 +92,14 @@ RSpec.describe Fax do
     end
   end
 
-  describe 'deleting a fax' do
+  describe 'deleting a fax', vcr: 'fax/delete' do
     let(:action) { Fax.delete fax_id, params }
-    let!(:fax_id) {
-      VCR.use_cassette('resources/fax/create_for_delete') do
-        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
-      end
+    let(:fax_id) {
+      fax_id = Fax.create(to: test_recipient_number, file: test_file).id
+      sleep 30 if VCR.current_cassette.recording?
+      fax_id
     }
     let(:params) { {} }
-
-    around do |example|
-      VCR.use_cassette('resources/fax/delete') do
-        example.run
-      end
-    end
 
     it 'makes the request to Phaxio' do
       expect_api_request :delete, "faxes/#{fax_id}", params
@@ -156,20 +112,14 @@ RSpec.describe Fax do
     end
   end
 
-  describe 'deleting a fax file' do
+  describe 'deleting a fax file', vcr: 'fax/delete_file' do
     let(:action) { Fax.delete_file fax_id, params }
-    let!(:fax_id) {
-      VCR.use_cassette('resources/fax/create_for_delete_file') do
-        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
-      end
+    let(:fax_id) {
+      fax_id = Fax.create(to: test_recipient_number, file: test_file).id
+      sleep 30 if VCR.current_cassette.recording?
+      fax_id
     }
     let(:params) { {} }
-
-    around do |example|
-      VCR.use_cassette('resources/fax/delete_file') do
-        example.run
-      end
-    end
 
     it 'makes the request to Phaxio' do
       expect_api_request :delete, "faxes/#{fax_id}/file", params
@@ -182,20 +132,14 @@ RSpec.describe Fax do
     end
   end
 
-  describe 'downloading a fax file' do
+  describe 'downloading a fax file', vcr: 'fax/file' do
     let(:action) { Fax.file fax_id, params }
-    let!(:fax_id) {
-      VCR.use_cassette('resources/fax/create_for_download_file') do
-        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
-      end
+    let(:fax_id) {
+      fax_id = Fax.create(to: test_recipient_number, file: test_file).id
+      sleep 30 if VCR.current_cassette.recording?
+      fax_id
     }
     let(:params) { {} }
-
-    around do |example|
-      VCR.use_cassette('resources/fax/file') do
-        example.run
-      end
-    end
 
     it 'makes the request to phaxio' do
       expect_api_request :get, "faxes/#{fax_id}/file", params
@@ -208,15 +152,9 @@ RSpec.describe Fax do
     end
   end
 
-  describe 'receiving a test fax' do
+  describe 'receiving a test fax', vcr: 'fax/test_receive' do
     let(:action) { Fax.test_receive params }
     let(:params) { {file: test_file} }
-
-    around do |example|
-      VCR.use_cassette('resources/fax/test_receive') do
-        example.run
-      end
-    end
 
     it 'makes the request to Phaxio' do
       expect_api_request :post, 'faxes', {file: test_file, direction: 'received'}
@@ -229,20 +167,14 @@ RSpec.describe Fax do
     end
   end
 
-  describe Fax::Reference do
-    let!(:fax_id) {
-      VCR.use_cassette('resources/fax/create_for_reference') do
-        Phaxio::Fax.create(to: test_recipient_number, file: test_file).id
-      end
-    }
+  describe Fax::Reference, vcr: 'fax/reference' do
+    let(:fax_id) { Fax.create(to: test_recipient_number, file: test_file).id }
 
     it 'gets the full fax' do
-      VCR.use_cassette('resources/fax/reference') do
-        reference = Fax::Reference.new fax_id
-        result = reference.get
-        expect(result).to be_a(Fax)
-        expect(result.id).to eq(fax_id)
-      end
+      reference = Fax::Reference.new fax_id
+      result = reference.get
+      expect(result).to be_a(Fax)
+      expect(result.id).to eq(fax_id)
     end
   end
 end

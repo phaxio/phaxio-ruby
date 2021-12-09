@@ -17,4 +17,10 @@ RSpec.describe Phaxio do
     subject.webhook_token = 'test-webhook-token'
     expect(subject.webhook_token).to eq('test-webhook-token')
   end
+
+  it 'sets and gets the webhook token as callback_token' do
+    subject.callback_token = 'test-callback-token'
+    expect(subject.callback_token).to eq('test-callback-token')
+    expect(subject.webhook_token).to eq('test-callback-token')
+  end
 end

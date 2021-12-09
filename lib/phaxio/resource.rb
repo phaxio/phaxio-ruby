@@ -139,12 +139,18 @@ module Phaxio
       #
       # @see Phaxio::Resource.response_collection
       def initialize response_data, resource
-        if response_data.key? 'paging'
-          self.total = response_data['paging']['total']
-          self.per_page = response_data['paging']['per_page']
-          self.page = response_data['paging']['page']
+        # For some endpoints we'll get a hash with `paging` and `data` attributes.
+        # For others, just an array.
+        if response_data.is_a? Hash
+          if response_data.key? 'paging'
+            self.total = response_data['paging']['total']
+            self.per_page = response_data['paging']['per_page']
+            self.page = response_data['paging']['page']
+          end
+          self.raw_data = response_data['data']
+        else
+          self.raw_data = response_data
         end
-        self.raw_data = response_data['data']
         self.collection = raw_data.map { |record_data| resource.response_record record_data }
       end
 

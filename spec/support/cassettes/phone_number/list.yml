@@ -1,0 +1,72 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2.1/phone_numbers
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 04 Nov 2021 22:03:27 GMT
+      etag:
+      - W/"dc38c10aaf984fef8aa3fc92bfb27648"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-page:
+      - '1'
+      x-per-page:
+      - '25'
+      x-request-id:
+      - 9c09e359-8afb-4799-9d9f-e388710c9c8d
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      x-total:
+      - '20'
+      content-length:
+      - '5355'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Retrieved user phone numbers successfully","data":[{"phone_number":"+12486215381","city":"Farmington
+        Hills, Pontiac, Rochester Hills","state":"Michigan","country":"United States
+        of America","cost":200,"last_billed_at":"2021-11-02T16:56:03.000-05:00","provisioned_at":"2021-11-02T16:56:03.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12182921552","city":"Duluth,
+        Ely, Moorhead","state":"Minnesota","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T17:02:35.000-05:00","provisioned_at":"2021-11-02T17:02:35.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12345256684","city":"Akron,
+        Canton, Youngstown","state":"Ohio","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T17:03:21.000-05:00","provisioned_at":"2021-11-02T17:03:21.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12067526808","city":"Seattle","state":"Washington","country":"United
+        States of America","cost":200,"last_billed_at":"2021-11-02T17:58:51.000-05:00","provisioned_at":"2021-11-02T17:58:51.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12532379299","city":"Kent,
+        Tacoma","state":"Washington","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T17:58:55.000-05:00","provisioned_at":"2021-11-02T17:58:55.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12132869065","city":"Los
+        Angeles","state":"California","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T17:59:46.000-05:00","provisioned_at":"2021-11-02T17:59:46.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12312167979","city":"Grant","state":"Michigan","country":"United
+        States of America","cost":200,"last_billed_at":"2021-11-02T17:59:51.000-05:00","provisioned_at":"2021-11-02T17:59:51.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12182160442","city":"Duluth,
+        Ely, Moorhead","state":"Minnesota","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T17:59:57.000-05:00","provisioned_at":"2021-11-02T17:59:57.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12484686801","city":"Farmington
+        Hills, Pontiac, Rochester Hills","state":"Michigan","country":"United States
+        of America","cost":200,"last_billed_at":"2021-11-02T18:00:05.000-05:00","provisioned_at":"2021-11-02T18:00:05.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12253199511","city":"Baton
+        Rouge","state":"Louisiana","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T18:00:11.000-05:00","provisioned_at":"2021-11-02T18:00:11.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12132798860","city":"Los
+        Angeles","state":"California","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T18:07:34.000-05:00","provisioned_at":"2021-11-02T18:07:34.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12292183848","city":"Albany,
+        Americus, Bainbridge","state":"Georgia","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T18:07:41.000-05:00","provisioned_at":"2021-11-02T18:07:41.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12312168014","city":"Grant","state":"Michigan","country":"United
+        States of America","cost":200,"last_billed_at":"2021-11-02T18:07:47.000-05:00","provisioned_at":"2021-11-02T18:07:47.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12132978187","city":"Los
+        Angeles","state":"California","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T18:07:53.000-05:00","provisioned_at":"2021-11-02T18:07:53.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12243863727","city":"Arlington
+        Heights, Evanston, Skokie","state":"Illinois","country":"United States of
+        America","cost":200,"last_billed_at":"2021-11-02T18:09:28.000-05:00","provisioned_at":"2021-11-02T18:09:28.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12192585085","city":"Gary,
+        Hammond","state":"Indiana","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T18:15:17.000-05:00","provisioned_at":"2021-11-02T18:15:17.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12512353861","city":"Mobile","state":"Alabama","country":"United
+        States of America","cost":200,"last_billed_at":"2021-11-02T18:16:39.000-05:00","provisioned_at":"2021-11-02T18:16:39.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+15558675309","city":"Birmingham,
+        Clanton, Jasper","state":"Alabama","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T18:18:30.000-05:00","provisioned_at":"2021-11-02T18:18:30.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12345256698","city":"Akron,
+        Canton, Youngstown","state":"Ohio","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T18:20:08.000-05:00","provisioned_at":"2021-11-02T18:20:08.000-05:00","callback_url":null,"ata_name":null},{"phone_number":"+12252547769","city":"Baton
+        Rouge","state":"Louisiana","country":"United States of America","cost":200,"last_billed_at":"2021-11-04T17:03:25.000-05:00","provisioned_at":"2021-11-04T17:03:25.000-05:00","callback_url":null,"ata_name":null}],"paging":{"total":20,"per_page":25,"page":1}}'
+  recorded_at: Thu, 04 Nov 2021 22:04:08 GMT
+recorded_with: VCR 6.0.0

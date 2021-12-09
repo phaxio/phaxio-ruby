@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2.1/phone_numbers
+    body:
+      encoding: UTF-8
+      string: area_code=225&country_code=1
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 04 Nov 2021 22:03:26 GMT
+      etag:
+      - W/"53569cfd0bb5ed5d3430111fe13a30c8"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 63d64f51-6205-4b8d-af70-945274292761
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '323'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Number provisioned successfully!","data":{"phone_number":"+12252547769","city":"Baton
+        Rouge","state":"Louisiana","country":"United States of America","cost":200,"last_billed_at":"2021-11-04T17:03:25.000-05:00","provisioned_at":"2021-11-04T17:03:25.000-05:00","callback_url":null,"ata_name":null}}'
+  recorded_at: Thu, 04 Nov 2021 22:04:07 GMT
+recorded_with: VCR 6.0.0

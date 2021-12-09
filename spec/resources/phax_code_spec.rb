@@ -5,13 +5,7 @@ RSpec.describe PhaxCode do
     let(:action) { PhaxCode.create params }
     let(:params) { {metadata: 'This is a test PhaxCode'} }
 
-    context 'default type' do
-      around do |example|
-        VCR.use_cassette('resources/phax_code/create') do
-          example.run
-        end
-      end
-
+    context 'default type', vcr: 'phax_code/create' do
       it 'makes the request to phaxio' do
         expect_api_request :post, 'phax_codes', params
         action
@@ -23,14 +17,8 @@ RSpec.describe PhaxCode do
       end
     end
 
-    context 'type is specified to be png' do
+    context 'type is specified to be png', vcr: 'phax_code/create_png' do
       let(:params) { {metadata: 'This is a test PhaxCode', type: 'png'} }
-
-      around do |example|
-        VCR.use_cassette('resources/phax_code/create_png') do
-          example.run
-        end
-      end
 
       it 'returns a png if type is specified to be png' do
         result = action
@@ -43,13 +31,7 @@ RSpec.describe PhaxCode do
     let(:action) { PhaxCode.get params }
     let(:params) { {} }
 
-    context 'default' do
-      around do |example|
-        VCR.use_cassette('resources/phax_code/get') do
-          example.run
-        end
-      end
-
+    context 'default', vcr: 'phax_code/get_default' do
       it 'makes the request to Phaxio' do
         expect_api_request :get, 'phax_code', params
         action
@@ -63,14 +45,8 @@ RSpec.describe PhaxCode do
       end
     end
 
-    context 'getting the default phax code with png type specified' do
+    context 'getting the default phax code with png type specified', vcr: 'phax_code/get_default_png' do
       let(:params) { {type: 'png'} }
-
-      around do |example|
-        VCR.use_cassette('resources/phax_code/get_png') do
-          example.run
-        end
-      end
 
       it 'returns a file' do
         result = action
@@ -78,14 +54,9 @@ RSpec.describe PhaxCode do
       end
     end
 
-    context 'getting a particular phax code with no type specified' do
-      let(:params) { {identifier: '-Y3jxX'} }
-
-      around do |example|
-        VCR.use_cassette('resources/phax_code/get_id') do
-          example.run
-        end
-      end
+    context 'getting a particular phax code with no type specified', vcr: 'phax_code/get_by_id' do
+      let(:params) { {identifier: phax_code_identifier} }
+      let(:phax_code_identifier) { PhaxCode.create(metadata: 'Test Phax Code').identifier }
 
       it 'returns a PhaxCode instance' do
         result = action
@@ -93,14 +64,9 @@ RSpec.describe PhaxCode do
       end
     end
 
-    context 'getting a particular phax code with png type specified' do
-      let(:params) { {identifier: '-Y3jxX', type: 'png'} }
-
-      around do |example|
-        VCR.use_cassette('resources/phax_code/get_id_png') do
-          example.run
-        end
-      end
+    context 'getting a particular phax code with png type specified', vcr: 'phax_code/get_png_by_id' do
+      let(:params) { {identifier: phax_code_identifier, type: 'png'} }
+      let(:phax_code_identifier) { PhaxCode.create(metadata: 'Test Phax Code').identifier }
 
       it 'returns a file' do
         result = action

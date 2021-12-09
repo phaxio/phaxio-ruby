@@ -1,15 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe Account do
-  describe 'getting account information' do
+  describe 'getting account information', vcr: 'account/get' do
     let(:action) { Account.get params }
     let(:params) { {} }
-
-    around do |example|
-      VCR.use_cassette('resources/account/status') do
-        example.run
-      end
-    end
 
     it 'sends the request to Phaxio' do
       expect_api_request :get, 'account/status', params

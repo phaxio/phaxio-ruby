@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2.1/phax_codes.png
+    body:
+      encoding: UTF-8
+      string: metadata=This+is+a+test+PhaxCode&type=png
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - private
+      content-disposition:
+      - attachment
+      content-transfer-encoding:
+      - binary
+      content-type:
+      - image/png
+      date:
+      - Thu, 04 Nov 2021 21:48:06 GMT
+      etag:
+      - W/"4fd40a3326cff90072a2f736eea6e386"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 763a9939-82bd-48f9-bb6e-dc30f786e322
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '331'
+      connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        iVBORw0KGgoAAAANSUhEUgAAAXAAAAA+CAIAAAC9XtfAAAABEklEQVR42u3Z2wrCMBRFQSP+/y+fPhREOCTsXhCUmScJbWjSulA6quoBcIenLQAEBRAUQFAABAX4nlcfGmO8P+/vgPaRz/dBfaTPsD63O3fMbKTPkJzbVz0b6TPnM/R9Ozp+ZRXrO5WsK7+SZNXrHU6ewPwK87u2vtrZ8fluJ9+ao89tvm/rK7yyRr9QAH95AEEBBAVAUABBAQQFEBQAQQEEBRAUAEEBBAUQFEBQAAQFEBRAUAAEBRAUQFAAQQEQFEBQAEEBEBRAUABBAQQFQFAAQQEEBUBQAEEBBAUQFABBAQQFEBQAQQEEBRAUQFAABAUQFEBQAAQFEBRAUIA/N6rKLgB+oQCCAggKgKAAggL8mg1iGJl3hajmigAAAABJRU5ErkJggg==
+  recorded_at: Thu, 04 Nov 2021 21:48:47 GMT
+recorded_with: VCR 6.0.0

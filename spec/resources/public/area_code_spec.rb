@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Public::AreaCode do
-  describe 'listing area codes available for purchasing numbers' do
+  describe 'listing area codes available for purchasing numbers', vcr: 'public/area_code/list' do
     let(:action) { Public::AreaCode.list params }
     let(:params) { {} }
 

@@ -18,6 +18,8 @@ module Phaxio
       #
       # To find your webhook token, visit https://console.phaxio.com/user/callbacks/edit
       attr_accessor :webhook_token
+      alias callback_token webhook_token
+      alias callback_token= webhook_token=
 
       # The Phaxio API endpoint. Users generally shouldn't need to change it.
       # Defaults to https://api.phaxio.com/v2.1/

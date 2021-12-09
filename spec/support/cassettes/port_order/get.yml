@@ -1,0 +1,91 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2.1/port_orders
+    body:
+      encoding: UTF-8
+      string: account_identifier=1234&contact_email=julien%40phaxio.com&contact_number=%2B12055744647&esig=NOT+A+VALID+SIGNATURE&has_bill=true&legal_agreement=true&name_on_account=THIS+IS+A+TEST&port_numbers%5B%5D=%2B12055744647&port_type=residential&provider_name=DO+NOT+PORT+--Julien
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 09 Dec 2021 06:01:57 GMT
+      etag:
+      - W/"aa7fe2de6f0b155f60e2d83607ef5dec"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 817e4fbd-0066-463b-884f-c4baa5c4f72e
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '720'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Port order created","data":{"id":5,"contact_number":"+15558675309","contact_email":"julien@phaxio.com","name_on_account":"THIS
+        IS A TEST","account_identifier":"1234","name_of_business":null,"provider_name":"DO
+        NOT PORT --Julien","port_out_pin":null,"port_type":"residential","billing_number":null,"billing_address1":null,"billing_address2":null,"billing_city":null,"billing_state":null,"billing_zip":null,"esig":"NOT
+        A VALID SIGNATURE","status":"open","quantity":1,"created_at":"2021-12-09T00:01:57.000-06:00","updated_at":"2021-12-09T00:01:57.000-06:00","completed_at":null,"requested_for":null,"bill_received_at":null,"port_numbers":[{"id":24,"port_number":"+15558675309","status":"open"}]}}'
+  recorded_at: Thu, 09 Dec 2021 06:02:40 GMT
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2.1/port_orders/5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 09 Dec 2021 06:01:58 GMT
+      etag:
+      - W/"f23192298953076a6bde9f2ecc02713c"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 59bc4e06-3b4c-449d-8bf6-c3dc96163e59
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '722'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Retrieved port order","data":{"id":5,"contact_number":"+15558675309","contact_email":"julien@phaxio.com","name_on_account":"THIS
+        IS A TEST","account_identifier":"1234","name_of_business":null,"provider_name":"DO
+        NOT PORT --Julien","port_out_pin":null,"port_type":"residential","billing_number":null,"billing_address1":null,"billing_address2":null,"billing_city":null,"billing_state":null,"billing_zip":null,"esig":"NOT
+        A VALID SIGNATURE","status":"open","quantity":1,"created_at":"2021-12-09T00:01:57.000-06:00","updated_at":"2021-12-09T00:01:57.000-06:00","completed_at":null,"requested_for":null,"bill_received_at":null,"port_numbers":[{"id":24,"port_number":"+15558675309","status":"open"}]}}'
+  recorded_at: Thu, 09 Dec 2021 06:02:40 GMT
+recorded_with: VCR 6.0.0

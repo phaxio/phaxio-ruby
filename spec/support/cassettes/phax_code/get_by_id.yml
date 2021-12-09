@@ -1,0 +1,86 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2.1/phax_codes
+    body:
+      encoding: UTF-8
+      string: metadata=Test+Phax+Code
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 04 Nov 2021 21:48:08 GMT
+      etag:
+      - W/"ae9c029645060e051dff4dd4c3b58b09"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - f90f7d64-5a55-484c-8b8b-ac5f1e19b467
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"PhaxCode generated","data":{"identifier":"FqEFAJd31o"}}'
+  recorded_at: Thu, 04 Nov 2021 21:48:48 GMT
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2.1/phax_codes/FqEFAJd31o
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 04 Nov 2021 21:48:08 GMT
+      etag:
+      - W/"e01ebc6cd6ed2e240138eceb3f5967e7"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 82f5cef0-d4c8-4d71-bd5f-f40948087749
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '154'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Info for PhaxCode","data":{"identifier":"FqEFAJd31o","created_at":"2021-11-04T16:48:08.000-05:00","metadata":"Test
+        Phax Code"}}'
+  recorded_at: Thu, 04 Nov 2021 21:48:48 GMT
+recorded_with: VCR 6.0.0

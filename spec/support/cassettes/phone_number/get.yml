@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2.1/phone_numbers/+15558675309
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 04 Nov 2021 22:03:26 GMT
+      etag:
+      - W/"1e6be6d602ea5a2f53aa56f70fd62620"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - e68e1e81-962f-4586-9ab1-4c96cdb4666d
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '346'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Retrieved user phone numbers successfully","data":{"phone_number":"+15558675309","city":"Birmingham,
+        Clanton, Jasper","state":"Alabama","country":"United States of America","cost":200,"last_billed_at":"2021-11-02T18:18:30.000-05:00","provisioned_at":"2021-11-02T18:18:30.000-05:00","callback_url":null,"ata_name":null}}'
+  recorded_at: Thu, 04 Nov 2021 22:04:07 GMT
+recorded_with: VCR 6.0.0
