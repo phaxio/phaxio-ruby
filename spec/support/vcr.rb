@@ -8,7 +8,6 @@ VCR.configure do |vcr|
   vcr.hook_into :faraday
   vcr.default_cassette_options = {record: :once, record_on_error: false}
 
-  # The first three are populated by spec/support/credentials.rb
   vcr.filter_sensitive_data('+15558675309') { TEST_NUMBER }
   vcr.filter_sensitive_data('<AUTH_HEADER>') { |interaction| interaction.request.headers['Authorization'].first }
 
