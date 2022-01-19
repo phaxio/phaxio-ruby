@@ -1,0 +1,67 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2.1/atas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Wed, 19 Jan 2022 22:25:30 GMT
+      etag:
+      - W/"27973b206337bb31cc316040ad40aa86"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-page:
+      - '1'
+      x-per-page:
+      - '25'
+      x-request-id:
+      - a9eed52a-a354-4f3d-8488-f10e6aa31df6
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      x-total:
+      - '19'
+      content-length:
+      - '4174'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Retrieved ATAs successfully","data":[{"id":297,"name":"asdf","description":"asdf","user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":332,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":333,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":334,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":335,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":336,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":337,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":338,"name":"New
+        Name","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":339,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":340,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":341,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":343,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":344,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":345,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":346,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":347,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":348,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":349,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null},{"id":350,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null}],"paging":{"total":19,"per_page":25,"page":1}}'
+  recorded_at: Wed, 19 Jan 2022 22:26:14 GMT
+recorded_with: VCR 6.0.0

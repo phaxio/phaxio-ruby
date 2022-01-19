@@ -1,6 +1,17 @@
 require 'spec_helper'
 
 RSpec.describe PhoneNumber do
+  describe PhoneNumber::Reference, vcr: 'phone_number/reference' do
+    describe '#get' do
+      it 'returns information about the referenced number' do
+        reference = PhoneNumber::Reference.new TEST_NUMBER
+        result = reference.get
+        expect(result).to be_a(PhoneNumber)
+        expect(result.phone_number).to eq(TEST_NUMBER)
+      end
+    end
+  end
+
   describe 'provisioning a number', vcr: 'phone_number/create' do
     let(:action) { PhoneNumber.create params }
     let(:params) { {country_code: 1, area_code: 225} }

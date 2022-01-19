@@ -84,7 +84,7 @@ module Phaxio
         attr_accessor :id
 
         # Gets the referenced fax.
-        # @return [Phaxio::Resource::Fax]
+        # @return [Phaxio::Resources::Fax]
         #   The referenced Fax.
         def get
           Fax.get self

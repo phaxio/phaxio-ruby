@@ -33,6 +33,32 @@ module Phaxio
 
       has_time_attributes %w(provisioned_at last_billed_at)
 
+      # A reference to a phone number, returned by some actions.
+      class Reference
+        # @return [String]
+        #   The phone number in E.164 format.
+        attr_accessor :phone_number
+
+        def to_s
+          phone_number
+        end
+
+        # Gets the referenced phone number.
+        # @return [Phaxio::Resources::PhoneNumber]
+        #   The referenced phone number.
+        def get
+          PhoneNumber.get self
+        end
+        alias :retrieve :get
+        alias :find :get
+
+        private
+
+        def initialize phone_number
+          self.phone_number = phone_number
+        end
+      end
+
       private
 
       class << self
@@ -60,7 +86,7 @@ module Phaxio
         # @raise [Phaxio::Error::PhaxioError]
         # @see https://www.phaxio.com/docs/api/v2.1/phone_numbers/get_number
         def get phone_number, params = {}
-          response = Client.request :get, phone_number_endpoint(phone_number), params
+          response = Client.request :get, phone_number_endpoint(phone_number.to_s), params
           response_record response
         end
         alias :find :get

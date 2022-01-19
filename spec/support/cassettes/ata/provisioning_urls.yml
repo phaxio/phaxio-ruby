@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2.1/atas/provisioning_urls
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Wed, 19 Jan 2022 22:33:14 GMT
+      etag:
+      - W/"9391d72e15448827eafbd9b139e0c6e8"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 7a27e762-61be-49a1-a6ad-8b494c97fdd8
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '311'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Retrieved provisioning URLs","data":{"Grandstream":"provision.staging.phaxio.com/test-ata-provisioning-key","OBi":"https://provision.staging.phaxio.com/test-ata-provisioning-key/$MAC.xml","Netgen":"https://provision.staging.phaxio.com/test-ata-provisioning-key"}}'
+  recorded_at: Wed, 19 Jan 2022 22:33:57 GMT
+recorded_with: VCR 6.0.0

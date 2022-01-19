@@ -1,0 +1,86 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2.1/atas
+    body:
+      encoding: UTF-8
+      string: name=Test+ATA
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Authorization:
+      - "<AUTH_HEADER>"
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Wed, 19 Jan 2022 22:03:49 GMT
+      etag:
+      - W/"536d2044c4783d836261ec6017185c3f"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 1177e98e-ce7e-461e-bed7-b8068464e9bb
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '328'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"ATA created successfully","data":{"id":342,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null,"username":"fd16l2dg33","password":"qsfpji7yzwn9laxn"}}'
+  recorded_at: Wed, 19 Jan 2022 22:04:32 GMT
+- request:
+    method: delete
+    uri: https://api.phaxio.com/v2.1/atas/342
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Wed, 19 Jan 2022 22:03:49 GMT
+      etag:
+      - W/"b5f064faa0e68681d9afb0081d56421d"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - c3a36e16-b27d-4b23-a1e6-bac3055b216c
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '71'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"ATA deleted successfully","data":{"id":342}}'
+  recorded_at: Wed, 19 Jan 2022 22:04:33 GMT
+recorded_with: VCR 6.0.0

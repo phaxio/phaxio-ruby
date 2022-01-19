@@ -20,17 +20,37 @@ module Phaxio
       # @return [String] The domain for the ATA.
       # @!attribute domain
 
+      # @return [String] The user agent for the ATA.
+      # @!attribute user_agent
+
+      # @return [String] The SIP URI for the ATA.
+      # @!attribute sip_uri
+
       # @return [String] The mac address for the ATA.
       # @!attribute mac_address
 
+      # @return [String] The name of the group which the ATA belongs to.
+      # @!attribute group
+
       # @return [String] The username for the ATA.
-      # @!attribute uername
+      # @!attribute username
 
       # @return [String] The password for the ATA.
       # @!attribute password
 
       has_normal_attributes %w[
-        id name description user_phone_number domain username password mac_address
+        id name description user_phone_number domain user_agent sip_uri
+        mac_address group username password
+      ]
+
+      # @return [Time] The time at which the ATA was last registered.
+      # @!attribute last_registered
+
+      # @return [Time] The time at which the ATA's registration expires.
+      # @!attribute expiry_time
+
+      has_time_attributes %w[
+        last_registered expiry_time
       ]
 
       # A reference to an ATA. This is returned by certain actions which don't
@@ -44,6 +64,14 @@ module Phaxio
           id
         end
 
+        # Gets the referenced ATA.
+        # @return [Phaxio::Resources::ATA]
+        def get
+          Ata.get self
+        end
+        alias :retrieve :get
+        alias :find :get
+
         private
 
         def initialize id
@@ -51,21 +79,33 @@ module Phaxio
         end
       end
 
-      # A reference to a phone number, returned by ATA phone number management
-      # actions.
-      class PhoneNumberReference
-        # @return [String]
-        #   The phone number.
-        attr_accessor :phone_number
+      # A set of provisioning URLs.
+      class ProvisioningURLs
+        # @return [Hash<String: String>] The hash of provisioning URLs. 
+        # @!attribute urls
+        attr_reader :urls
 
-        def to_s
-          phone_number
+        GRANDSTREAM = 'Grandstream'
+        OBI = 'OBi'
+        NETGEN = 'Netgen'
+
+        def initialize data
+          @urls = data
         end
 
-        private
+        # @return [String] The Grandstream provisioning url.
+        def grandstream
+          self.urls.fetch(GRANDSTREAM)
+        end
 
-        def initialize phone_number
-          self.phone_number = phone_number
+        # @return [String] The OBi provisioning url.
+        def obi
+          self.urls.fetch(OBI)
+        end
+
+        # @return [String] The Netgen provisioning url.
+        def netgen
+          self.urls.fetch(NETGEN)
         end
       end
 
@@ -103,7 +143,9 @@ module Phaxio
         # @param id [Integer]
         #   The ID of the ATA to retrieve information about.
         # @param params [Hash]
-        #   Any parameters to send to Phaxio. This action takes no unique parameters.
+        #   Any parameters to send to Phaxio.
+        #   - *with_credentials* [Boolean] - If enabled, the username and
+        #     password for the ATA will be included in the response.
         # @return [Phaxio::Resources::Ata]
         #   The requested ATA.
         # @raise [Phaxio::Error::PhaxioError]
@@ -148,7 +190,7 @@ module Phaxio
 
         # Delete an ATA
         # @param id [Integer]
-        #   The Id of the ATA to delete.
+        #   The ID of the ATA to delete.
         # @param params [Hash]
         #   Any parameters to send to Phaxio. This action takes no unique parameters.
         # @return [Phaxio::Resources::Ata::Reference]
@@ -167,7 +209,7 @@ module Phaxio
         #   The phone number to add to the ATA.
         # @param params [Hash]
         #   Any parameters to send to Phaxio. This action takes no unique parameters.
-        # @return [Phaxio::Resources::Ata::PhoneNumberReference]
+        # @return [Phaxio::Resources::PhoneNumber::Reference]
         #   A reference to the added phone number.
         # @raise [Phaxio::Error::PhaxioError]
         # @see https://www.phaxio.com/docs/api/v2.1/atas/add_phone_number
@@ -183,13 +225,25 @@ module Phaxio
         #   The phone number you want to remove.
         # @param params [Hash]
         #   Any parameters to send to Phaxio. This action takes no unique parameters.
-        # @return [Phaxio::Resources::Ata::PhoneNumberReference]
+        # @return [Phaxio::Resources::PhoneNumber::Reference]
         #   A reference to the removed phone number.
         # @raise [Phaxio::Error::PhaxioError]
         # @see https://www.phaxio.com/docs/api/v2.1/atas/remove_phone_number
         def remove_phone_number id, phone_number, params = {}
           response = Client.request :delete, phone_number_endpoint(id, phone_number), params
           response_phone_number_reference response
+        end
+
+        # Get ATA provisioning URLs for your Phaxio account.
+        # @param params [Hash]
+        #   Any parameters to send to Phaxio.
+        #   - *group* [String] - If given, this action instead returns
+        #     provisioning URLs for the named group.
+        # @return [Phaxio::Resources::Ata::ProvisioningURLs
+        # @see https://www.phaxio.com/docs/api/v2.1/atas/provisioning_urls
+        def provisioning_urls params = {}
+          response = Client.request :get, provisioning_urls_endpoint, params
+          response_provisioning_urls response
         end
 
         private
@@ -199,7 +253,11 @@ module Phaxio
         end
 
         def response_phone_number_reference response
-          PhoneNumberReference.new(response['phone_number'])
+          PhoneNumber::Reference.new(response['phone_number'])
+        end
+
+        def response_provisioning_urls response
+          ProvisioningURLs.new(response)
         end
 
         def atas_endpoint
@@ -216,6 +274,10 @@ module Phaxio
 
         def phone_number_endpoint id, phone_number
           "#{ata_endpoint(id)}/phone_numbers/#{phone_number}"
+        end
+
+        def provisioning_urls_endpoint
+          "#{atas_endpoint}/provisioning_urls"
         end
       end
     end
