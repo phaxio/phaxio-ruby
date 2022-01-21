@@ -1,25 +1,22 @@
 require 'spec_helper'
 
 RSpec.describe PortOrder do
-  describe 'creating an order' do
+  describe 'creating an order', vcr: 'port_order/create' do
     let(:action) { PortOrder.create params }
     let(:params) {
       {
-        port_numbers: ['+12251231234'],
-        contact_number: '+12251231234',
+        port_numbers: [TEST_NUMBER],
+        contact_number: TEST_NUMBER,
+        contact_email: 'julien@phaxio.com',
+        account_identifier: '1234',
         name_on_account: 'THIS IS A TEST',
         provider_name: 'DO NOT PORT --Julien',
         has_bill: true,
         legal_agreement: true,
+        port_type: 'residential',
         esig: 'NOT A VALID SIGNATURE'
       }
     }
-
-    around do |example|
-      VCR.use_cassette('resources/port_order/create') do
-        example.run
-      end
-    end
 
     it 'makes the request to Phaxio' do
       expect_api_request :post, 'port_orders', params
@@ -32,16 +29,23 @@ RSpec.describe PortOrder do
     end
   end
   
-  describe 'getting information about an order' do
+  describe 'getting information about an order', vcr: 'port_order/get' do
     let(:action) { PortOrder.get id, params }
-    let(:id) { 1234 }
+    let(:id) {
+      PortOrder.create(
+        port_numbers: [TEST_NUMBER],
+        contact_number: TEST_NUMBER,
+        contact_email: 'julien@phaxio.com',
+        account_identifier: '1234',
+        name_on_account: 'THIS IS A TEST',
+        provider_name: 'DO NOT PORT --Julien',
+        has_bill: true,
+        legal_agreement: true,
+        port_type: 'residential',
+        esig: 'NOT A VALID SIGNATURE'
+      ).id
+    }
     let(:params) { {} }
-
-    around do |example|
-      VCR.use_cassette('resources/port_order/get') do
-        example.run
-      end
-    end
 
     it 'makes the request to Phaxio' do
       expect_api_request :get, "port_orders/#{id}", params
@@ -54,15 +58,9 @@ RSpec.describe PortOrder do
     end
   end
 
-  describe 'listing port orders' do
+  describe 'listing port orders', vcr: 'port_order/list' do
     let(:action) { PortOrder.list params }
     let(:params) { {} }
-
-    around do |example|
-      VCR.use_cassette('resources/port_order/list') do
-        example.run
-      end
-    end
 
     it 'makes the request to Phaxio' do
       expect_api_request :get, 'port_orders', params

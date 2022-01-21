@@ -1,0 +1,87 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2.1/atas
+    body:
+      encoding: UTF-8
+      string: name=Test+ATA
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Authorization:
+      - "<AUTH_HEADER>"
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Wed, 19 Jan 2022 21:54:07 GMT
+      etag:
+      - W/"a3c740cf3c3bb7dc34d987d8b41c1841"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 02a1c44f-2e79-42ad-a920-2d1d570ca5dd
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '328'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"ATA created successfully","data":{"id":335,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null,"username":"x8353ormng","password":"12aiz5blteavkbn8"}}'
+  recorded_at: Wed, 19 Jan 2022 21:54:50 GMT
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2.1/atas/335
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Wed, 19 Jan 2022 21:54:07 GMT
+      etag:
+      - W/"199f50771716f15604878796c84a7376"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 91959a41-e55f-4b6d-98ef-5d7a357ccd0d
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '266'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Metadata for ATA","data":{"id":335,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null}}'
+  recorded_at: Wed, 19 Jan 2022 21:54:51 GMT
+recorded_with: VCR 6.0.0

@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2.1/account/status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 04 Nov 2021 21:07:44 GMT
+      etag:
+      - W/"ec3c8a9d370f99638f5670ec4ac6fc00"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - e9708d49-deff-443c-92cb-2d89a3ef7272
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '171'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Account status retrieved successfully","data":{"balance":1076,"faxes_today":{"sent":0,"received":0},"faxes_this_month":{"sent":0,"received":0}}}'
+  recorded_at: Thu, 04 Nov 2021 21:08:25 GMT
+recorded_with: VCR 6.0.0

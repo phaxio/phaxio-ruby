@@ -1,0 +1,90 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2.1/phax_codes
+    body:
+      encoding: UTF-8
+      string: metadata=Test+Phax+Code
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 04 Nov 2021 21:48:08 GMT
+      etag:
+      - W/"ae9c029645060e051dff4dd4c3b58b09"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 86e02001-8fc8-4748-b11f-0aced4bdbb02
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '82'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"PhaxCode generated","data":{"identifier":"FqEFAJd31o"}}'
+  recorded_at: Thu, 04 Nov 2021 21:48:49 GMT
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2.1/phax_codes/FqEFAJd31o.png
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - private
+      content-disposition:
+      - attachment
+      content-transfer-encoding:
+      - binary
+      content-type:
+      - image/png
+      date:
+      - Thu, 04 Nov 2021 21:48:09 GMT
+      etag:
+      - W/"1c22c55fcd0ffde0efecad9123558bf5"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - b3861737-81c4-49bf-9834-f969a4b6e194
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '328'
+      connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        iVBORw0KGgoAAAANSUhEUgAAAXAAAAA+CAIAAAC9XtfAAAABD0lEQVR42u3ZQQrCQAxAUSPe/8pxURAhTEjrIIjvrWRoyzSUT6WRmTeAHe5GAAgKICiAoAAICvA9j7oUEa/fxzegY+X9e1BdqVfoz62uHbNaqVeYnNvf9erIs/e+2uFkn9d2u+sudl2t7nw1gbPPWz+ffsKfPDP9MzyfXr1aP71+J5PJ9DuZ78EbCuAvDyAogKAACAogKICgAAgKICiAoACCAiAogKAAggIICoCgAIICCAqAoACCAggKICgAggIICiAoAIICCAogKICgAAgKICiAoAAICiAogKAAggIgKICgAIICICiAoACCAggKgKAAggIICoCgAIICCArwFyIzTQHwhgIICiAoAIICCArwa57f9Jl3cHGI3gAAAABJRU5ErkJggg==
+  recorded_at: Thu, 04 Nov 2021 21:48:49 GMT
+recorded_with: VCR 6.0.0

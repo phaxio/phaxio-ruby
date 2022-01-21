@@ -1,0 +1,77 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2.1/public/area_codes
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 04 Nov 2021 21:03:07 GMT
+      etag:
+      - W/"75536d88c0d4a65bf21bcbf4a8687d61"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-page:
+      - '1'
+      x-per-page:
+      - '25'
+      x-request-id:
+      - 78dbf2ec-987b-4e32-8eef-13000d3f57df
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      x-total:
+      - '319'
+      content-length:
+      - '3548'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Data contains found available area codes","data":[{"country_code":1,"area_code":201,"city":"Bayonne,
+        Jersey City, Union City","state":"New Jersey","country":"United States of
+        America","toll_free":false},{"country_code":1,"area_code":202,"city":"Washington","state":"District
+        of Columbia","country":"United States of America","toll_free":false},{"country_code":1,"area_code":203,"city":"Bridgeport,
+        Danbury, Meriden","state":"Connecticut","country":"United States of America","toll_free":false},{"country_code":1,"area_code":204,"city":"Brandon,
+        Winnipeg","state":"Manitoba","country":"Canada","toll_free":false},{"country_code":1,"area_code":205,"city":"Birmingham,
+        Clanton, Jasper","state":"Alabama","country":"United States of America","toll_free":false},{"country_code":1,"area_code":206,"city":"Seattle","state":"Washington","country":"United
+        States of America","toll_free":false},{"country_code":1,"area_code":207,"city":"Portland","state":"Maine","country":"United
+        States of America","toll_free":false},{"country_code":1,"area_code":208,"city":"Boise,
+        Idaho Falls, Pocatello","state":"Idaho","country":"United States of America","toll_free":false},{"country_code":1,"area_code":209,"city":"Lodi,
+        Merced, Modesto","state":"California","country":"United States of America","toll_free":false},{"country_code":1,"area_code":210,"city":"San
+        Antonio","state":"Texas","country":"United States of America","toll_free":false},{"country_code":1,"area_code":213,"city":"Los
+        Angeles","state":"California","country":"United States of America","toll_free":false},{"country_code":1,"area_code":216,"city":"Cleveland,
+        Euclid, Lakewood","state":"Ohio","country":"United States of America","toll_free":false},{"country_code":1,"area_code":217,"city":"Champaign,
+        Decatur, Springfield","state":"Illinois","country":"United States of America","toll_free":false},{"country_code":1,"area_code":218,"city":"Duluth,
+        Ely, Moorhead","state":"Minnesota","country":"United States of America","toll_free":false},{"country_code":1,"area_code":219,"city":"Gary,
+        Hammond","state":"Indiana","country":"United States of America","toll_free":false},{"country_code":1,"area_code":224,"city":"Arlington
+        Heights, Evanston, Skokie","state":"Illinois","country":"United States of
+        America","toll_free":false},{"country_code":1,"area_code":225,"city":"Baton
+        Rouge","state":"Louisiana","country":"United States of America","toll_free":false},{"country_code":1,"area_code":226,"city":"Kitchener,
+        London, Windsor","state":"Ontario","country":"Canada","toll_free":false},{"country_code":1,"area_code":228,"city":"Biloxi,
+        Gulfport","state":"Mississippi","country":"United States of America","toll_free":false},{"country_code":1,"area_code":229,"city":"Albany,
+        Americus, Bainbridge","state":"Georgia","country":"United States of America","toll_free":false},{"country_code":1,"area_code":231,"city":"Grant","state":"Michigan","country":"United
+        States of America","toll_free":false},{"country_code":1,"area_code":234,"city":"Akron,
+        Canton, Youngstown","state":"Ohio","country":"United States of America","toll_free":false},{"country_code":1,"area_code":236,"city":"Vancouver","state":"British
+        Columbia","country":"Canada","toll_free":false},{"country_code":1,"area_code":239,"city":"Cape
+        Coral","state":"Florida","country":"United States of America","toll_free":false},{"country_code":1,"area_code":240,"city":"Aspen
+        Hill, Bethesda, Frederick","state":"Maryland","country":"United States of
+        America","toll_free":false}],"paging":{"total":319,"per_page":25,"page":1}}'
+  recorded_at: Thu, 04 Nov 2021 21:03:48 GMT
+recorded_with: VCR 6.0.0

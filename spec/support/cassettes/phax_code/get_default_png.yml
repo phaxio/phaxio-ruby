@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2.1/phax_code.png
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - private
+      content-disposition:
+      - attachment
+      content-transfer-encoding:
+      - binary
+      content-type:
+      - image/png
+      date:
+      - Thu, 04 Nov 2021 21:48:07 GMT
+      etag:
+      - W/"06e2f3efd95d2875db3c46eba14ae0e4"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 04d5bacf-e18f-4163-8000-59ff89f8e463
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '324'
+      connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        iVBORw0KGgoAAAANSUhEUgAAAXAAAAA+CAIAAAC9XtfAAAABC0lEQVR42u3Z0QqCQBBAUUf6/1+eHgQJhl2m1YLinKdYdNGhLoaRmRvAHXYjAAQFEBRAUAAEBfieR12KiPPz8Q7oWHl9H1RX6g7zc6u1Y0YrdYfOufWu3z330zuMJj9fvz7J+fWMdl67u9GR86l25tCZYWfnzpH978Pab+fKva9deWcHTyiAvzyAoACCAiAogKAAggIICoCgAIICCAqAoACCAggKICgAggIICiAoAIICCAogKICgAAgKICiAoAAICiAogKAAggIgKICgAIICICiAoACCAggKgKAAggIICoCgAIICCAogKACCAggKICgAggIICiAowJ+LzDQFwBMKICiAoAAICiAowK95ArwYmXfAtAIWAAAAAElFTkSuQmCC
+  recorded_at: Thu, 04 Nov 2021 21:48:47 GMT
+recorded_with: VCR 6.0.0

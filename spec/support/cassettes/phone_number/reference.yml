@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.phaxio.com/v2.1/phone_numbers/+15558675309
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Wed, 19 Jan 2022 21:48:13 GMT
+      etag:
+      - W/"f835d96d10d4204573115e810eba6ab3"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - e0e48b63-aa12-4123-a64f-8d2209bd163d
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '353'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Retrieved user phone numbers successfully","data":{"phone_number":"+15558675309","city":"Bossier
+        City, Monroe, Shreveport","state":"Louisiana","country":"United States of
+        America","cost":200,"last_billed_at":"2022-01-01T08:09:37.000-06:00","provisioned_at":"2019-05-01T09:09:37.000-05:00","callback_url":null,"ata_name":null}}'
+  recorded_at: Wed, 19 Jan 2022 21:48:57 GMT
+recorded_with: VCR 6.0.0

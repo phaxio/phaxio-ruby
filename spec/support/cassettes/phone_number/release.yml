@@ -1,0 +1,86 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2.1/phone_numbers
+    body:
+      encoding: UTF-8
+      string: area_code=225&country_code=1
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 04 Nov 2021 22:03:27 GMT
+      etag:
+      - W/"9063823199f2743468bee03706a1dc4a"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 25beabbe-f101-4c6e-9fea-d82e1e4dfb98
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '323'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Number provisioned successfully!","data":{"phone_number":"+12252554638","city":"Baton
+        Rouge","state":"Louisiana","country":"United States of America","cost":200,"last_billed_at":"2021-11-04T17:03:27.000-05:00","provisioned_at":"2021-11-04T17:03:27.000-05:00","callback_url":null,"ata_name":null}}'
+  recorded_at: Thu, 04 Nov 2021 22:04:08 GMT
+- request:
+    method: delete
+    uri: https://api.phaxio.com/v2.1/phone_numbers/+12252554638
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Authorization:
+      - "<AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 04 Nov 2021 22:03:28 GMT
+      etag:
+      - W/"72f232a3122ac0559f594e0dc20e2512"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 8cbe7b06-0c7c-4d8c-9a27-5145b9d204b4
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '58'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"Number released successfully!"}'
+  recorded_at: Thu, 04 Nov 2021 22:04:09 GMT
+recorded_with: VCR 6.0.0

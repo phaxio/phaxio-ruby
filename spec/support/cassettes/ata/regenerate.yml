@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.phaxio.com/v2.1/atas
+    body:
+      encoding: UTF-8
+      string: name=Test+ATA
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Authorization:
+      - "<AUTH_HEADER>"
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Wed, 19 Jan 2022 22:01:55 GMT
+      etag:
+      - W/"8b03eeba2207e5e23bb6a102947c32e0"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - 140fe750-4d84-419a-9fa5-3d4c30a8a78e
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '328'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"ATA created successfully","data":{"id":341,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null,"username":"95yem0tpee","password":"5geixt2o45brncd4"}}'
+  recorded_at: Wed, 19 Jan 2022 22:02:39 GMT
+- request:
+    method: patch
+    uri: https://api.phaxio.com/v2.1/atas/341/regenerate_credentials
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Authorization:
+      - "<AUTH_HEADER>"
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      cache-control:
+      - max-age=0, private, must-revalidate
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Wed, 19 Jan 2022 22:01:56 GMT
+      etag:
+      - W/"b07982b93e703ce70647c0e3af411f1a"
+      server:
+      - nginx
+      strict-transport-security:
+      - max-age=15768000; preload
+      x-request-id:
+      - f128a2dc-5b9f-409b-8a80-cb6c985f3b21
+      x-robots-tag:
+      - noindex, nofollow, nosnippet, noarchive
+      content-length:
+      - '331'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"message":"ATA credentials regenerated","data":{"id":341,"name":"Test
+        ATA","description":null,"user_phone_number":null,"domain":"ata.staging.phaxio.com","last_registered":null,"expiry_time":null,"user_agent":null,"sip_uri":null,"mac_address":null,"group":null,"username":"2wwg50mh2t","password":"5ilsfqujkrohjgce"}}'
+  recorded_at: Wed, 19 Jan 2022 22:02:40 GMT
+recorded_with: VCR 6.0.0

@@ -39,7 +39,7 @@ module Phaxio
           response = Client.request :get, port_number_notes_endpoint(port_number_id.to_i), params
           response_collection response
         end
-        
+
         private
 
         def port_number_notes_endpoint port_number_id
