@@ -52,13 +52,17 @@ module Phaxio
       def handle_response response
         content_type = response.headers[:content_type]
 
-        if content_type.start_with? 'application/json'
-          body = JSON.parse(response.body).with_indifferent_access
+        if content_type
+          if content_type.start_with? 'application/json'
+            body = JSON.parse(response.body).with_indifferent_access
+          else
+            extension = MimeTypeHelper.extension_for_mimetype content_type
+            filename = File.join Dir.tmpdir, tmpname(extension)
+            File.open(filename, 'wb') { |file| file.write response.body }
+            body = {'success' => response.success?, 'data' => File.open(filename, 'rb')}
+          end
         else
-          extension = MimeTypeHelper.extension_for_mimetype content_type
-          filename = File.join Dir.tmpdir, tmpname(extension)
-          File.open(filename, 'wb') { |file| file.write response.body }
-          body = {'success' => response.success?, 'data' => File.open(filename, 'rb')}
+          body = {}
         end
 
         if response.success?
@@ -85,6 +89,8 @@ module Phaxio
             raise Error::InvalidRequestError, "#{status}: #{message}"
           when 429
             raise Error::RateLimitExceededError, "#{status}: #{message}"
+          when 503
+            raise Error::ServiceUnavailableError, "#{status}: #{message}"
           else
             raise Error::GeneralError, "#{status}: #{message}"
           end

@@ -6,6 +6,7 @@ module Phaxio
       NotFoundError
       InvalidRequestError
       RateLimitExceededError
+      ServiceUnavailableError
       GeneralError
       ApiConnectionError
     ].each { |error_klass_name| const_set error_klass_name, Class.new(PhaxioError) }

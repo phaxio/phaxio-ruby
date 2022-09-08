@@ -19,6 +19,16 @@ RSpec.describe Phaxio::Client do
     )
   end
 
+  def test_response_503
+    instance_double(
+      Faraday::Response,
+      status: 503,
+      success?: false,
+      headers: {},
+      body: nil
+    )
+  end
+
   describe 'making a request' do
     it 'sends the request to Phaxio' do
       endpoint = 'public/countries/'
@@ -116,6 +126,13 @@ RSpec.describe Phaxio::Client do
       expect {
         client.request :get, 'test'
       }.to raise_error(Phaxio::Error::RateLimitExceededError, '429: This is a test.')
+    end
+
+    it 'raises a service unavailable error if the response status is 503' do
+      expect(test_connection).to receive(:get) { test_response_503 }
+      expect {
+        client.request :get, 'test'
+      }.to raise_error(Phaxio::Error::ServiceUnavailableError, '503: ')
     end
 
     it 'raises a general error for if the response status is 5XX' do
