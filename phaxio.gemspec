@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.licenses      = ['MIT']
 
   gem.required_ruby_version = '>= 2.0'
-  gem.add_dependency 'faraday', '>= 0.10', '< 2.0'
+  gem.add_dependency 'faraday', '>= 0.10', '< 2.0', '>= 2.7.8'
   gem.add_dependency 'mime-types', '~> 3.0'
   gem.add_dependency 'activesupport'
 end
