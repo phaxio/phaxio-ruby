@@ -16,8 +16,8 @@ Gem::Specification.new do |gem|
   gem.version       = Phaxio::VERSION
   gem.licenses      = ['MIT']
 
-  gem.required_ruby_version = '>= 2.0'
-  gem.add_dependency 'faraday', '~> 2.0'
+  gem.required_ruby_version = '>= 2.7'
+  gem.add_dependency 'faraday', '~> 2.7'
   gem.add_dependency 'faraday-multipart'
   gem.add_dependency 'mime-types', '~> 3.0'
   gem.add_dependency 'activesupport'
