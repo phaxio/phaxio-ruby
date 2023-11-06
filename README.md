@@ -1,8 +1,9 @@
 # 📠 Phaxio
 
-[![Build Status](https://travis-ci.org/phaxio/phaxio-ruby.svg?branch=master)](https://travis-ci.org/phaxio/phaxio-ruby)
-
 A Ruby gem for interacting with the [Phaxio API](https://www.phaxio.com/docs/api/v2.1).
+
+[![Ruby](https://github.com/phaxio/phaxio-ruby/actions/workflows/ruby.yml/badge.svg)](https://github.com/phaxio/phaxio-ruby/actions/workflows/ruby.yml)
+[![Documentation](https://shields.io/badge/-Documentation-333?style=flat)](https://rubydoc.info/github/phaxio/phaxio-ruby)
 
 ## Installation
 
@@ -290,7 +291,7 @@ class WebhookController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    signature = request.headers['X-Phaxio-Signature']  
+    signature = request.headers['X-Phaxio-Signature']
     Phaxio.webhook_token = 'YOUR WEBHOOK TOKEN HERE'
     url = request.original_url
 
@@ -308,11 +309,11 @@ class WebhookController < ApplicationController
     end
   end
 
-  def webhook_params 
+  def webhook_params
     params.permit(:success, :is_test, :direction, :fax, :metadata, :event_type, :message)
   end
 
-  def file_params 
+  def file_params
     if params[:file]
       [{ :name => 'file', :tempfile => params[:file].tempfile }]
     end
