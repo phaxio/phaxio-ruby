@@ -30,5 +30,22 @@ RSpec.describe Webhook do
         expect(result).to eq(false)
       end
     end
+
+    context 'with files' do
+      let(:signature) { '1d2426c242a8c5de7eb1d9b662b7fda1d0b6edab' }
+      let(:params) { { test: true } }
+
+      let(:files) do
+        [
+          { name: 'file', tempfile: Tempfile.new('foo') },
+          { name: 'file', tempfile: Tempfile.new('bar') }
+        ]
+      end
+
+      it 'returns true' do
+        result = action
+        expect(result).to eq(true)
+      end
+    end
   end
 end
