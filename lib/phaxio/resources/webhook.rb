@@ -57,7 +57,9 @@ module Phaxio
         end
 
         def generate_file_string(file)
-          file[:name] + DIGEST.hexdigest(file[:tempfile].read)
+          file_string = file[:name] + DIGEST.hexdigest(file[:tempfile].read)
+          file[:tempfile].rewind
+          file_string
         end
       end
     end
