@@ -30,5 +30,39 @@ RSpec.describe Webhook do
         expect(result).to eq(false)
       end
     end
+
+    context 'with files' do
+      let(:signature) { '1d2426c242a8c5de7eb1d9b662b7fda1d0b6edab' }
+      let(:params) { { test: true } }
+
+      let(:file1) do
+        tempfile = Tempfile.new
+        tempfile.write("foo")
+        tempfile
+      end
+
+      let(:file2) do
+        tempfile = Tempfile.new
+        tempfile.write("bar")
+        tempfile
+      end
+
+      let(:files) do
+        [
+          { name: 'file', tempfile: file1 },
+          { name: 'file', tempfile: file2  }
+        ]
+      end
+
+      it 'returns true' do
+        result = action
+        expect(result).to eq(true)
+      end
+
+      it 'rewinds the files' do
+        action
+        expect(files.all? { |f| f[:tempfile].pos.zero? }).to eq(true)
+      end
+    end
   end
 end
